@@ -1,0 +1,879 @@
+
+--- Page 1 ---
+   
+ 
+ 1  
+ 
+ 
+KCA MAIN CAMPUS 
+ 
+PHAMARCY POS MANAGAEMENT SYSTEM 
+ 
+STUDENT NAME: RALPH OSIKO 
+ 
+REGISTRATION NUMBER:  23/08138 
+ 
+COURSE: BACHELOR OF SCIENCE IN INFORMATION 
+TECHNOLOGY 
+ 
+SUPERVISOR NAME: JACOB OLOO 
+SUBMISSION DATE:  
+
+--- Page 2 ---
+   
+ 
+ 2  
+ 
+Abstract 
+A Point of Sale (POS) system plays a critical role in modern pharmacy operations by facilitating 
+efficient sales transactions, medicine inventory management, prescription tracking, and report 
+generation. Many community pharmacies and retail drug stores in Kenya still rely on manual or 
+semi-automated systems that are prone to errors, data loss, regulatory non-compliance, and 
+inefficiency. This project proposes the design and implementation of a computerized Pharmacy 
+POS Management System aimed at improving accuracy, speed, and reliability in pharmacy sales 
+operations. 
+The proposed system will allow pharmacy staff to record sales transactions, manage medicine 
+inventory with expiry date tracking, generate receipts, process prescriptions, and produce sales 
+and stock reports in real time. The system will be developed using modern software development 
+tools and methodologies to ensure reliability, usability, and scalability. The Waterfall 
+development model will be adopted to allow systematic planning, development, and testing 
+throughout the development process. The expected outcome of this project is a user-friendly and 
+efficient Pharmacy POS system that enhances pharmacy operations, reduces human errors, 
+ensures regulatory compliance, and supports informed decision-making through accurate 
+reporting. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 3 ---
+   
+ 
+ 3  
+ 
+Declaration 
+I declare that this project proposal is my original work and has not been submitted to any other 
+institution for academic credit. All sources of information used have been duly acknowledged. 
+Student Name: ____________________________ 
+Signature: ______________________________ 
+Date: _________________________________ 
+Supervisor’s Name: ________________________ 
+Signature: ______________________________ 
+Date: _________________________________ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 4 ---
+   
+ 
+ 4  
+ 
+Acknowledgment 
+I would like to express my sincere gratitude to my supervisor for the guidance, support, and 
+encouragement provided throughout the preparation of this project proposal. I also acknowledge 
+the support from my lecturers, classmates, friends, and family for their valuable input and 
+motivation during the development of this work. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 5 ---
+   
+ 
+ 5  
+ 
+Table of Contents 
+PHAMARCY POS MANAGAEMENT SYSTEM ____________________________________________1 
+Abstract ___________________________________________________________________________1 
+Declaration ________________________________________________________________________2 
+Acknowledgment ___________________________________________________________________3 
+Table of Contents _________________________________________________________________4 
+Chapter One: Introduction ___________________________________________________________5 
+1.1 Background ___________________________________________________________________5 
+1.2 Problem Statement ____________________________________________________________6 
+1.3 Objectives ____________________________________________________________________7 
+1.3.1 Main Objective ____________________________________________________________7 
+1.3.2 Specific Objectives ________________________________________________________7 
+1.4 Justification ___________________________________________________________________7 
+1.5 Scope and Limitations _________________________________________________________8 
+Chapter Two: Literature Review ______________________________________________________9 
+2.1 Introduction ________________________________________________________________ 10 
+2.2 Review of Related Works _____________________________________________________ 10 
+2.2.1 Real-Life Commercial Pharmacy POS Systems _____________________________ 10 
+2.2.2 Open-Source and Custom Pharmacy Systems _____________________________ 11 
+2.2.3 Technology Overview ____________________________________________________ 11 
+2.2.4 Research Gaps __________________________________________________________ 12 
+2.3 Theoretical Framework ______________________________________________________ 13 
+2.4 Summary ___________________________________________________________________ 13 
+Chapter Three: Methodology _______________________________________________________ 14 
+3.1 Introduction ________________________________________________________________ 15 
+3.2 System Design ______________________________________________________________ 15 
+3.2.1 System Architecture _____________________________________________________ 15 
+3.2.2 System Modules / Components ___________________________________________ 16 
+3.3 Tools and Technologies ______________________________________________________ 17 
+--- Page 6 ---
+   
+ 
+ 6  
+ 
+3.4 Data Collection and Requirements____________________________________________ 19 
+3.4.1 Data Requirements ______________________________________________________ 19 
+3.4.2 Data Sources____________________________________________________________ 20 
+3.4.3 Data Collection Methods _________________________________________________ 21 
+3.5 Development Approach ______________________________________________________ 21 
+3.5.1 Development Methodology _______________________________________________ 21 
+3.5.2 Waterfall Development Phases ___________________________________________ 21 
+3.5.3 Waterfall Diagram _______________________________________________________ 23 
+3.6 Testing and Validation _______________________________________________________ 23 
+3.7 Project Timeline and Budget __________________________________________________ 24 
+References _______________________________________________________________________ 27 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 7 ---
+   
+ 
+ 7  
+ 
+ 
+ 
+Chapter One: Introduction 
+ 
+1.1 Background 
+The rapid advancement of information technology has significantly transformed healthcare 
+operations across various sectors, including retail pharmacy services. One of the key areas 
+affected by these advancements is medicine dispensing and sales transaction management. A 
+Pharmacy Point of Sale (POS) system is a computerized solution that enables pharmacies to 
+process sales transactions, manage medicine inventory, track expiry dates, handle prescriptions, 
+and generate reports efficiently. In today's competitive healthcare environment, accurate and fast 
+transaction processing is essential for customer satisfaction, patient safety, and effective 
+pharmacy management. 
+MedPlus Pharmacy, a community pharmacy located in Nairobi, Kenya, serves as the case study 
+for this project. MedPlus Pharmacy is a small-to-medium enterprise (SME) that operates as a 
+retail drug store serving the local community. The pharmacy stocks over 500 different 
+pharmaceutical products including prescription medicines, over the counter (OTC) drugs, 
+medical supplies, and health supplements. Currently, MedPlus Pharmacy relies on manual 
+record-keeping using paper-based registers and basic spreadsheets for inventory tracking. This 
+has led to several operational challenges including: 
+• Difficulty tracking medicine expiry dates 
+• Inaccurate stock levels leading to stockouts or overstocking 
+• Slow transaction processing during peak hours 
+• Errors in calculating prices and discounts 
+• Challenges in generating sales and inventory reports for management 
+• Risk of dispensing errors affecting patient safety 
+--- Page 8 ---
+   
+ 
+ 8  
+ 
+The adoption of a modern Pharmacy POS system will help MedPlus Pharmacy streamline 
+operations, minimize losses from expired medicines, ensure regulatory compliance with the 
+Pharmacy and Poisons Board of Kenya requirements, and enhance decision-making. This project 
+focuses on designing and implementing a Pharmacy POS Management System tailored to meet 
+the specific needs of community pharmacies like MedPlus Pharmacy. 
+1.2 Problem Statement 
+Community pharmacies like MedPlus Pharmacy face significant challenges due to reliance on 
+manual and semi-automated sales systems. These systems are prone to errors such as incorrect 
+pricing, poor medicine inventory tracking, failure to monitor expiry dates, delayed report 
+generation, and difficulty managing prescriptions. These challenges result in financial losses 
+from expired stock, poor customer service, regulatory compliance issues, and inefficient 
+pharmacy operations. There is a need for a reliable and automated Pharmacy POS Management 
+System that can accurately manage sales transactions, medicine inventory with expiry tracking, 
+prescription records, and reporting in real time. 
+ 
+1.3 Objectives 
+1.3.1 Main Objective 
+To design and implement an efficient Pharmacy POS Management System for MedPlus 
+Pharmacy that automates sales transactions, medicine inventory management, and prescription 
+tracking. 
+1.3.2 Specific Objectives 
+To develop a system that records and processes pharmacy sales transactions accurately, 
+including prescription and OTC medicines. 
+To implement a medicine inventory management module that updates stock levels in real time 
+and tracks expiry dates with automated alerts. 
+To create a prescription management module that records prescription details and links them to 
+sales transactions. 
+--- Page 9 ---
+   
+ 
+ 9  
+ 
+To generate automated sales, inventory, and expiry reports for pharmacy management decision-
+making. 
+To design a user-friendly interface that enhances ease of use and efficiency for pharmacy staff. 
+ 
+ 
+1.4 Justification 
+The proposed Pharmacy POS Management System will improve efficiency, accuracy, and 
+accountability in pharmacy transactions. MedPlus Pharmacy owners and staff will benefit from 
+faster transaction processing, reliable medicine stock tracking, expiry date alerts, and 
+comprehensive reports. The system will help the pharmacy comply with Pharmacy and Poisons 
+Board regulations by maintaining proper records of prescription sales. The project introduces a 
+modern and scalable solution suitable for community pharmacies and retail drug stores, 
+contributing to improved healthcare service delivery and IT-based pharmacy management 
+practices in Kenya. 
+ 
+1.5 Scope and Limitations 
+Scope: 
+The scope of this project includes: 
+• Sales processing for prescription and OTC medicines 
+• Medicine inventory management with expiry date tracking 
+• Prescription record management 
+• Receipt generation 
+• Low stock and expiry alerts 
+• Sales and inventory report generation 
+• User management with role-based access (Admin, Pharmacist, Cashier) 
+The system will be designed specifically for MedPlus Pharmacy, a community pharmacy in 
+Nairobi, Kenya, but can be adapted for similar retail pharmacies. 
+--- Page 10 ---
+   
+ 
+ 10  
+ 
+ 
+Limitations: 
+• Time constraints within the academic calendar 
+• Limited financial resources for hardware acquisition 
+• Dependency on available software tools 
+• The system will not integrate with external systems such as NHIF or supplier databases in 
+this initial version 
+• The system will not include controlled substance tracking features in this phase 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 11 ---
+   
+ 
+ 11  
+ 
+ 
+ 
+ 
+Chapter Two: Literature Review 
+ 
+2.1 Introduction 
+The literature review examines existing Pharmacy Point of Sale (POS) systems, related 
+technologies, and research works to understand how pharmacy sales transaction and inventory 
+management systems have evolved over time. This chapter is important because it provides a 
+foundation upon which the proposed Pharmacy POS Management System is designed. By 
+reviewing existing pharmacy POS solutions used in real-life pharmacy environments, this study 
+identifies strengths, weaknesses, and gaps that inform the design decisions of the proposed 
+system. The review focuses on commercial pharmacy POS systems, open-source solutions, and 
+academic studies related to pharmacy POS systems, medicine inventory management, 
+prescription tracking, and transaction processing. 
+ 
+2.2 Review of Related Works 
+2.2.1 Real-Life Commercial Pharmacy POS Systems 
+ 
+Several POS systems are currently used by pharmacies worldwide to manage sales, medicine 
+inventory, prescriptions, and reporting. These systems demonstrate how POS technology is 
+applied in real-world pharmacy scenarios. 
+McKesson Pharmacy Systems is a widely used pharmacy management solution in North 
+America. It provides features such as prescription processing, sales management, inventory 
+control, drug interaction checking, and compliance reporting. While comprehensive, McKesson 
+--- Page 12 ---
+   
+ 
+ 12  
+ 
+is expensive and designed for large pharmacy chains, making it unsuitable for small community 
+pharmacies in developing countries like Kenya. 
+Liberty Software Pharmacy System offers point of sale, prescription management, inventory 
+control, and patient management features. It integrates with various pharmacy peripherals 
+including barcode scanners and receipt printers. However, it requires significant upfront 
+investment and ongoing subscription costs. 
+mPharma is an African-based pharmacy management platform that helps pharmacies manage 
+inventory and provides access to affordable medicines. While mPharma focuses on supply chain 
+optimization, it provides useful insights into pharmacy management challenges in African 
+contexts. However, it operates on a specific business model that may not suit all independent 
+pharmacies. 
+RxNova POS is a pharmacy-specific point of sale system that handles both prescription and OTC 
+sales, manages inventory, and generates reports. It is designed for retail pharmacies but requires 
+licensing fees that may be prohibitive for small pharmacies. 
+These commercial systems demonstrate that while pharmacy POS solutions are effective, many 
+are costly, complex, or designed for large organizations or specific markets, creating a gap for 
+affordable and customizable systems tailored to smaller community pharmacies in Kenya. 
+ 
+2.2.2 Open-Source and Custom Pharmacy Systems 
+Open-source pharmacy management systems such as OpenMRS and Bahmni provide 
+customizable alternatives for healthcare facilities. While primarily designed for hospital settings, 
+these systems include pharmacy modules that manage drug dispensing and inventory. However, 
+they are often too complex for standalone retail pharmacies and require significant technical 
+expertise for customization and deployment. 
+Odoo POS with Pharmacy Modules offers a customizable open-source solution that can be 
+configured for pharmacy operations. It provides inventory management, sales processing, and 
+reporting features. Although Odoo reduces licensing costs, it requires technical skills for 
+customization, deployment, and maintenance specific to pharmacy requirements. 
+--- Page 13 ---
+   
+ 
+ 13  
+ 
+Custom-built pharmacy POS systems developed for specific pharmacies are common in Kenya, 
+especially in small retail drug stores. These systems are tailored to business needs but may lack 
+scalability, proper documentation, expiry tracking features, or long-term support. Poor system 
+design can lead to data inconsistency and security risks. 
+2.2.3 Technology Overview 
+Modern pharmacy POS web applications are built using web technologies that support 
+scalability, security, and usability. Programming languages such as Python, PHP, Java, and 
+JavaScript are widely used. Frameworks like Django, Laravel, and React provide structured 
+approaches to building secure and maintainable web applications. Databases such as MySQL, 
+PostgreSQL, and SQLite are commonly used to store transactions, medicine inventory, 
+prescription records, and user data. 
+Most pharmacy POS web applications follow a client-server architecture, where users interact 
+with the system through a browser, the application logic processes transactions on the server, and 
+the database stores persistent data. This architecture supports centralized data management, real-
+time updates, and role-based access control essential for pharmacy operations. 
+Key features required in pharmacy POS systems include: 
+• Medicine inventory management with batch and expiry tracking 
+• Barcode scanning for fast product identification 
+• Prescription recording and validation 
+• Price management with discount capabilities 
+• Receipt generation with pharmacy details 
+• Reporting for sales, inventory, and expiry analysis 
+• User authentication with role-based access 
+ 
+2.2.4 Research Gaps 
+Despite the availability of numerous pharmacy management systems, several gaps remain: 
+1. Cost Barrier: Many systems are expensive, requiring subscription fees or significant 
+upfront investments that small community pharmacies in Kenya cannot afford. 
+--- Page 14 ---
+   
+ 
+ 14  
+ 
+2. Complexity: Enterprise systems are designed for large pharmacy chains and include 
+features unnecessary for small pharmacies, making them difficult to use and maintain. 
+3. Context Specificity: Most commercial systems are designed for Western markets and 
+may not address specific requirements of Kenyan pharmacies, such as local regulatory 
+compliance and common payment methods. 
+4. Expiry Management: Some basic POS systems provide limited expiry date tracking and 
+alerting features, which is critical for pharmacy operations to prevent dispensing expired 
+medicines. 
+5. Integration: There is a lack of affordable, standalone pharmacy POS systems that can 
+operate independently without requiring complex integrations. 
+6. Academic Focus: There is a lack of customizable pharmacy POS systems designed 
+specifically for academic learning and demonstration purposes that can also serve real 
+community pharmacies. 
+These gaps justify the development of the proposed Pharmacy POS Management System for 
+MedPlus Pharmacy. 
+ 
+2.3 Theoretical Framework 
+This project is guided by the System Development Life Cycle (SDLC) theory, which provides a 
+structured approach to software development. The SDLC model includes phases such as 
+requirement analysis, system design, implementation, testing, deployment, and maintenance. 
+Applying SDLC ensures that the Pharmacy POS Management System is systematically planned, 
+developed, tested, and evaluated. 
+In addition, principles of Database Management Systems (DBMS) guide the data design to 
+ensure data integrity, consistency, and efficient storage of medicine inventory, sales transactions, 
+and prescription records. 
+The Technology Acceptance Model (TAM) informs the user interface design, emphasizing 
+perceived usefulness and ease of use to ensure pharmacy staff readily adopt the new system. 
+--- Page 15 ---
+   
+ 
+ 15  
+ 
+Furthermore, principles of inventory management theory, including First-In-First-Out (FIFO) 
+and safety stock concepts, guide the design of the inventory management module to ensure 
+proper medicine stock rotation based on expiry dates. 
+ 
+ 
+2.4 Summary 
+This chapter reviewed real-life commercial pharmacy POS systems, open-source solutions, and 
+supporting technologies. The review highlighted the strengths and limitations of existing 
+pharmacy systems and identified gaps related to cost, complexity, context specificity, and expiry 
+management. These findings inform the design of the proposed Pharmacy POS Management 
+System, which aims to provide an affordable, efficient, and user-friendly system tailored to 
+community pharmacies like MedPlus Pharmacy in Nairobi, Kenya. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 16 ---
+   
+ 
+ 16  
+ 
+ 
+ 
+ 
+ 
+ 
+Chapter Three: Methodology 
+ 
+3.1 Introduction 
+This chapter describes the methodology that will be used to design, develop, test, and deploy the 
+proposed Pharmacy POS Management System for MedPlus Pharmacy. The methodology 
+provides a structured approach that guides the entire system development process, ensuring that 
+the final system meets user requirements, is reliable, and is easy to maintain. The chapter 
+discusses the system design, tools and technologies, data requirements, development approach, 
+testing strategies, and project timeline. 
+ 
+3.2 System Design 
+System design defines how the Pharmacy POS Management System will be structured and how 
+its components will interact. Proper system design is essential to ensure efficiency, security, and 
+scalability. 
+ 
+3.2.1 System Architecture 
+The proposed Pharmacy POS system will adopt a client-server architecture. In this architecture: 
+• Client Layer: Users (Pharmacists, Cashiers, Admin) interact with the system through a 
+web browser, which serves as the client. 
+--- Page 17 ---
+   
+ 
+ 17  
+ 
+• Application Layer: The application logic resides on the server, where requests are 
+processed, business rules are applied, and data is managed. 
+• Database Layer: The database stores all persistent data such as medicines, sales 
+transactions, prescriptions, users, and inventory records. 
+This architecture allows centralized data management, improves security through controlled 
+access, and supports multiple users accessing the system simultaneously within the pharmacy 
+environment. 
+ 
+System Architecture Diagram: 
+ 
+ 
+3.2.2 System Modules / Components 
+The Pharmacy POS Management System will be divided into the following major modules: 
+1. User Authentication and Authorization Module 
+
+--- Page 18 ---
+   
+ 
+ 18  
+ 
+• Manages user login, logout, and session management 
+• Role-based access control (Admin, Pharmacist, Cashier) 
+• Password management and security 
+2. Medicine Inventory Management Module 
+• Manages medicine records (name, category, manufacturer, price, quantity) 
+• Batch and expiry date tracking 
+• Stock level updates (additions, deductions) 
+• Low stock alerts and notifications 
+• Expiry alerts for medicines approaching expiration 
+• Medicine categories (Prescription, OTC, Supplements, Medical Supplies) 
+3. Sales Management Module 
+• Handles sales transactions for prescription and OTC medicines 
+• Item selection via search or barcode scanning 
+• Pricing with discount capabilities 
+• Multiple payment methods (Cash, M-Pesa, Card) 
+• Receipt generation and printing 
+• Sales history and transaction lookup 
+4. Prescription Management Module 
+• Records prescription details (prescriber, patient, date) 
+• Links prescriptions to sales transactions 
+• Maintains prescription history for compliance 
+5. Reporting Module 
+• Daily, weekly, and monthly sales reports 
+• Inventory status reports 
+• Expiring medicines reports 
+• Low stock reports 
+• Profit margin analysis 
+• Export reports to PDF/Excel 
+6. User Management Module 
+• Add, update, and deactivate system users 
+--- Page 19 ---
+   
+ 
+ 19  
+ 
+• Assign roles and permissions 
+• View user activity logs 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.3 Tools and Technologies 
+The development of the Pharmacy POS Management System will utilize modern and reliable 
+technologies as follows: 
+Component Technology Justification 
+Programming 
+Language 
+Python 3.x Simplicity, readability, strong community 
+support, extensive libraries 
+Web Framework Django 4.x Built-in security features, authentication 
+mechanisms, admin interface, rapid 
+development 
+Frontend HTML5, CSS3, 
+Bootstrap 5, 
+JavaScript 
+Responsive design, cross-browser 
+compatibility, interactive interfaces 
+Database 
+(Development) 
+SQLite Lightweight, no separate server required, easy 
+setup 
+Database 
+(Production) 
+MySQL/PostgreSQL Robust, scalable, reliable for production 
+environments 
+--- Page 20 ---
+   
+ 
+ 20  
+ 
+IDE Visual Studio Code Lightweight, extensions support, Git 
+integration 
+Version Control Git/GitHub Source code management, collaboration, 
+backup 
+Barcode Library python-barcode Generate and read barcodes for medicines 
+PDF Generation ReportLab / 
+WeasyPrint 
+Generate receipts and reports in PDF format 
+Charts/Visualization Chart.js Interactive charts for dashboard and reports 
+ 
+Hardware Requirements for MedPlus Pharmacy: 
+Hardware Description Purpose 
+Computer/Laptop Intel Core i3+, 4GB RAM, 256GB 
+Storage 
+Run the POS application 
+Barcode Scanner USB handheld scanner Scan medicine barcodes 
+Receipt Printer 80mm thermal printer Print sales receipts 
+Cash Drawer Electronic cash drawer Secure cash storage 
+ 
+ 
+3.4 Data Collection and Requirements 
+3.4.1 Data Requirements 
+The system will require various types of data, including: 
+Medicine Data: 
+• Medicine ID/Barcode 
+--- Page 21 ---
+   
+ 
+ 21  
+ 
+• Medicine name (generic and brand) 
+• Category (Prescription, OTC, Supplement, Medical Supply) 
+• Manufacturer 
+• Unit price (buying and selling) 
+• Quantity in stock 
+• Batch number 
+• Expiry date 
+• Reorder level 
+Sales Transaction Data: 
+• Transaction ID 
+• Date and time 
+• Items sold (medicine, quantity, unit price, subtotal) 
+• Total amount 
+• Discount applied 
+• Payment method 
+• Cashier/Pharmacist ID 
+• Prescription reference (if applicable) 
+Prescription Data: 
+• Prescription ID 
+• Patient name 
+• Prescriber name and facility 
+• Date issued 
+• Medicines prescribed 
+• Linked transaction ID 
+User Data: 
+• User ID 
+• Username 
+• Password (hashed) 
+--- Page 22 ---
+   
+ 
+ 22  
+ 
+• Full name 
+• Role (Admin, Pharmacist, Cashier) 
+• Contact information 
+• Status (Active/Inactive) 
+ 
+3.4.2 Data Sources 
+ 
+Data will be obtained through: 
+• User input: Administrators will enter medicine data, user information, and initial stock 
+levels through system forms 
+• Transactions: Sales data will be captured in real-time during pharmacy operations 
+• Prescriptions: Prescription details will be entered by pharmacists during prescription sales 
+• Barcode scanning: Medicine identification during sales transactions 
+ 
+3.4.3 Data Collection Methods 
+ 
+Data will be collected using: 
+• Structured input forms within the Pharmacy POS application 
+• Barcode scanning for quick product identification 
+• Validation rules to ensure accuracy and consistency of data entered into the system 
+• Dropdown selections for standardized data entry (categories, payment methods, roles) 
+ 
+3.5 Development Approach 
+3.5.1 Development Methodology 
+ 
+--- Page 23 ---
+   
+ 
+ 23  
+ 
+The project will adopt the Waterfall Development Model. The Waterfall model is a linear and 
+sequential software development methodology where each phase must be completed before the 
+next phase begins. This model is selected for this academic project because: 
+• It is easy to understand and well-structured 
+• It allows clear documentation at each stage 
+• Requirements are well-defined upfront 
+• It provides predictable timelines and deliverables 
+• It is suitable for projects with fixed requirements 
+ 
+3.5.2 Waterfall Development Phases 
+The Waterfall model for the proposed Pharmacy POS Management System consists of the 
+following phases: 
+1. Requirements Analysis 
+• Conduct interviews with MedPlus Pharmacy staff 
+• Document functional and non-functional requirements 
+• Identify user roles and use cases 
+• Define system constraints and assumptions 
+2. System Design 
+• Design system architecture (client-server) 
+• Create database schema (ER diagrams) 
+• Design user interface wireframes and mockups 
+• Define module interactions and data flow 
+3. Implementation 
+• Set up development environment 
+• Develop database models in Django 
+• Implement backend logic for each module 
+• Create frontend templates and interfaces 
+• Integrate barcode scanning and receipt printing 
+4. Testing 
+--- Page 24 ---
+   
+ 
+ 24  
+ 
+• Unit testing of individual modules 
+• Integration testing of module interactions 
+• System testing of complete application 
+• User acceptance testing with MedPlus Pharmacy staff 
+5. Deployment 
+• Install and configure system at MedPlus Pharmacy 
+• Migrate initial data (medicines, users) 
+• Train pharmacy staff on system usage 
+• Go-live and monitor system performance 
+6. Maintenance 
+• Address bugs and issues reported by users 
+• Implement minor enhancements 
+• Provide ongoing support and documentation 
+ 
+3.5.3 Waterfall Diagram 
+ 
+ 
+
+--- Page 25 ---
+   
+ 
+ 25  
+ 
+3.6 Testing and Validation 
+Testing is essential to ensure that the Pharmacy POS Management System performs as expected 
+and meets user requirements. 
+Testing Levels: 
+Testing Type Description Focus Areas 
+Unit Testing Test individual 
+modules separately 
+Medicine CRUD operations, sales 
+calculations, user authentication 
+Integration Testing Test interaction 
+between modules 
+Sales updating inventory, prescription 
+linking to transactions 
+System Testing Test complete 
+application 
+End-to-end workflows, performance, 
+security 
+User Acceptance 
+Testing (UAT) 
+Test with MedPlus 
+Pharmacy staff 
+Usability, business requirements, real-world 
+scenarios 
+ 
+Test Cases Examples: 
+Test Case Input Expected Output Module 
+Add new medicine Medicine details Medicine saved, confirmation 
+message 
+Inventory 
+Process sale Items, payment Sale recorded, receipt generated, 
+stock updated 
+Sales 
+Login with valid 
+credentials 
+Username, 
+password 
+Dashboard displayed Authentication 
+Generate expiry 
+report 
+Date range List of expiring medicines Reporting 
+--- Page 26 ---
+   
+ 
+ 26  
+ 
+Low stock alert Stock below 
+reorder level 
+Alert notification displayed Inventory 
+ 
+ 
+3.7 Project Timeline and Budget 
+Project Timeline (Gantt Chart): 
+Task Week 1 Week 2 Week 3 Week 4 Week 5 Week 6 
+Requirements 
+Analysis 
+██████ ██████     
+System Design  ██████ ██████    
+Database Design   ██████ ██████   
+Implementation 
+(Coding) 
+   ██████ ██████ ██████ 
+Interface 
+Development 
+   ██████ ██████  
+Testing & 
+Validation 
+    ██████ ██████ 
+Deployment      ██████ 
+Documentation ██████ ██████ ██████ ██████ ██████ ██████ 
+ 
+Project Budget: 
+Category Description 
+Estimated 
+Cost (KES) 
+Estimated Cost 
+(USD) 
+--- Page 27 ---
+   
+ 
+ 27  
+ 
+Software Development tools (VS Code, Python, 
+Django - Open Source) 
+0 0 
+Database MySQL/SQLite (Open Source) 0 0 
+Hardware Computer for development (existing) 0 0 
+Hardware 
+(Pharmacy) 
+Barcode scanner 5,000 40 
+Hardware 
+(Pharmacy) 
+Thermal receipt printer 15,000 115 
+Hardware 
+(Pharmacy) 
+Cash drawer 8,000 60 
+Internet Internet costs (6 weeks) 6,000 45 
+Stationery Printing, binding 3,000 23 
+Transport Site visits to MedPlus Pharmacy 4,000 30 
+Contingency Miscellaneous expenses 5,000 40 
+Total  46,000 353 
+Note: Most development tools are open source, minimizing software costs. Hardware costs are 
+estimates for pharmacy deployment. 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 28 ---
+   
+ 
+ 28  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+References 
+Laudon, K. C., & Laudon, J. P. (2020). Management Information Systems: Managing the Digital 
+Firm (16th ed.). Pearson. 
+Sommerville, I. (2016). Software Engineering (10th ed.). Pearson. 
+Pharmacy and Poisons Board of Kenya. (2023). Guidelines for Good Pharmacy Practice in 
+Kenya. PPB. 
+Django Software Foundation. (2024). Django Documentation. https://docs.djangoproject.com/ 
+Odoo S.A. (2024). Odoo POS Documentation. https://www.odoo.com/documentation/ 
+McKesson Corporation. (2024). Pharmacy Technology Solutions. https://www.mckesson.com/ 
+mPharma. (2024). Pharmacy Management Solutions for Africa. https://mpharma.com/ 
+Pressman, R. S., & Maxim, B. R. (2020). Software Engineering: A Practitioner's Approach (9th 
+ed.). McGraw-Hill. 
+Date, C. J. (2019). An Introduction to Database Systems (8th ed.). Pearson. 
+World Health Organization. (2006). Developing Pharmacy Practice: A Focus on Patient Care. 
+WHO. 
+--- Page 29 ---
+   
+ 
+ 29  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

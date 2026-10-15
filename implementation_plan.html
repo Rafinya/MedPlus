@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPlus POS System - Implementation Plan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --brand: #0f766e;
+            --brand-light: #f0fdfa;
+            --brand-border: #99f6e4;
+            --accent: #0d9488;
+            --border: #e2e8f0;
+            --text: #334155;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f5f9;
+        }
+
+        /* Standard A4 dimensions for preview and print */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 25mm 20mm;
+            margin: 10px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cover page layout */
+        .cover-page {
+            justify-content: space-between;
+            padding: 35mm 25mm;
+        }
+
+        .cover-header {
+            border-bottom: 2px solid var(--brand);
+            padding-bottom: 8px;
+        }
+
+        .cover-header .school {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--brand);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .cover-header .course {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .cover-body {
+            margin-top: 30mm;
+            flex-grow: 1;
+        }
+
+        .cover-body h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .cover-body .subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 20mm;
+            max-width: 90%;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background-color: var(--brand-light);
+            color: var(--brand);
+            border: 1px solid var(--brand-border);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .cover-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            font-size: 12px;
+        }
+
+        .cover-footer-left {
+            color: var(--text-light);
+        }
+
+        .cover-footer-right {
+            text-align: right;
+            color: var(--text-light);
+        }
+
+        .cover-footer-right strong,
+        .cover-footer-left strong {
+            color: var(--text-dark);
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        /* General Typography */
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--brand);
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 13px;
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: var(--text);
+            text-align: justify;
+        }
+
+        ul, ol {
+            font-size: 13px;
+            margin-top: 0;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            color: var(--text);
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Layout Elements */
+        .content {
+            flex-grow: 1;
+        }
+
+        .page-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 8px;
+            font-size: 10px;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 20mm;
+            left: 20mm;
+            right: 20mm;
+        }
+
+        /* Custom Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-weight: 600;
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(248, 250, 252, 0.5);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Highlight Boxes */
+        .callout {
+            background-color: var(--bg-light);
+            border-left: 3px solid var(--brand);
+            padding: 12px 14px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 16px;
+            font-size: 12.5px;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Milestones diagram */
+        .timeline {
+            margin: 16px 0;
+            padding-left: 10px;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -16px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--brand);
+            border: 2px solid white;
+        }
+
+        .timeline-date {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brand);
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Print styling directives */
+        @media print {
+            body {
+                background-color: #ffffff;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .page {
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                page-break-after: always;
+                height: 100vh; /* force full page height */
+            }
+
+            .page-footer {
+                bottom: 15mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: COVER PAGE -->
+    <div class="page cover-page">
+        <div class="cover-header">
+            <h3 class="school">School of Technology</h3>
+            <div class="course">Final Year Project II - Systems Implementation Track</div>
+        </div>
+        
+        <div class="cover-body">
+            <div class="tag-pill">Rollout Strategy Document</div>
+            <h1>SYSTEM<br>IMPLEMENTATION PLAN</h1>
+            <div class="subtitle">Deployment, Migration, Training, and Change Management Rollout for the MedPlus Pharmacy POS & Inventory Management System</div>
+        </div>
+        
+        <div class="cover-footer">
+            <div class="cover-footer-left">
+                <strong>PREPARED FOR:</strong>
+                MedPlus Board of Directors, Project Sponsors & Investors
+            </div>
+            <div class="cover-footer-right">
+                <strong>DATE OF SUBMISSION:</strong>
+                July 2026 &bull; Version 1.0.0
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: EXEC SUMMARY & IMPLEMENTATION SCHEDULE -->
+    <div class="page">
+        <div class="content">
+            <h2>1. Executive Summary & Rollout Approach</h2>
+            <p>
+                The transition of MedPlus Pharmacy from a manual, paper-based operational model to the digital 
+                <strong>MedPlus Point of Sale (POS) & Inventory Management System</strong> represents a key business upgrade. 
+                This document provides a detailed technical and operational blueprint to guide the system's execution. 
+                By utilizing a phased implementation strategy, MedPlus ensures complete data integrity, 
+                high staff readiness, and minimal operational downtime during the transition.
+            </p>
+            <p>
+                Our approach emphasizes a <strong>14-day parallel conversion window</strong>, robust user training, 
+                and structured contingency protocols. This plan is formatted according to academic and professional 
+                standards, serving as a roadmap for development teams, system managers, and investors.
+            </p>
+
+            <h2 style="margin-top: 24px;">2. Implementation Schedule</h2>
+            <p>
+                The implementation schedule spans a structured <strong>6-week lifecycle</strong>, divided into five 
+                distinct operational phases. This ensures that software deployment, database migrations, and training 
+                are executed sequentially with clear gates between phases.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Week 1 - Phase 1: Infrastructure Deployment</div>
+                    <div class="timeline-title">Hardware Provisioning & Server Setup</div>
+                    <div class="timeline-desc">Procuring local POS terminals, barcode scanners, and thermal receipt printers. Setting up the production environment hosting in a containerized Docker structure.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Week 2 - Phase 2: Database Preparation & Seeding</div>
+                    <div class="timeline-title">Data Schema Migration & Catalog Import</div>
+                    <div class="timeline-desc">Migrating the core PostgreSQL schema. Seeding structural tables (role-based access controls) and parsing historical inventories into SQL database registers.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Weeks 3 & 4 - Phase 3: Staff Training & Sandbox Testing</div>
+                    <div class="timeline-title">Role-Based Training Modules</div>
+                    <div class="timeline-desc">Conducting interactive workshops for pharmacists, inventory managers, and system administrators using a secure, isolated sandbox environment.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Week 5 - Phase 4: Parallel Conversion Trial</div>
+                    <div class="timeline-title">Dual-System Operational Integrity</div>
+                    <div class="timeline-desc">Running the digital POS system concurrently with the manual ledger books to audit accuracy, verify M-Pesa API response times, and resolve teething bugs.</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <span>MedPlus POS - Implementation Plan</span>
+            <span>Page 2 of 6</span>
+        </div>
+    </div>
+
+    <!-- PAGE 3: PHASED MILESTONES & HARDWARE INSTALLATION -->
+    <div class="page">
+        <div class="content">
+            <div class="timeline" style="margin-top: 0;">
+                <div class="timeline-item">
+                    <div class="timeline-date">Week 6 - Phase 5: Final Cutover & Go-Live</div>
+                    <div class="timeline-title">Legacy Ledger Decommissioning</div>
+                    <div class="timeline-desc">Deactivating manual ledger logging. Archiving physical records, shifting operations entirely to the MedPlus POS system, and transitioning to the software maintenance cycle.</div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase / Milestone</th>
+                        <th>Core Tasks</th>
+                        <th>Duration</th>
+                        <th>Responsible Party</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Infrastructure Setup</strong></td>
+                        <td>Server build, Docker install, POS hardware delivery.</td>
+                        <td>5 Days</td>
+                        <td>Systems Architect / IT Ops</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Data Migration</strong></td>
+                        <td>Clean legacy records, run SQL migration scripts.</td>
+                        <td>4 Days</td>
+                        <td>Database Administrator</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Staff Training</strong></td>
+                        <td>Workshop runs, simulated checkout trials.</td>
+                        <td>7 Days</td>
+                        <td>Implementation Lead</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Parallel Runway</strong></td>
+                        <td>Execute double entries, audit inventory balance.</td>
+                        <td>10 Days</td>
+                        <td>Pharmacists & Managers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Full Cutover</strong></td>
+                        <td>Lock old logs, verify system, open main gate.</td>
+                        <td>2 Days</td>
+                        <td>Project Manager / Lead Dev</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3. Hardware & Software Installation Plans</h2>
+            <h3>Hardware Installation Specifications</h3>
+            <p>
+                To support the 2030 dark-glassmorphic frontend visual framework and processing routines, the on-site 
+                pharmacy layout requires standardized hardware endpoints. Each Point of Sale checkout counter will 
+                be equipped with the following certified terminals:
+            </p>
+            <ul>
+                <li><strong>Local POS Terminal:</strong> Windows-based or Linux PC/Tablet featuring minimum 8GB RAM, 
+                Intel Core i3 CPU, and a 1080p display to render backdrop filters and animations smoothly.</li>
+                <li><strong>Barcode Scanner:</strong> USB omni-directional laser scanner compatible with standard 1D/2D barcodes (EAN-13 format).</li>
+                <li><strong>Thermal Receipt Printer:</strong> 80mm high-speed thermal receipt printer utilizing standard ESC/POS command sequences.</li>
+                <li><strong>Networking Infrastructure:</strong> Secure dual-band gigabit router configured with WPA3 encryption, ensuring isolated VLAN divisions for payment traffic and internal databases.</li>
+            </ul>
+        </div>
+        <div class="page-footer">
+            <span>MedPlus POS - Implementation Plan</span>
+            <span>Page 3 of 6</span>
+        </div>
+    </div>
+
+    <!-- PAGE 4: SOFTWARE INSTALLATION & SYSTEM CONVERSION -->
+    <div class="page">
+        <div class="content">
+            <h3>Software Installation & Orchestration</h3>
+            <p>
+                The MedPlus Pharmacy POS system is deployed using Docker containerization, which isolates the application stack 
+                and guarantees cross-platform consistency. The application architecture consists of three core containers:
+            </p>
+            <ol>
+                <li><strong>Web & API Container:</strong> Houses the compiled Go backend binary. The server serves static frontend files 
+                from the <code>web</code> directory and runs backend handlers to resolve API requests.</li>
+                <li><strong>Database Container:</strong> Runs a secured instance of PostgreSQL. Operational schemas, 
+                RBAC indexes, transaction logs, and customer matrices reside in persistent volumes mapped to host storage.</li>
+                <li><strong>Reverse Proxy Container (Optional / Production):</strong> Nginx container managing SSL termination 
+                (HTTPS) and routing traffic to the Go API port.</li>
+            </ol>
+            
+            <div class="callout">
+                <div class="callout-title">Production Environment Settings</div>
+                <p>
+                    For deployment, the <code>.env</code> file must override all demo seeds. 
+                    Ensure that <code>APP_ENV=production</code> is active, <code>SEED_DEMO_DATA=false</code> is set to prevent seeding mock data, 
+                    and <code>JWT_SECRET</code> is updated to a cryptographically strong 256-bit string.
+                </p>
+            </div>
+
+            <h2>4. System Conversion Strategy</h2>
+            <p>
+                Transitioning the pharmacy from manual logbooks to the digital database requires a robust data migration strategy. 
+                A direct cutover ("cold turkey" approach) presents too high a risk for daily patient prescriptions. 
+                Instead, a <strong>Phased Parallel Conversion Strategy</strong> will be used:
+            </p>
+            
+            <h3>Data Migration & Activities of Conversion</h3>
+            <ul>
+                <li><strong>Inventory Extraction:</strong> Legacy stock levels, cost thresholds, batch barcodes, and drug names 
+                are extracted from physical documents or Excel sheets and compiled into a sanitized CSV template.</li>
+                <li><strong>Validation & Mapping:</strong> Data formats are verified. Low dollar prices are mapped to realistic 
+                Kenyan Shillings (Ksh), and categories (OTC, Prescription, Cosmetics) are assigned to each item.</li>
+                <li><strong>Database Ingestion:</strong> A custom Python database wrapper connects to the PostgreSQL container 
+                to insert inventory lists, customer accounts, and supplier records, ensuring database consistency.</li>
+                <li><strong>Verification Check:</strong> Running SQL count queries against original CSV lists to verify zero 
+                record losses during ingestion.</li>
+            </ul>
+        </div>
+        <div class="page-footer">
+            <span>MedPlus POS - Implementation Plan</span>
+            <span>Page 4 of 6</span>
+        </div>
+    </div>
+
+    <!-- PAGE 5: CONVERSION strategy CONTINUED & TRAINING PLAN -->
+    <div class="page">
+        <div class="content">
+            <h3>Parallel Run & Gate Reviews</h3>
+            <p>
+                Beginning in Week 5, the pharmacy staff will operate under a dual-entry scheme. When a customer checkout occurs:
+            </p>
+            <ol>
+                <li>The pharmacist processes the sale on the physical paper logbook.</li>
+                <li>The pharmacist simultaneously enters the transaction on the digital MedPlus POS interface, generating the 
+                M-Pesa STK push callback or recording cash metrics.</li>
+            </ol>
+            <p>
+                At the end of each shift, managers will cross-verify total revenue and stock balances between the paper ledger and 
+                the digital reports screen. Discrepancies will be flagged to developers. Once the digital system completes 
+                7 consecutive days of 100% database accuracy, the manual ledgers will be decommissioned.
+            </p>
+
+            <h2>5. Training Plan</h2>
+            <p>
+                A software system is only as effective as the staff operating it. The training plan is designed to build system 
+                confidence and operational efficiency across all pharmacy roles. Training will be divided into three methodologies:
+            </p>
+
+            <h3>Training Methodologies</h3>
+            <ul>
+                <li><strong>Simulated Workstations (Sandbox Trials):</strong> A duplicate staging environment is seeded with sample 
+                medicines. Staff can scan real items and complete simulated checkouts without affecting production data.</li>
+                <li><strong>Role-Specific Classrooms:</strong> Tailored training sessions designed around specific role permissions. 
+                This keeps pharmacists focused on POS, customers, and prescriptions, and admins focused on audits and RBAC.</li>
+                <li><strong>Supervised Shadowing:</strong> During the first 3 days of parallel operations, a tech supervisor 
+                will shadow checkout counters to help resolve real-time staff queries.</li>
+            </ul>
+
+            <h3>Training Curriculums by Role</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Staff Role</th>
+                        <th>Core Training Modules</th>
+                        <th>Staging Assessment Requirement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pharmacists & Cashiers</strong></td>
+                        <td>Cart checkout, barcode scanning, Rx validation, M-Pesa push triggers, receipt printing.</td>
+                        <td>Process 10 simulated sales (including 3 Rx validations and 3 M-Pesa transactions) under 5 mins.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stock Managers</strong></td>
+                        <td>Product directory CRUD, batch registry, restocking PO status transitions, supplier mapping.</td>
+                        <td>Create a purchase order, receive items, and verify stock level updates in inventory.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Admins</strong></td>
+                        <td>User creation, dynamic RBAC permission overrides, database overview, password resets.</td>
+                        <td>Revoke access to "Reports" for a test user and unlock the database schema using admin PIN code.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-footer">
+            <span>MedPlus POS - Implementation Plan</span>
+            <span>Page 5 of 6</span>
+        </div>
+    </div>
+
+    <!-- PAGE 6: MAINTENANCE & CHANGE MANAGEMENT -->
+    <div class="page">
+        <div class="content">
+            <h2>6. Software Maintenance Plan</h2>
+            <p>
+                Post-deployment operations are governed by a proactive maintenance schedule to ensure high database integrity 
+                and backend performance.
+            </p>
+            <ul>
+                <li><strong>Database Backups:</strong> Automated daily backups are scheduled at midnight local time using a cron daemon. 
+                PostgreSQL database dumps are compressed and written to secure, encrypted volumes.</li>
+                <li><strong>Dependency Patching:</strong> Go package dependencies and Docker container base images are audited monthly 
+                for security vulnerabilities and updated to stable releases.</li>
+                <li><strong>API Performance Audits:</strong> Backend handler response times for critical checkout endpoints (like <code>/api/sales</code> 
+                and M-Pesa callback webhooks) are monitored. High-latency queries are optimized with indexing.</li>
+                <li><strong>Security Integrity Checks:</strong> JWT signature keys are scheduled for rotation every 90 days. 
+                Rate limiting blocks on authentication points are audited.</li>
+            </ul>
+
+            <h2>7. Change Management Plan</h2>
+            <p>
+                Digital transformation often creates friction. Our change management strategy focuses on minimizing disruption, 
+                addressing staff concerns, and ensuring smooth adoption of the MedPlus system.
+            </p>
+            <h3>Addressing Staff Transition & Resistance</h3>
+            <ul>
+                <li><strong>Emphasizing Efficiency:</strong> Training will demonstrate that the POS system handles inventory decrements 
+                and purchase ordering automatically, saving staff hours of manual calculations and logbook recording.</li>
+                <li><strong>Simplifying Tasks:</strong> The 2030 glassmorphic UI includes automated visual alerts (like low-stock flags 
+                and expiring medicine warnings) to simplify daily work.</li>
+            </ul>
+            <h3>Contingency & Fallback Procedures</h3>
+            <p>
+                In the event of network disruption, the pharmacy cannot stop operations. The following protocols will apply:
+            </p>
+            <ol>
+                <li><strong>Internet Outage:</strong> If external internet drops, the local router network remains active. 
+                Staff can access the local server container via Wi-Fi to process cash sales. M-Pesa STK pushes will be suspended, 
+                and cash/card payments will be used.</li>
+                <li><strong>Power Failure:</strong> POS terminals are connected to Uninterruptible Power Supplies (UPS) that provide 
+                30 minutes of backup runtime, allowing transaction queues to clear. A backup generator supports the local network router.</li>
+                <li><strong>Critical Server Crash:</strong> In the rare event of a container failure, a secondary local backup server 
+                can be brought online within 15 minutes, restoring the database from the last night's backup.</li>
+            </ol>
+        </div>
+        <div class="page-footer">
+            <span>MedPlus POS - Implementation Plan</span>
+            <span>Page 6 of 6</span>
+        </div>
+    </div>
+
+</body>
+</html>

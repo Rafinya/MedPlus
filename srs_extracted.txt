@@ -1,0 +1,712 @@
+
+--- Page 1 ---
+   
+ 
+ 1  
+ 
+KCA UNIVERSITY 
+MAIN CAMPUS 
+SYSTEM REQUIREMENTS 
+SPECIFICATION 
+Pharmacy POS Management System 
+for MedPlus Pharmacy 
+Student Name: RALPH OSIKO 
+Registration Number: 23/08138 
+Course: Bachelor of Science in Information Technology 
+Supervisor: JACOB OLOO 
+February 2025 
+ 
+ 
+--- Page 2 ---
+   
+ 
+ 2  
+ 
+TABLE OF CONTENTS 
+  
+1. Introduction ------------------------------------------------------------------------------------------------- 2 
+1.1 Purpose -------------------------------------------------------------------------------------------------- 2 
+1.2 Intended Audience and Reading Suggestions ----------------------------------------------------- 2 
+1.3 Project Scope ------------------------------------------------------------------------------------------- 3 
+2. Overall Description ---------------------------------------------------------------------------------------- 4 
+2.1 Product Perspective ----------------------------------------------------------------------------------- 4 
+2.2 Product Features --------------------------------------------------------------------------------------- 4 
+2.2.1 User Authentication and Authorization-------------------------------------------------------- 4 
+2.2.2 Medicine Inventory Management -------------------------------------------------------------- 4 
+2.2.3 Sales Management-------------------------------------------------------------------------------- 4 
+2.2.4 Prescription Management ----------------------------------------------------------------------- 5 
+2.2.5 Reporting and Analytics ------------------------------------------------------------------------- 5 
+2.3 User Classes and Characteristics -------------------------------------------------------------------- 5 
+2.3.1 Administrator ------------------------------------------------------------------------------------- 5 
+2.3.2 Pharmacist ----------------------------------------------------------------------------------------- 5 
+2.3.3 Cashier --------------------------------------------------------------------------------------------- 5 
+2.3.4 Patient/Customer (Indirect) --------------------------------------------------------------------- 5 
+2.4 Operating Environment ------------------------------------------------------------------------------- 6 
+2.4.1 Hardware Platform ------------------------------------------------------------------------------- 6 
+2.4.2 Software Environment --------------------------------------------------------------------------- 6 
+2.5 Design and Implementation Constraints------------------------------------------------------------ 6 
+2.6 Assumptions and Dependencies --------------------------------------------------------------------- 7 
+2.6.1 Assumptions --------------------------------------------------------------------------------------- 7 
+2.6.2 Dependencies ------------------------------------------------------------------------------------- 7 
+3. System Features -------------------------------------------------------------------------------------------- 7 
+3.1 User Authentication and Authorization Module -------------------------------------------------- 7 
+3.1.1 Description and Priority ------------------------------------------------------------------------- 7 
+--- Page 3 ---
+   
+ 
+ 3  
+ 
+3.1.2 Stimulus/Response ------------------------------------------------------------------------------- 7 
+3.1.3 Functional Requirements ------------------------------------------------------------------------ 8 
+3.2 Medicine Inventory Management Module --------------------------------------------------------- 8 
+3.2.1 Description and Priority ------------------------------------------------------------------------- 8 
+3.2.2 Stimulus/Response ------------------------------------------------------------------------------- 8 
+3.2.3 Functional Requirements ------------------------------------------------------------------------ 9 
+3.3 Sales Management Module -------------------------------------------------------------------------10 
+3.3.1 Description and Priority ------------------------------------------------------------------------10 
+3.3.2 Stimulus/Response ------------------------------------------------------------------------------10 
+3.3.3 Functional Requirements -----------------------------------------------------------------------10 
+3.4 Prescription Management Module -----------------------------------------------------------------11 
+3.4.1 Description and Priority ------------------------------------------------------------------------11 
+3.4.2 Stimulus/Response ------------------------------------------------------------------------------11 
+3.4.3 Functional Requirements -----------------------------------------------------------------------11 
+3.5 Reporting Module ------------------------------------------------------------------------------------11 
+3.5.1 Description and Priority ------------------------------------------------------------------------12 
+3.5.2 Stimulus/Response ------------------------------------------------------------------------------12 
+3.5.3 Functional Requirements -----------------------------------------------------------------------12 
+3.6 User Management Module --------------------------------------------------------------------------12 
+3.6.1 Description and Priority ------------------------------------------------------------------------13 
+3.6.2 Stimulus/Response ------------------------------------------------------------------------------13 
+3.6.3 Functional Requirements -----------------------------------------------------------------------13 
+4. External Interface Requirements------------------------------------------------------------------------13 
+4.1 User Interfaces ----------------------------------------------------------------------------------------13 
+4.1.1 Login Interface -----------------------------------------------------------------------------------14 
+4.1.2 Dashboard Interface -----------------------------------------------------------------------------14 
+4.1.3 Sales Interface------------------------------------------------------------------------------------14 
+4.1.4 Inventory Interface ------------------------------------------------------------------------------14 
+4.1.5 Reporting Interface ------------------------------------------------------------------------------14 
+4.2 Hardware Interfaces ----------------------------------------------------------------------------------14 
+4.2.1 Barcode Scanner ---------------------------------------------------------------------------------14 
+--- Page 4 ---
+   
+ 
+ 4  
+ 
+4.2.2 Receipt Printer -----------------------------------------------------------------------------------14 
+4.2.3 Cash Drawer--------------------------------------------------------------------------------------15 
+4.3 Software Interfaces -----------------------------------------------------------------------------------15 
+4.3.1 Database Management System ----------------------------------------------------------------15 
+4.3.2 Web Server ---------------------------------------------------------------------------------------15 
+4.3.3 External Libraries--------------------------------------------------------------------------------15 
+4.4 Communications Interfaces -------------------------------------------------------------------------15 
+4.4.1 Network Protocols -------------------------------------------------------------------------------15 
+4.4.2 Data Formats -------------------------------------------------------------------------------------15 
+4.4.3 Security -------------------------------------------------------------------------------------------16 
+5. Nonfunctional Requirements ----------------------------------------------------------------------------16 
+5.1 Performance Requirements--------------------------------------------------------------------------16 
+5.2 Safety Requirements ---------------------------------------------------------------------------------16 
+5.3 Security Requirements -------------------------------------------------------------------------------17 
+6. Other Requirements --------------------------------------------------------------------------------------18 
+6.1 Database Requirements ------------------------------------------------------------------------------18 
+6.2 Legal and Regulatory Requirements ---------------------------------------------------------------18 
+6.3 Documentation Requirements ----------------------------------------------------------------------18 
+6.4 Portability Requirements ----------------------------------------------------------------------------18 
+Appendix A: Glossary---------------------------------------------------------------------------------------19 
+7. References -------------------------------------------------------------------------------------------------20 
+ 
+ 
+ 
+ 
+--- Page 5 ---
+   
+ 
+ 5  
+ 
+1. Introduction 
+1.1 Purpose 
+This Software Requirements Specification (SRS) document describes the complete 
+software requirements for the Pharmacy POS Management System. This system is designed to 
+automate and streamline pharmacy operations at MedPlus Pharmacy, a community pharmacy 
+located in Nairobi, Kenya. 
+The purpose of this document is to provide a detailed specification of the functional and 
+non-functional requirements for the Pharmacy POS Management System. It serves as a reference 
+for developers, testers, project managers, and stakeholders involved in t he development and 
+deployment of the system. 
+This SRS covers all aspects of the system including sales transaction processing, medicine 
+inventory management with expiry date tracking, prescription record management, receipt 
+generation, and comprehensive reporting capabilities. 
+1.2 Intended Audience and Reading Suggestions 
+This document is intended for the following audiences: 
+• Development Team: Software developers who will implement the system. They should 
+read the entire document, with particular focus on Section 3 (System Features) and Section 
+4 (External Interface Requirements). 
+• Project Manager: Responsible for project planning and coordination. Should focus on 
+Sections 1, 2, and 6 for scope and constraints understanding. 
+• Quality Assurance Team: Testers who will validate the system. Should thoroughly review 
+Section 3 (System Features) to develop comprehensive test cases. 
+• Pharmacy Management (MedPlus): End users and system owners. Should review Sections 
+1, 2, and 3 to ensure requirements align with business needs. 
+• Supervisor and Academic Reviewers: For academic evaluation and approval of the project 
+scope and requirements.  
+ 
+The recommended reading sequence is: start with Section 1 (Introduction) for overview, 
+then Section 2 (Overall Description) for context, followed by Section 3 (System Features) 
+for detailed requirements. 
+--- Page 6 ---
+   
+ 
+ 6  
+ 
+1.3 Project Scope 
+The Pharmacy POS Management System is a computerized solution designed to replace 
+the manual and semi -automated systems currently used at MedPlus Pharmacy. The system will 
+provide the following capabilities: 
+• Sales transaction processing for both prescription and over-the-counter (OTC) medicines 
+• Real-time medicine inventory management with automatic stock level updates 
+• Expiry date tracking with automated alerts for medicines approaching expiration 
+• Prescription record management and linking to sales transactions 
+• Receipt generation and printing 
+• Low stock alerts and notifications 
+• Comprehensive reporting (sales, inventory, expiry, profit analysis) 
+• User management with role -based access control (Admin, Pharmacist, Cashier)  
+ 
+The objectives of the system are to improve accuracy, speed, and reliability in pharmacy 
+sales operations; reduce human errors in pricing and inventory tracking; ensure regulatory 
+compliance with the Pharmacy and Poisons Board of Kenya requirements; minimi ze 
+financial losses from expired stock; and support informed decision -making through 
+accurate reporting.  
+ 
+The system will NOT include the following in this initial version: integration with external 
+systems such as NHIF (National Hospital Insurance Fund) or supplier databases; controlled 
+substance tracking features; multi-branch or chain pharmacy management capabilities; and 
+online pharmacy or e-commerce functionality. 
+ 
+2. Overall Description 
+2.1 Product Perspective 
+The Pharmacy POS Management System is a new, self -contained software product 
+designed specifically for MedPlus Pharmacy. It is not a follow-on member of an existing product 
+family nor a replacement for a specific existing system, though it will replace the  current manual 
+record-keeping practices. 
+--- Page 7 ---
+   
+ 
+ 7  
+ 
+The system operates as a standalone application with a client -server architecture. Users 
+interact with the system through web browsers (client layer), the application logic processes 
+transactions on the server (application layer), and all persistent data i s stored in a database 
+(database layer). 
+The major components of the system include: 
+• Client Layer: Web browser interface for user interaction 
+• Application Layer: Django-based web application handling business logic 
+• Database Layer: MySQL/PostgreSQL database for data persistence 
+• External Hardware: Barcode scanner, receipt printer, and cash drawer 
+2.2 Product Features 
+The Pharmacy POS Management System will provide the following major features: 
+2.2.1 User Authentication and Authorization 
+Secure login system with role -based access control supporting three user roles: 
+Administrator (full system access), Pharmacist (inventory and prescription management), and 
+Cashier (sales processing and receipt generation). 
+2.2.2 Medicine Inventory Management 
+Complete inventory tracking including medicine master data, batch management, expiry 
+date tracking, stock level monitoring, and automated alerts for low stock and expiring medicines. 
+2.2.3 Sales Management 
+Point-of-sale functionality including item selection via barcode or search, pricing with 
+discount capabilities, multiple payment methods (Cash, M -Pesa, Card), receipt generation, and 
+sales history tracking. 
+2.2.4 Prescription Management 
+Recording and management of prescription details including prescriber information, 
+patient details, prescribed medicines, and linking prescriptions to sales transactions for regulatory 
+compliance. 
+--- Page 8 ---
+   
+ 
+ 8  
+ 
+2.2.5 Reporting and Analytics 
+Comprehensive reporting capabilities including daily/weekly/monthly sales reports, 
+inventory status reports, expiring medicines reports, low stock reports, profit margin analysis, and 
+export to PDF/Excel formats. 
+2.3 User Classes and Characteristics 
+The system is designed for the following user classes: 
+2.3.1 Administrator 
+The Administrator is typically the pharmacy owner or IT specialist responsible for system 
+configuration and management. Characteristics include: high technical expertise, full system 
+access, responsible for user management, system configuration, and data b ackup. Frequency of 
+use: daily for system monitoring and weekly for administrative tasks. 
+2.3.2 Pharmacist 
+The Pharmacist is a licensed professional responsible for medicine dispensing and 
+prescription management. Characteristics include: pharmaceutical knowledge, moderate technical 
+skills, manages inventory, processes prescriptions, and verifies medicine infor mation. Frequency 
+of use: continuous during working hours. 
+2.3.3 Cashier 
+The Cashier handles sales transactions and customer interactions. Characteristics include: 
+basic technical skills, focuses on sales processing, receipt generation, and customer service. 
+Frequency of use: continuous during working hours. 
+2.3.4 Patient/Customer (Indirect) 
+Patients are the end beneficiaries of the system through improved service quality, accurate 
+dispensing, and faster transaction processing. They do not directly interact with the system. 
+2.4 Operating Environment 
+The Pharmacy POS Management System will operate in the following environment: 
+--- Page 9 ---
+   
+ 
+ 9  
+ 
+2.4.1 Hardware Platform 
+• Server: Minimum Intel Core i3 processor, 4GB RAM, 256GB storage (for development); 
+recommended higher specifications for production 
+• Client Workstations: Standard desktop/laptop computers with web browser capability 
+• Barcode Scanner: USB handheld scanner for medicine identification 
+• Receipt Printer: 80mm thermal printer for sales receipts 
+• Cash Drawer: Electronic cash drawer connected to receipt printer 
+2.4.2 Software Environment 
+• Operating System: Windows 10/11 or Linux (Ubuntu recommended) 
+• Web Server: Django development server (development) or Apache/Nginx (production) 
+• Database: SQLite (development), MySQL 8.0+ or PostgreSQL 13+ (production) 
+• Web Browser: Chrome, Firefox, Edge (latest versions) 
+• Python: Version 3.9 or higher 
+• Django Framework: Version 4.x 
+2.5 Design and Implementation Constraints 
+The following constraints will affect the design and implementation of the system: 
+• Regulatory Compliance: The system must comply with Pharmacy and Poisons Board of 
+Kenya regulations regarding prescription record keeping and medicine dispensing 
+• Academic Timeline: Development must be completed within the academic semester 
+timeframe (approximately 6 weeks) 
+• Budget Limitations: Limited financial resources for hardware acquisition (estimated 
+budget: KES 46,000 / USD 353) 
+• Technology Stack: Must use Python and Django framework as specified in the project 
+proposal 
+• Open Source Requirement: Development tools and software must be open source to 
+minimize costs 
+• Single Location: Initial version designed for single pharmacy location only 
+• Internet Dependency: Basic functionality should work with limited internet connectivity 
+2.6 Assumptions and Dependencies 
+The following assumptions and dependencies apply to this project: 
+--- Page 10 ---
+   
+ 
+ 10  
+ 
+2.6.1 Assumptions 
+• MedPlus Pharmacy staff will be available for requirements gathering and user acceptance 
+testing 
+• Pharmacy management will provide necessary medicine data for initial system setup 
+• Required hardware (computer, barcode scanner, printer) will be available for deployment 
+• Users have basic computer literacy and can operate web-based applications 
+• Electricity supply is stable at the pharmacy location 
+2.6.2 Dependencies 
+• Django Framework: The system depends on Django 4.x for web application functionality 
+• Python Libraries: Dependencies include python -barcode for barcode generation, 
+ReportLab/WeasyPrint for PDF generation, and Chart.js for visualization 
+• Database System: Requires MySQL or PostgreSQL for production deployment 
+• Browser Compatibility: System functionality depends on modern web browser capabilities 
+• Hardware Drivers: Proper functioning of barcode scanner and receipt printer depends on 
+compatible drivers 
+3. System Features 
+3.1 User Authentication and Authorization Module 
+3.1.1 Description and Priority 
+This module manages user access to the system through secure login/logout functionality 
+and implements role-based access control. Priority: HIGH. This is a critical security feature that 
+must be implemented first. 
+3.1.2 Stimulus/Response 
+Stimulus: User enters username and password on login page. Response: System validates 
+credentials and redirects to appropriate dashboard based on user role. 
+Stimulus: User clicks logout button. Response: System terminates session and redirects to 
+login page. 
+Stimulus: User attempts to access unauthorized functionality. Response: System displays 
+access denied message and logs the attempt. 
+--- Page 11 ---
+   
+ 
+ 11  
+ 
+3.1.3 Functional Requirements 
+REQ-AUTH-01: The system shall provide a login page accessible from the main application 
+URL 
+REQ-AUTH-02: The system shall authenticate users based on username and password 
+REQ-AUTH-03: The system shall store passwords using secure hashing (bcrypt/SHA-256) 
+REQ-AUTH-04: The system shall support three user roles: Administrator, Pharmacist, and 
+Cashier 
+REQ-AUTH-05: The system shall enforce role-based access control for all system functions 
+REQ-AUTH-06: The system shall maintain user session state during active use 
+REQ-AUTH-07: The system shall automatically log out inactive users after 30 minutes 
+REQ-AUTH-08: The system shall display appropriate error messages for invalid login 
+attempts 
+REQ-AUTH-09: The system shall lock user accounts after 5 consecutive failed login attempts 
+REQ-AUTH-10: The system shall log all login/logout activities for audit purposes 
+3.2 Medicine Inventory Management Module 
+3.2.1 Description and Priority 
+This module manages all aspects of medicine inventory including master data, stock levels, 
+batch tracking, and expiry date management. Priority: HIGH. Core functionality for pharmacy 
+operations. 
+3.2.2 Stimulus/Response 
+Stimulus: Administrator adds new medicine to inventory. Response: System creates 
+medicine record and updates inventory database. 
+Stimulus: Sale transaction completed. Response: System deducts sold quantity from 
+inventory and updates stock levels. 
+Stimulus: Stock level falls below reorder point. Response: System generates low stock alert 
+notification. 
+Stimulus: Medicine approaches expiry date (within 30 days). Response: System generates 
+expiry alert notification. 
+--- Page 12 ---
+   
+ 
+ 12  
+ 
+3.2.3 Functional Requirements 
+REQ-INV-01: The system shall store medicine information including: Medicine ID/Barcode, 
+Name (generic and brand), Category, Manufacturer, Unit price (buying and selling), Quantity 
+in stock, Batch number, Expiry date, and Reorder level 
+REQ-INV-02: The system shall support medicine categories: Prescription, OTC, Supplements, 
+and Medical Supplies 
+REQ-INV-03: The system shall allow adding new medicines to inventory 
+REQ-INV-04: The system shall allow updating existing medicine information 
+REQ-INV-05: The system shall allow deactivating (not deleting) discontinued medicines 
+REQ-INV-06: The system shall automatically update stock levels when sales are processed 
+REQ-INV-07: The system shall support batch management for medicines with different 
+expiry dates 
+REQ-INV-08: The system shall implement FIFO (First-In-First-Out) for stock deduction 
+REQ-INV-09: The system shall generate low stock alerts when quantity falls below reorder 
+level 
+REQ-INV-10: The system shall generate expiry alerts for medicines expiring within 30 days 
+REQ-INV-11: The system shall prevent dispensing of expired medicines 
+REQ-INV-12: The system shall support barcode scanning for medicine identification 
+REQ-INV-13: The system shall provide inventory search by name, category, or barcode 
+REQ-INV-14: The system shall display current stock status in real-time 
+3.3 Sales Management Module 
+3.3.1 Description and Priority 
+This module handles all sales transactions including item selection, pricing, payment 
+processing, and receipt generation. Priority: HIGH. Primary function of the POS system. 
+3.3.2 Stimulus/Response 
+Stimulus: Cashier scans medicine barcode or selects from search. Response: System adds 
+item to current transaction with price and updates running total. 
+--- Page 13 ---
+   
+ 
+ 13  
+ 
+Stimulus: Cashier applies discount. Response: System recalculates total with discount 
+applied. 
+Stimulus: Cashier selects payment method and completes sale. Response: System records 
+transaction, updates inventory, generates receipt, and opens cash drawer. 
+3.3.3 Functional Requirements 
+REQ-SALE-01: The system shall support item selection via barcode scanning 
+REQ-SALE-02: The system shall support item selection via search by name 
+REQ-SALE-03: The system shall display item details including name, price, and availability 
+REQ-SALE-04: The system shall calculate subtotal, tax (if applicable), and total amount 
+automatically 
+REQ-SALE-05: The system shall support percentage and fixed amount discounts 
+REQ-SALE-06: The system shall support multiple payment methods: Cash, M-Pesa, and Card 
+REQ-SALE-07: The system shall calculate and display change for cash payments 
+REQ-SALE-08: The system shall generate and print receipts with pharmacy details, 
+transaction information, and items sold 
+REQ-SALE-09: The system shall open the cash drawer automatically upon cash payment 
+completion 
+REQ-SALE-10: The system shall record each transaction with unique ID, date/time, items, 
+amounts, and cashier information 
+REQ-SALE-11: The system shall allow voiding transactions with appropriate authorization 
+REQ-SALE-12: The system shall support prescription sales with mandatory prescription 
+linking 
+REQ-SALE-13: The system shall provide sales history lookup by date, transaction ID, or 
+customer 
+REQ-SALE-14: The system shall prevent sale of expired or out-of-stock medicines 
+--- Page 14 ---
+   
+ 
+ 14  
+ 
+3.4 Prescription Management Module 
+3.4.1 Description and Priority 
+This module manages prescription records and links them to sales transactions for 
+regulatory compliance. Priority: HIGH. Required for legal compliance with pharmacy regulations. 
+3.4.2 Stimulus/Response 
+Stimulus: Pharmacist enters prescription details. Response: System creates prescription 
+record and associates it with the sale transaction. 
+Stimulus: User searches for prescription history. Response: System displays prescription 
+records with linked transactions. 
+3.4.3 Functional Requirements 
+REQ-PRES-01: The system shall record prescription details including: Prescription ID, 
+Patient name, Prescriber name and facility, Date issued, and Medicines prescribed 
+REQ-PRES-02: The system shall link prescriptions to sales transactions 
+REQ-PRES-03: The system shall maintain prescription history for compliance and audit 
+purposes 
+REQ-PRES-04: The system shall require prescription information for prescription medicine 
+sales 
+REQ-PRES-05: The system shall allow searching prescriptions by patient name, prescriber, 
+or date 
+REQ-PRES-06: The system shall display prescription details on receipts for prescription sales 
+REQ-PRES-07: The system shall prevent modification of prescription records after 
+completion 
+3.5 Reporting Module 
+3.5.1 Description and Priority 
+This module generates various reports for management decision -making and operational 
+monitoring. Priority: MEDIUM. Important for business intelligence but not critical for daily 
+operations. 
+--- Page 15 ---
+   
+ 
+ 15  
+ 
+3.5.2 Stimulus/Response 
+Stimulus: User selects report type and date range. Response: System generates and displays 
+the requested report. 
+Stimulus: User clicks export button. Response: System exports report to PDF or Excel 
+format. 
+3.5.3 Functional Requirements 
+REQ-REP-01: The system shall generate daily sales reports showing transactions, revenue, 
+and items sold 
+REQ-REP-02: The system shall generate weekly sales reports with comparative analysis 
+REQ-REP-03: The system shall generate monthly sales reports with trends and summaries 
+REQ-REP-04: The system shall generate inventory status reports showing current stock levels 
+REQ-REP-05: The system shall generate expiring medicines reports with date range filtering 
+REQ-REP-06: The system shall generate low stock reports for reorder planning 
+REQ-REP-07: The system shall generate profit margin analysis reports 
+REQ-REP-08: The system shall support date range filtering for all reports 
+REQ-REP-09: The system shall export reports to PDF format 
+REQ-REP-10: The system shall export reports to Excel format 
+REQ-REP-11: The system shall display reports with interactive charts using Chart.js 
+REQ-REP-12: The system shall allow printing of generated reports 
+3.6 User Management Module 
+3.6.1 Description and Priority 
+This module manages system users, their roles, and activity monitoring. Priority: 
+MEDIUM. Administrative function for system security. 
+3.6.2 Stimulus/Response 
+Stimulus: Administrator adds new user. Response: System creates user account with 
+specified role. 
+--- Page 16 ---
+   
+ 
+ 16  
+ 
+Stimulus: Administrator deactivates user. Response: System disables account access while 
+preserving records. 
+3.6.3 Functional Requirements 
+REQ-USER-01: The system shall allow Administrators to add new users 
+REQ-USER-02: The system shall allow Administrators to update user information 
+REQ-USER-03: The system shall allow Administrators to deactivate users (soft delete) 
+REQ-USER-04: The system shall allow Administrators to assign roles to users 
+REQ-USER-05: The system shall store user information including: User ID, Username, 
+Password (hashed), Full name, Role, Contact information, and Status 
+REQ-USER-06: The system shall maintain user activity logs 
+REQ-USER-07: The system shall allow users to change their own passwords 
+REQ-USER-08: The system shall enforce unique usernames 
+REQ-USER-09: The system shall display user activity logs to Administrators 
+4. External Interface Requirements 
+4.1 User Interfaces 
+The system will provide a web -based user interface accessible through standard web 
+browsers. The interface design follows these principles: 
+• Responsive Design: Interface adapts to different screen sizes (desktop/laptop focus) 
+• Intuitive Navigation: Clear menu structure with role-based menu visibility 
+• Consistent Layout: Standard header, sidebar navigation, and content area across all pages 
+• Color Coding: Different colors for different medicine categories and alert types 
+• Error Messages: Clear, user-friendly error messages in English 
+4.1.1 Login Interface 
+Simple login form with username and password fields, login button, and error message 
+display area. 
+--- Page 17 ---
+   
+ 
+ 17  
+ 
+4.1.2 Dashboard Interface 
+Role-specific dashboard displaying relevant information: quick actions, alerts, summary 
+statistics, and navigation menu. 
+4.1.3 Sales Interface 
+Point-of-sale screen with item entry area (barcode/search), cart display, pricing information, 
+payment method selection, and receipt preview. 
+4.1.4 Inventory Interface 
+Medicine listing with search and filter options, add/edit forms, stock level indicators, and 
+expiry date alerts. 
+4.1.5 Reporting Interface 
+Report selection menu, date range picker, report display area with charts, and export 
+buttons. 
+4.2 Hardware Interfaces 
+The system interfaces with the following hardware components: 
+4.2.1 Barcode Scanner 
+• Interface: USB HID (Human Interface Device) 
+• Data Format: ASCII text representing barcode numbers 
+• Integration: Scanner input captured as keyboard input in barcode fields 
+• Supported Types: EAN-13, UPC-A, Code 128 
+4.2.2 Receipt Printer 
+• Interface: USB or Ethernet connection 
+• Type: 80mm thermal printer 
+• Integration: Print commands via printer driver 
+• Features: Auto-cut, cash drawer trigger signal 
+4.2.3 Cash Drawer 
+• Interface: RJ11/RJ12 connection to receipt printer 
+• Integration: Triggered by printer kick command 
+• Operation: Opens automatically after cash sale completion 
+--- Page 18 ---
+   
+ 
+ 18  
+ 
+4.3 Software Interfaces 
+The system interfaces with the following software components: 
+4.3.1 Database Management System 
+• Component: MySQL 8.0+ or PostgreSQL 13+ 
+• Interface: Django ORM (Object-Relational Mapping) 
+• Data: All persistent application data 
+4.3.2 Web Server 
+• Development: Django development server 
+• Production: Apache with mod_wsgi or Nginx with Gunicorn 
+• Protocol: HTTP/HTTPS 
+4.3.3 External Libraries 
+• python-barcode: Barcode generation (version 0.14.0+) 
+• ReportLab/WeasyPrint: PDF generation for receipts and reports 
+• Chart.js: Client-side chart rendering (version 3.x+) 
+• Bootstrap 5: Frontend UI framework 
+4.4 Communications Interfaces 
+The system uses the following communication protocols and interfaces: 
+4.4.1 Network Protocols 
+• HTTP/HTTPS: Web application communication 
+• TCP/IP: Underlying network protocol 
+4.4.2 Data Formats 
+• JSON: Data exchange between frontend and backend 
+• HTML/CSS: Web page rendering 
+• JavaScript: Client-side scripting 
+• PDF: Report and receipt export format 
+• CSV/Excel: Data export format 
+4.4.3 Security 
+• HTTPS: Encrypted communication for production deployment 
+--- Page 19 ---
+   
+ 
+ 19  
+ 
+• Session-based authentication: Secure session management 
+• CSRF protection: Django built-in CSRF token validation 
+ 
+ 
+ 
+ 
+ 
+ 
+5. Nonfunctional Requirements 
+5.1 Performance Requirements 
+REQ-PERF-01: The system shall respond to user actions within 2 seconds under normal load 
+REQ-PERF-02: The system shall support at least 5 concurrent users without performance 
+degradation 
+REQ-PERF-03: The system shall process sales transactions within 3 seconds from submission 
+to receipt generation 
+REQ-PERF-04: The system shall generate reports within 10 seconds for date ranges up to 30 
+days 
+REQ-PERF-05: The system shall support inventory of up to 10,000 medicine items 
+REQ-PERF-06: The system shall maintain transaction history for at least 2 years 
+REQ-PERF-07: The system shall have 99% uptime during pharmacy operating hours 
+5.2 Safety Requirements 
+REQ-SAFE-01: The system shall prevent dispensing of expired medicines with clear 
+warnings 
+REQ-SAFE-02: The system shall require prescription verification for prescription -only 
+medicines 
+REQ-SAFE-03: The system shall maintain accurate pricing to prevent customer overcharging 
+REQ-SAFE-04: The system shall provide confirmation prompts for critical actions (void, 
+delete) 
+--- Page 20 ---
+   
+ 
+ 20  
+ 
+REQ-SAFE-05: The system shall maintain data integrity through regular automated backups 
+REQ-SAFE-06: The system shall comply with Pharmacy and Poisons Board of Kenya 
+regulations 
+5.3 Security Requirements 
+REQ-SEC-01: The system shall require authentication for all access 
+REQ-SEC-02: The system shall store passwords using secure one-way hashing 
+REQ-SEC-03: The system shall implement role-based access control 
+REQ-SEC-04: The system shall encrypt sensitive data in transit using HTTPS 
+REQ-SEC-05: The system shall log all security -relevant events (login, logout, access 
+violations) 
+REQ-SEC-06: The system shall implement session timeout after 30 minutes of inactivity 
+REQ-SEC-07: The system shall protect against SQL injection through parameterized queries 
+REQ-SEC-08: The system shall protect against cross-site scripting (XSS) attacks 
+REQ-SEC-09: The system shall enforce account lockout after 5 failed login attempts 
+REQ-SEC-10: The system shall require strong passwords (minimum 8 characters with mixed 
+case, numbers) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 21 ---
+   
+ 
+ 21  
+ 
+ 
+ 
+ 
+ 
+6. Other Requirements 
+6.1 Database Requirements 
+• The database shall support ACID transactions for data integrity 
+• The database schema shall be normalized to at least 3rd Normal Form (3NF) 
+• The database shall support foreign key constraints for referential integrity 
+• The database shall implement appropriate indexing for query performance 
+6.2 Legal and Regulatory Requirements 
+• The system shall comply with Pharmacy and Poisons Board of Kenya regulations 
+• The system shall maintain prescription records as required by law 
+• The system shall comply with data protection regulations for patient information 
+6.3 Documentation Requirements 
+• User Manual: Comprehensive guide for pharmacy staff 
+• Technical Documentation: System architecture and code documentation 
+• Training Materials: Quick reference guides and training presentations 
+6.4 Portability Requirements 
+• The system shall be deployable on standard Windows or Linux servers 
+• The system shall be accessible from any modern web browser 
+• The system database shall be portable between MySQL and PostgreSQL 
+Appendix A: Glossary 
+ACID: Atomicity, Consistency, Isolation, Durability - properties of database transactions 
+API: Application Programming Interface - set of protocols for building software applications 
+--- Page 22 ---
+   
+ 
+ 22  
+ 
+Barcode: Machine-readable representation of data in visual form 
+Cashier: System user role responsible for processing sales transactions 
+CRUD: Create, Read, Update, Delete - basic database operations 
+CSRF: Cross-Site Request Forgery - type of security vulnerability 
+FIFO: First-In-First-Out - inventory management method 
+M-Pesa: Mobile money payment service widely used in Kenya 
+NHIF: National Hospital Insurance Fund - Kenyan health insurance scheme 
+ORM: Object-Relational Mapping - technique for converting data between systems 
+OTC: Over-The-Counter - medicines that can be sold without prescription 
+PDF: Portable Document Format - file format for documents 
+Pharmacist: Licensed professional authorized to dispense prescription medicines 
+POS: Point of Sale - location and system where transactions occur 
+PPB: Pharmacy and Poisons Board - Kenyan regulatory body for pharmacies 
+Prescription: Medical instruction for dispensing medicine to a patient 
+SRS: Software Requirements Specification - this document 
+SSL/TLS: Secure Sockets Layer/Transport Layer Security - encryption protocols 
+UAT: User Acceptance Testing - validation by end users 
+UI: User Interface - visual elements users interact with 
+URL: Uniform Resource Locator - web address 
+XSS: Cross-Site Scripting - type of security vulnerability 
+7. References 
+[1] Laudon, K. C., & Laudon, J. P. (2020). Management Information Systems: Managing the 
+Digital Firm (16th ed.). Pearson. 
+[2] Sommerville, I. (2016). Software Engineering (10th ed.). Pearson. 
+[3] Pharmacy and Poisons Board of Kenya. (2023). Guidelines for Good Pharmacy Practice in 
+Kenya. PPB. 
+[4] Django Software Foundation. (2024). Django Documentation. https://docs.djangoproject.com/ 
+--- Page 23 ---
+   
+ 
+ 23  
+ 
+[5] Pressman, R. S., & Maxim, B. R. (2020). Software Engineering: A Practitioner's Approach 
+(9th ed.). McGraw-Hill. 
+[6] Date, C. J. (2019). An Introduction to Database Systems (8th ed.). Pearson. 
+[7] World Health Organization. (2006). Developing Pharmacy Practice: A Focus on Patient Care. 
+WHO. 
+[8] IEEE. (1998). IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements 
+Specifications. 
+ 

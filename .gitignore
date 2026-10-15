@@ -1,0 +1,8 @@
+backend/.env
+backend/*.exe
+*.exe
+*.log
+*.tmp
+*.out
+.DS_Store
+Thumbs.db

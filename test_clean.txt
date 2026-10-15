@@ -1,0 +1,784 @@
+
+--- Page 1 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 1  
+ 
+MEDPLUS 
+Pharmacy Point of Sale Management System 
+ 
+ 
+Name: Ralph Osiko 
+Reg No: 23/08138 
+ 
+ 
+ 
+ 
+TEST PLAN DOCUMENT 
+Quality Assurance & System Validation 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Date: June 2026 
+Classification: Test Plan Review 
+System: MedPlus Pharmacy POS Management System 
+--- Page 2 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 2  
+TABLE OF CONTENTS  
+ 
+ 
+ 
+ 
+5. Introduction 
+ 
+ 
+ 
+5.1 Goals and Objectives 
+ 
+ 
+ 
+5.2 Statement of Scope 
+ 
+ 
+ 
+5.2.1 Major Constraints 
+ 
+ 
+ 
+5.2.1.1 Software to be Tested 
+ 
+ 
+ 
+5.2.1.2 Testing Strategy 
+ 
+ 
+ 
+5.2.1.3 Unit Testing 
+ 
+ 
+ 
+5.2.2 Integration Testing 
+ 
+ 
+ 
+5.2.3 Validation Testing 
+ 
+ 
+ 
+5.2.4 High-Order Testing (System Testing) 
+ 
+ 
+ 
+5.2.4.1 Recovery Testing 
+.................................... 
+.................................... 
+........ 3 
+.................................... 
+.................................... 
+........ 4 
+.................................... 
+.................................... 
+........ 5 
+.................................... 
+.................................... 
+........ 5 
+.................................... 
+.................................... 
+........ 6 
+.................................... 
+.................................... 
+........ 6 
+.................................... 
+.................................... 
+........ 7 
+.................................... 
+.................................... 
+........ 9 
+.................................... 
+.................................... 
+........ 11 
+.................................... 
+.................................... 
+........ 13 
+.................................... 
+.................................... 
+........ 15 
+--- Page 3 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 3  
+ 
+ 
+5.2.4.2 Security Testing 
+ 
+ 
+ 
+5.2.4.3 Performance Testing 
+ 
+ 
+ 
+5.2.4.4 Alpha/Beta Testing 
+ 
+ 
+ 
+5.3 Testing Resource and Staffing 
+ 
+ 
+ 
+5.4 Testing Procedure 
+ 
+ 
+ 
+5.6 Test Record Keeping 
+.................................... 
+.................................... 
+........ 16 
+.................................... 
+.................................... 
+........ 17 
+.................................... 
+.................................... 
+........ 18 
+.................................... 
+.................................... 
+........ 19 
+.................................... 
+.................................... 
+........ 21 
+.................................... 
+.................................... 
+........ 23 
+--- Page 4 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 4  
+5. Introduction  
+ 
+This document describes the testing requirements and test plan for the MedPlus Pharmacy Point 
+of Sale (POS) Management System . The system is designed to meet the business needs of 
+MedPlus Pharmacy —a community pharmacy operating in Nairobi, Kenya. The objective is to 
+automate manual pharmacy operations, including sales transaction processing, real -time medicine 
+inventory tracking (with expiry monitoring), prescription record verification, customer loyalty records, 
+and business reporting, thereby facilitating accountability, efficiency, and customer satisfaction. 
+Testing is a major source of feedback and serves as a benchmark for ensuring the software is 
+stable, secure, and compliant. Testing will be performed to verify that the system produces the 
+desired results under various operating conditions. This test plan document identifies the software 
+items to be tested, the testing environment, the test case design, and the test measurement 
+techniques to be used. 
+ 
+System Capabilities 
+1. Process sales transactions for prescription and over-the-counter (OTC) medicines. 
+2. Manage real-time medicine inventory, tracking expiry dates and batches. 
+3. Record customer/patient profiles and track loyalty programs. 
+4. Manage prescription records and enforce compliance by linking prescriptions to sales of 
+prescription-only (Rx) medicines. 
+5. Record suppliers and handle supply chain workflows via purchase orders. 
+6. Provide role-based user access controls (Admin, Pharmacist, Cashier) with dynamic 
+permission updates. 
+7. Support modern payment interfaces, including Cash, Card, and M-Pesa STK push callbacks 
+via Safaricom Daraja API. 
+8. Generate daily, weekly, monthly sales reports, low-stock alerts, expiring stock reports, and 
+profit-margin summaries. 
+9. Automatically backup data and log system audit trails. 
+Testing criteria will be utilized under the white-box, black-box, and system testing paradigms to 
+ensure code correctness and operational compliance. 
+--- Page 5 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 5  
+5.1 Goals and Objectives  
+ 
+The main goal of testing is to compile a detailed document that will be used by developers and QA 
+personnel to verify that the MedPlus system performs in accordance with the specifications in the 
+System Requirements Specification (SRS) document. 
+ 
+Testing Objectives 
+Defect Identification: Uncover errors, bugs, security vulnerabilities, and failures in the 
+database schema, API routing, and web UI. 
+Test Case Standardization: Establish reusable test cases and test data representing 
+realistic pharmacy scenarios (e.g., dispensing expired stock, checking out Rx drugs without 
+prescriptions). 
+Resource Optimization: Allocate testing resources (hardware, servers, testers, network 
+setups) efficiently. 
+Schedule Alignment: Establish a structured testing timeline across the different phases of 
+unit, integration, validation, and system testing. 
+Requirement Verification: Ensure all functional and non-functional requirements (including 
+response times, uptime, database security, and compliance with the Pharmacy and Poisons 
+Board of Kenya regulations) are met. 
+Usability Assessment: Verify that the frontend web interfaces are intuitive, clear, and easy 
+to use by pharmacy administrators, cashiers, and pharmacists. 
+System Consistency: Ensure that database transactions adhere to ACID properties and 
+that state management remains consistent during peak workloads or concurrent operations. 
+--- Page 6 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 6  
+5.2 Statement of Scope  
+ 
+The scope of testing covers the end -to-end functionality of the MedPlus Pharmacy POS system. 
+This includes the client interface (served dynamically from the /web directory), the Go backend API 
+application, database queries, and third -party integrations (PostgreSQL data structures, local 
+configurations, and the Safaricom Daraja API for M-Pesa STK pushes). 
+ 
+5.2.1 Major Constraints 
+Network Dependencies: The M-Pesa payment integration relies on external callbacks from 
+the Safaricom Daraja API. Testing requires mock callback payloads or sandbox endpoint 
+availability. 
+Platform Portability: The system must run reliably across different operating systems 
+(Windows 10/11 for local pharmacy computers, and Linux for Docker containers and staging 
+environments). 
+Database Availability: Testing relies on a persistent connection to PostgreSQL. A database 
+connection pool failure or local server downtime will suspend backend validation. 
+Hardware Interfaces: Testing point-of-sale peripherals, such as physical USB barcode 
+scanners and 80mm thermal receipt printers, requires physical devices or simulated inputs. 
+ 
+5.2.1.1 Software to be Tested 
+The software system under test is the MedPlus Pharmacy POS Management System , which 
+consists of: 
+• Backend API Application: Written in Go, exposing RESTful endpoints under /api/* for 
+authentication, inventory, customers, prescriptions, sales, supply chain, payments, and reports. 
+• Frontend SPA Web Client: A web interface built using HTML5, Vanilla CSS, and JavaScript, 
+communicating with the Go backend. 
+• Database Layer: PostgreSQL relational database schemas, indexes, checks, and foreign 
+key relationships. 
+ 
+5.2.1.2 Testing Strategy 
+The testing workflow is structured incrementally to isolate errors efficiently: 
+Unit Testing: Focuses on testing individual modules, functions, input fields, and database 
+queries in isolation. 
+Integration Testing: Evaluates the interaction between combined software units, such as 
+Go handler routing, database queries, and third-party API communication. 
+Validation Testing: Checks that the system functions in a manner that the pharmacy end 
+users expect, validating workflows from the point of view of the cashier, pharmacist, and 
+administrator. 
+High-Order (System) Testing: Validates the system as a whole, including performance, 
+security, data recovery, and user acceptance. 
+--- Page 7 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 7  
+5.2.1.3 Unit Testing 
+Unit testing is the first phase, focusing on verifying the inputs, output logic, and interface designs of 
+individual fields and pages before integration. 
+ 
+Type of 
+Test 
+Area Being 
+Tested 
+Expected Output Actual Outcome Incorrect Outcome 
+Unit Password Asterisk masking Password characters Characters shown in 
+Test: Field (••••••••); minimum 8 masked; rejects plaintext; allows weak 
+Inputs  characters; must be simple/short passwords; plaintext 
+  securely hashed using passwords. saved in DB. 
+  bcrypt.   
+ Username Alphanumeric; must be Accepts unique Allows empty string; 
+Field unique; cannot be left username; redirects to allows duplicate 
+ blank. error state if username usernames, 
+  exists. overwriting data. 
+ User Accepts explicit Role validated on Rejects valid role; 
+Category predefined values: creation; dynamic accepts arbitrary roles 
+(Role) Admin, Pharmacist, access assigned (e.g., Guest), granting 
+ Cashier. accordingly. access. 
+ M-Pesa Valid Kenyan phone Rejects invalid phone Accepts short, long, or 
+Phone format: numbers; format non-Kenyan phone 
+Number 2547XXXXXXXX or validated prior to STK formats, leading to API 
+ 2541XXXXXXXX (12 push request. failures. 
+ digits starting with 254).   
+ Numeric Non-negative integer Rejects negative stock Accepts negative 
+Fields values for stock levels; quantities and negative stock/price, creating 
+(Price/Qty) positive decimal unit prices. corrupted transaction 
+ numbers for prices.  values. 
+ Date Fields Valid date format Rejects invalid formats Allows past dates for 
+(Expiry YYYY-MM-DD. Expiry (e.g. MM-DD-YYYY) incoming stock; allows 
+Date) date must be set in the and past dates for invalid dates (e.g., Feb 
+ future for new products. fresh stock. 31). 
+ Alphabetic Supports standard Validates names; Rejects valid names 
+Fields letters, spaces, and truncates or rejects with accents; allows 
+(Names) punctuation for product, overly long strings code snippets (SQL 
+ customer, and supplier exceeding DB limit. injection risk). 
+ names.   
+ Indexed Barcode inputs (UPC-A, Unique index verified; Allows duplicate 
+Fields EAN-13, etc.) must database prevents barcodes; slow search 
+(Barcodes) match exact duplicate barcodes. query times due to 
+ alphanumeric formats.  missing index use. 
+--- Page 8 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 8  
+Type of 
+Test 
+Area Being 
+Tested 
+Expected Output Actual Outcome Incorrect Outcome 
+Screen Web UI Responsive grid layouts Layout aligns correctly; Elements overlap on 
+Design Layout adapting to standard clear navigation small screens; menus 
+  desktop/tablet sidebar showing visible to unauthorized 
+  resolutions; legible font authorized menus. roles. 
+  size.   
+Output Receipt & Clean tabular display of Reports printed in Displaced columns on 
+Design Reports sales receipts, profit clear formats; exports print; report numbers 
+  analyses, and printable to CSV and PDF are miscalculated or cut 
+  layout structures. well-formatted. off. 
+Databas PostgreSQL Successful database Data stored correctly in Data truncation; null 
+e Save writes with correct field respective tables values written to NOT 
+Storage  assignments and (users, products, NULL columns, 
+  timestamps. sales, etc.) causing crashes. 
+Table 1: Unit Testing Matrix — Input Validation, UI Design, and Data Integrity 
+--- Page 9 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 9  
+5.2.2 Integration Testing 
+Integration testing verifies that the individual units of the system—such as the Go handlers, 
+middleware validation, database layer, and Safaricom API integration—work together seamlessly. 
+ 
+Functional Requirements Validated 
+Session & Middleware Integration: Enforcing token-based authentication (JWT extraction, 
+validation, and user role extraction) on private routes. 
+Inventory Stock Adjustment: Automated inventory deduction upon sale processing 
+(applying FIFO logic when multiple batches exist). 
+Prescription-Sales Linkage: Verifying that checking out prescription-only (Rx) medicines 
+requires a valid prescription record ID in the request payload. 
+Purchase Order Stock Receipt: Automated stock quantity increment in products table once 
+a draft purchase order status is updated to received. 
+M-Pesa Payment Status Sync: Safaricom callback payload matching and updating the 
+correct transaction record status from pending to completed or failed in the database. 
+ 
+Type of 
+Test 
+Area Being 
+Tested 
+Expected Outcome Actual Outcome 
+Integration 
+Test 
+Entity 
+Relationships 
+Database foreign keys enforce 
+integrity. Deleting a 
+product/customer is restricted if 
+they have active transaction 
+records. 
+Foreign key constraints raise 
+appropriate errors, preventing 
+database orphaned records. 
+ Sales & 
+Inventory Sync 
+Processing a sale of 5 units of 
+Ibuprofen updates stock in 
+products table from N to N - 5. 
+Stock quantity is automatically 
+decremented inside a database 
+transaction. 
+ Prescription 
+Enforcement 
+Processing a sale containing Rx 
+drugs without an associated 
+prescription_id yields a validation 
+error. 
+Backend rejects checkout payload 
+with a 400 Bad Request 
+explaining prescription is required. 
+ Supplier & PO 
+Receipt 
+Receiving purchase order updates 
+the status of the PO to received 
+and increments product inventory. 
+Inventory increments 
+automatically by the received 
+quantity; database logs the 
+receiving user ID. 
+ M-Pesa API 
+Callbacks 
+Safaricom callback webhook 
+parses checkout IDs, matches 
+them with mpesa_payments, and 
+updates transaction status. 
+Database records payment status 
+as completed, registers the 
+M-Pesa receipt number, and 
+commits. 
+ Report 
+Aggregations 
+Reports query database records, 
+group sales by categories, filter by 
+date ranges, and calculate total 
+revenues. 
+The report endpoints aggregate 
+values correctly, matching manual 
+sums of completed transactions. 
+Table 2: Integration Testing Matrix — Module Interoperability 
+--- Page 10 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 10  
+5.2.3 Validation Testing 
+Validation testing (high-order workflow testing) ensures that the application behaves exactly as 
+expected by the end-user (pharmacist, cashier, or admin) across all primary functional modules. 
+ 
+Type of 
+Testing 
+Area Being 
+Tested 
+Expected Outcome Actual Outcome 
+Validation 
+Testing 
+User Login Users enter credentials. Valid 
+attempts redirect to the 
+dashboard; invalid attempts show 
+user-friendly errors. 
+Authentication handler checks 
+bcrypt hash, issues a JWT, and 
+stores session variables. 
+ Token 
+Authorization 
+System logs out inactive users 
+after 30 minutes; block access if 
+the authorization token is expired. 
+Middleware intercepts requests, 
+invalidates expired sessions, and 
+prompts re-login. 
+ Add Medicine 
+Module 
+Easy-to-use form to add new 
+products, including name, 
+category, barcode, price, stock, 
+expiry date, and reorder level. 
+Database inserts new record. 
+Product immediately appears in 
+POS inventory searches. 
+ Update Stock 
+Module 
+Modifies stock quantities, brand 
+name, price, and expiry date 
+details. 
+Changes saved and propagated 
+to database; audit log registers 
+update event. 
+ Deactivate 
+Module 
+Deactivates (soft deletes) 
+discontinued medicines rather 
+than removing records 
+permanently. 
+Product status flag set to inactive. 
+The product is hidden from POS 
+searches but preserved in logs. 
+ Low Stock 
+Warnings 
+System monitors stock level. 
+Generates indicators or alerts 
+when stock falls below the 
+configured reorder level. 
+Sidebar displays red warning 
+flags; low-stock reports list items. 
+ Expiry Date 
+Alerts 
+System flags medicines expiring 
+within 30 days and prevents 
+cashiers from selecting them in 
+POS. 
+Alert banner warns the cashier; 
+system locks checkout actions for 
+expired items. 
+ Cart & Search 
+Module 
+Allows searching by barcode or 
+generic name, adding items to 
+cart, adjusting quantities, and 
+applying discounts. 
+Cart recalculates subtotals, tax, 
+and final amount in real time on 
+the client side. 
+ Cash Payment Enter cash received, calculate 
+change, save transaction as 
+completed, print thermal receipt, 
+and open cash drawer. 
+Database records sale status as 
+completed, resets checkout form, 
+and triggers printer. 
+ M-Pesa STK 
+Push 
+Triggers STK push to customer 
+mobile phone. Enters transaction 
+into pending state awaiting 
+Safaricom callback. 
+STK push popup sent to phone. 
+System polls callback status; 
+changes to completed upon PIN 
+entry. 
+--- Page 11 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 11  
+Type of 
+Testing 
+Area Being 
+Tested 
+Expected Outcome Actual Outcome 
+ 
+Create 
+Prescription 
+Pharmacist enters patient name, 
+prescriber details, and lists Rx 
+medicines. Generates a unique 
+prescription ID. 
+Record written to prescriptions 
+and prescription_items tables; 
+links to customer ID. 
+ 
+Link to POS 
+Cart 
+Cashier enters prescription 
+number in checkout screen. 
+System verifies and imports Rx 
+medicines to cart. 
+Validates prescription number, 
+auto-populates cart with 
+prescribed items, and links 
+prescription ID. 
+ 
+Create 
+Purchase Order 
+Selects supplier, adds items to 
+order, saves draft, and submits 
+order to supplier. 
+Purchase order status changed to 
+submitted; records expected 
+delivery date. 
+ 
+Receive PO 
+Stock 
+Matches delivered products 
+against PO items, updates 
+received quantities, and updates 
+products inventory. 
+System marks PO as received, 
+updates database, and increases 
+stock levels. 
+ 
+Sales Report 
+Module 
+Filters completed sales by date 
+ranges (daily, weekly, monthly) to 
+display total revenue, tax 
+collected, and transactions. 
+Displays detailed summary list 
+and bar charts; exports records to 
+CSV/Excel. 
+ 
+Profit Margin 
+Module 
+Subtracts buying cost from selling 
+price across transactions to 
+compute gross margins. 
+Reports display actual profit 
+margins by product category and 
+time period. 
+Table 3: Validation Testing Matrix — End-User Workflow Verification 
+--- Page 12 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 12  
+5.2.4 High-Order Testing (System Testing) 
+System testing validates the completely integrated application, checking that it meets security, data 
+recovery, load processing, and general configuration criteria. 
+ 
+Test Component Status Recommendation 
+Login Form PASS Authenticates users correctly. Ensure password fields hide 
+characters and enforce strong password policies. 
+Register User Form PASS Creates system accounts. Limit self-registration features via 
+environment variable ENABLE_PUBLIC_REGISTRATION=false 
+in production. 
+Dashboard / Stats PASS Aggregates summary sales data, low stock counts, and expiring 
+items. Use caching for database queries on heavy data. 
+Inventory Interface PASS Handles updates, filtering, and deactivations. Enforce strict 
+decimal input validations on price fields. 
+Point of Sale (POS) 
+Interface 
+PASS Facilitates cart management, barcode scanning, and discounts. 
+Store cart state in local storage to prevent data loss on browser 
+refresh. 
+Checkout & Payments PASS Handles Cash, Card, and M-Pesa payment configurations. 
+Require cashier confirmation prior to completing transactions. 
+M-Pesa STK Callback 
+Handler 
+PASS Webhook endpoint processes Safaricom callbacks and updates 
+payment records. Implement signature validation or IP range 
+restrictions. 
+Customer Profiles Form PASS Records loyalty numbers and contact details. Validate phone 
+numbers using standard regex formats. 
+Prescriptions Module PASS Records doctors and patients, linking Rx items. Enforce checking 
+prescription numbers on checkout of Rx categories. 
+Suppliers & PO System PASS Drafts, submits, and receives inventory orders. Warn user if 
+received quantities exceed ordered quantities. 
+Reports & Excel Export PASS Exports sales and stock reports. Restrict heavy reports requests 
+to off-peak hours or enforce date-range limits (max 31 days). 
+RBAC Permissions Panel PASS Dynamically updates user access permissions. Admin role should 
+be protected from accidental deactivation or self-demotion. 
+Table 4: System Testing Component Status Summary 
+--- Page 13 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 13  
+5.2.4.1 Recovery Testing 
+Recovery testing evaluates the system's ability to maintain data integrity and recover gracefully 
+from sudden server, database, or network crashes. 
+Go Server Crash Recovery 
+Test: Kill the Go backend process during an active checkout API call. 
+Result: The database transactions must roll back. Client receives a standard gateway error (or 
+reconnects when the server restarts). 
+Recovery Validation: On restarting the Go executable, verify database connectivity is restored 
+automatically, database pools are rebuilt, and incomplete transactions show no partial writes. 
+ 
+ 
+PostgreSQL Connection Lost Recovery 
+Test: Terminate the PostgreSQL database service while the Go backend is running. 
+Result: Backend logging registers connection loss. Accessing APIs returns 503 Service Unavailable 
+with details logged. 
+Recovery Validation: Once PostgreSQL service starts again, backend pinging logic (invoked via 
+/api/ready) detects reconnect and queries succeed without requiring a server reboot. 
+ 
+ 
+M-Pesa Webhook Callback Recovery 
+Test: Simulate Safaricom sending an STK callback while the MedPlus server is offline. 
+Result:  Safaricom  logs  delivery  failure.  The  transaction  remains  in  pending  state  in 
+mpesa_payments. 
+Recovery Validation: Admin dashboard allows manual status checks by querying Safaricom API 
+/api/payments/mpesa/status/{checkoutRequestId} to resolve pending statuses. 
+--- Page 14 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 14  
+5.2.4.2 Security Testing 
+Security testing ensures the application protects pharmacy data, locks unauthorized access, and 
+guards against security exploits. 
+Role-Based Access Control (RBAC) 
+• Verifies that cashiers cannot access /api/admin/* or /api/reports routes. 
+• Attempting to access admin endpoints returns a 403 Forbidden JSON response. 
+• Admin panel allows dynamic role-permission changes stored in the role_permissions table. 
+ 
+Authentication & Session Management 
+• Passwords are encrypted using bcrypt hashing before storage. Plaintext passwords are 
+never logged or stored. 
+• JWT tokens are signed using a secure algorithm and verified on each request. 
+• Accounts are locked for 15 minutes after 5 consecutive failed login attempts to prevent 
+brute-force attacks. 
+ 
+Database Security & Input Validation 
+• All SQL statements use parameterized placeholders (e.g. $1, $2) supported by the pq Go 
+library, preventing SQL injection. 
+• Input strings are sanitized on the backend and escaped on the frontend to prevent 
+Cross-Site Scripting (XSS). 
+• Cross-Origin Resource Sharing (CORS) is configured explicitly, restricting API access to 
+registered domains in production. 
+--- Page 15 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 15  
+5.2.4.3 Performance Testing 
+Performance testing evaluates response times, concurrency limits, and database execution 
+speeds. 
+API Response Latencies 
+• Under normal workloads (up to 5 concurrent cashier terminals), responses for product 
+lookups, barcode identification, and cart checkouts must resolve in under 1.5 seconds. 
+• Database queries are optimized using index tables on frequently searched fields: 
+■ Barcode checks: idx_products_barcode on products(barcode) 
+■ Category filters: idx_products_category on products(category) 
+■ Transactions: idx_sales_transaction_id on sales(transaction_id) 
+ 
+ 
+Concurrency Load Testing 
+• Enforce database connection limit configurations (DB.SetMaxOpenConns(25)) to manage 
+hardware resource consumption on the PostgreSQL container. 
+• The Go backend handles requests concurrently using Goroutines, ensuring thread safety 
+and preventing database locks. 
+--- Page 16 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 16  
+5.2.4.4 Alpha/Beta Testing 
+Prior to full deployment, testing is conducted by MedPlus Pharmacy staff in two phases: 
+ 
+Alpha Testing (Internal) 
+• Conducted by developers and the QA team in a staging environment using seeded demo 
+data. 
+• Verifies basic flows, API edge-cases, error message handling, and page response 
+behaviors. 
+Beta Testing (User Acceptance Testing) 
+• Conducted by MedPlus Pharmacy staff (Admins, Pharmacists, and Cashiers) in the actual 
+operating environment. 
+• Staff register transactions, scan test barcodes, trigger test M-Pesa STK pushes (Sandbox 
+mode), and export generated sales reports. 
+• Feedback is gathered regarding interface usability, receipt print alignments, and system 
+speed. 
+--- Page 17 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 17  
+5.3 Testing Resource and Staffing  
+ 
+Hardware Requirements 
+• Server/Workstation: Minimum Intel Core i3 Processor, 4GB RAM, 256GB storage space. 
+• Point-of-Sale Hardware: USB Barcode Scanner (supporting EAN-13 barcodes), 80mm 
+USB thermal receipt printer. 
+• Testing Devices: Mobile phone with active M-Pesa line for validating STK pushes. 
+ 
+Software Requirements 
+• Operating System: Windows 10/11 or Ubuntu Linux. 
+• Database Management System: PostgreSQL 13 or higher. 
+• Development Environment: Go 1.20+, web browsers (Chrome/Firefox/Edge latest 
+versions). 
+ 
+Staff Roles & Training Validation 
+ 
+Type of Test Area of 
+Interest 
+Expected Results Actual Results 
+Acceptance 
+Testing 
+Training End users receive 2 hours of 
+system training. 
+Cashiers and pharmacists are 
+able to use the system 
+independently. 
+ User Manual Documentation covers user 
+login, product creation, cart 
+checkout, and reporting steps. 
+Users find instructions clear and 
+successfully perform daily 
+operations. 
+Table 5: Acceptance Testing — Training & Documentation Validation 
+--- Page 18 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 18  
+5.4 Testing Procedure  
+ 
+The testing lifecycle follows a structured sequence of actions: 
+ 
+Phase Description 
+1. Organize Project Establish scope, identify dependencies, assign testers, and schedule milestones. 
+2. Design System 
+Test 
+Identify test cycles, write edge-case scenarios, and format test data arrays. 
+3. Design Test 
+Process 
+Create automated tests (Go unit testing files *_test.go), script manual checklists, and 
+define status reporting structures. 
+4. Build Test 
+Procedures 
+Create automated tests, script manual checklists, and define status reporting 
+structures. 
+5. Build Test 
+Environment 
+Install PostgreSQL, compile Go backend binaries, set up environment files (.env), 
+and connect POS barcode scanners and receipt printers. 
+6. Execute 
+Integration Test 
+Test the interaction between modules (e.g., verifying database constraints, checking 
+CORS middleware logic, mocking third-party APIs). 
+7. Execute System 
+Test 
+Perform stress tests, force network failures for recovery checks, run authorization 
+bypass checks, and test receipt layouts. 
+8. Execute 
+Acceptance Test 
+Train pharmacy staff, evaluate user interaction, verify PDF documentation exports, 
+and resolve usability issues. 
+9. Sign Off and Pilot System is formally approved, final databases are initialized, and the system is 
+deployed live at MedPlus Pharmacy. 
+Table 6: Testing Procedure Lifecycle — Sequential Workflow 
+--- Page 19 ---
+MedPlus Pharmacy POS - Test Plan Document | Page 19  
+5.6 Test Record Keeping  
+ 
+To track testing progress and ensure all issues are resolved, a detailed test logging process is 
+maintained: 
+Defect Tracking: Found defects must be recorded in an issue tracking sheet, specifying the 
+module, description, severity, status, and developer assigned. 
+System Log Files: Go backend errors and panic logs are captured and written to system 
+files (server.log) for debug review. 
+Database Audit Trails: Security-critical events (login failures, user deactivations, payment 
+adjustments) are logged directly in user activity records to ensure compliance and 
+traceability. 
+Sign-off Report: A summary report documenting final test results, unresolved low-priority 
+issues, and performance metrics is archived for design references. 
+ 
+ 
+ 
+ 
+ 
+Document Control 
+                Date: June 2026  
+Prepared by: MedPlus Pharmacy Technical Team 

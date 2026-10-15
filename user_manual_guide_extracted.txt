@@ -1,0 +1,118 @@
+=== EXTRACTED ASCII ===
+	           	School of Technology                             Final Year Project IIUser Training Manual- GuideUser Guides explain in layman's terms how to use a software application. In general, they accompany other documentation, such as Getting Started, Installation and System Administration guides.What is a User Guide?This is a Written or visual information about an application system, how it works, and how to use it.As the name implies, User Guides are written to help people understand an software application or IT system. They are also called User Manuals. When writing a User Guide, use simple language with short sentences. This writing style helps the user understand the application.What Makes Good manual Contains an overview, index, getting started instructions, I.e. 
+ very structuredDescribes functionalitiesContains task-based documentation
+How to
+Frequently Asked QuestionsMessages & their meaningsUser Guide Templates
+ HYPERLINK "http://www.klariti.com/user-guide/" 
+ INCLUDEPICTURE "http://www.klariti.com/images/userguidesmall2.jpg" \* MERGEFORMATINET 
+ HYPERLINK "http://www.klariti.com/user-guide/" 
+ INCLUDEPICTURE "http://www.klariti.com/images/userguidesmall1.gif" \* MERGEFORMATINET 
+User Guides are the first port of call when something needs to be read. As many people read user guides when frustrated and after having lost patience with the software, you need to write your material to address their concerns quickly.User Guides are often written for non-technical individuals. The level of content and terminology differs considerably from, for example, a System Administration Guide, which is more detailed and complex. This rest of article offers some guidelines to consider when writing your User Guide, such as: Identifying your audience Writing sections Defining style guide and standards Delivery formats Identifying Your AudienceAs with all types of writing, the first step is to define your TARGET AUDIENCE. Your target audience are the people who will user your document. As different readers have different requirements, you need to consider their specific requirements. Identify the target audience Identify their level of technical knowledge Identify how they will use the guide Audience DefinitionsIn the planning process, develop an audience definition that identifies: The user The system The tasks Software is used to do specific things. Users want to know what the software can do for them, for example, how to print a page in landscape. They are generally not interested in the nitty-gritty technical details; they want to click a button and get a result.
+The User Guide is to teach them how the software helps them to do something. Depending on the guide in question, you may need to address several audiences. For example: Programmers who will troubleshoot the program IT Managers who want to know the resources the program requires Project Managers who want to confirm that the original requirements were met. If you are writing for more than one audience, develop an audience definition for each one. Examine the definitions and see if you can address all audience types with one document. In many situations, you may need to write a number of documents, of which the users guide is only one. When planning, use the audience definition to focus your decisions. When writing, the audience definition serves as a guide for the documentation team and as a benchmark for evaluating the results. Here are some questions that will help define your audience's needs: Where will they use the document, for example, in the office, at home, in their car? How much experience have they of using your application? Is this guide an upgrade to an existing application? Is your application new? If so, you may want to include a Getting Started document to introduce the software. How will they use the user guide? Will they install the software by themselves or do so over the internet? What level of detail is required? Will graphics help their understanding of how to use your product? Writing the User GuideEach user guide is comprised of front page, body sections, and a back page. The following section describes what each of these needs to contain. Front Page (cover pages)Include a cover page, table of contents, and a preface, if necessary.Cover and Title PageIf the user guide is copyrighted, include a copyright notice. Copyright 
+ 2003 The Name Of Your Company.Place the copyright notice on the cover (and also the title page).DisclaimerInclude a standard disclaimer inside the front cover that outlines the Terms and Conditions for using this guide. PrefaceUse this section to reference other documents related to the software. Make sure you refer to the correct release number for all software and documents that you refer to. If necessary, include a section on "How to use this guide" as an introduction.ContentsYou must include a table of contents. the only exception is if your guide is less than ten pages, in which case you should probably refer to it as a Getting Started guide or Reference Guide. If this user guide is more than twenty pages, include an index at the end of the document.Body of the guideThis is the heart of the guide. In the main body, separate the procedures (also called instructions) from reference materials. This will help the user navigate their way through the guide much faster.ProceduresProcedures help the user perform specific tasks. They are also known as instructions or tasks. Examples of these may include: When, why, and how you can perform a task, for example, printing a document, cropping an image, uploading a file.
+ What the screen will show after you perform a task, for example, an updated view of your bank balance. Examples of tasks and program operation. Writing proceduresWriting procedures involves the following tasks: Identifying the major tasks Separating each major task into subtasks Writing a series of steps that walk the user through each subtask Using an "if-then" approach when explaining decisions that users can make. Chunking textBreaking large pieces of information into smaller piece of information is called "chunking." When writing user guides, you can separate information by menu options and their respective consequences, for example, showing the user the results of each action. Subtasks that need to be performed can be divided into chunks. Each chunk can form a new chapter or section within the guide.Use a consistent format for each section, for instance: Introduce each section with an overview of the task to be performed Describe the inputs and outputs. In other words, what the user must enter into the system and what the system will do as a result.
+ Describe the procedures for accomplishing these tasks. Number your stepsWhen writing procedures, number each step and use the imperative form of verbs, for example: Press ENTERorClick "Yes" and press ENTER to submit your details.Using the If-Then ApproachWhen users are allowed to make decisions, use an If-Then approach to show the different result for each decision they make. If you choose "Yes," the program will make Firefox your default web browser. If you choose "No," it will set Opera as your default browser.Use diagrams to illustrate more complicated procedures.Reference MaterialsUser turn to reference material when they need detailed information on a specific topic, for example, settings or parameters they must enter.Reference materials can include: Program options, for example, different menus and buttons that are presented to the user Keyboard options, for example, hold AltGr and 4 to show the Euro symbol Error messages that may arise when you use the application Troubleshooting tips to resolve these issues Frequently asked questions that the user may have about the software Back MatterAdd a Glossary of Terms and an Index towards the end of the document.
+ GlossaryThe glossary should cover all acronyms and industry terms used in the document. Help the user understand your material. Do not alienate them by using jargon and assuming that they know the meaning on these words. A short glossary can appear at the front before the table of contents A larger glossary should appear in the back matter. Highlight glossary terms (by italics, for instance) the first time they appear in text.IndexAny guide longer than 20 pages benefits from an index. An index helps users locate specific items very fast without having to search through the entire document manually. Large documents without an index are impossible to use efficiently.Establishing StandardsAs well as writing the guide, you also need to consider how the document will be delivered, for example, as a book, online or a PDF.Areas that need consideration include: Format (the design and layout of the pages) Style (elements affecting readability, such as font, size, color) Other requirements that are specific to each delivery format. For example, PDFs may need security settings applied so material cannot be copied; partner logos may need to be added; terms and conditions may need to be updated. Document Format and StructureIf you are writing a user guide for a client, rather than your own company, check if they use a specific style guide or have a preference for how the document should be presented. Check this with the client during the planning phase. Use a document map to organize the guide. To do this: Use headings for organizing information. Include page numbers and section titles on every page, either in footers or headers. Consider using dual columns. This lets you put headings in the left-hand column and the text in the right-hand column. StyleUse an appropriate style. Decide on the technical level of your language, how you address the user, and conventions that are required.Technical LanguageMatch the level of technical language with the audience
+s level of proficiency. Always underestimate the knowledge of your readers rather than overestimate it. Limit technical terms to those the user will encounter. If you must define a large number of terms, use a glossary to supplement definitions in the text.Addressing the UserWhen writing procedures, use the active voice (e.g. Click this) and address users directly (write "you" rather than "the user"). When explaining an action, use the "command" form of the verb: "Choose an option from the menu and press [ENTER]."Presenting your materialYou can improve the readability of your documents by using specific formats to distinguish different types of information. For example, you can distinguish the user's input from the system's response by: Indenting text Using columns to layout text Providing illustrations or photographs that highlight key areas Using different fonts and type features (bold, italics and underline) Nonverbal devices, such as icons or diagrams, help supplement verbal instructions.Special RequirementsIf the guide is to be used outdoors, in a car, or on the move, make sure the font size is large enough to read easily. Use spiral biding so the book does not to break easily, and high-quality paper so the text does not smudge or leave stains on the reader's hands
+IDATx^
+.a~njt
+/i{Y/	
+5q\6w"(3
+3	N4v
+$
+jp(/=1
+e"7/dJf]
+kboz\hh
+\'4$i/S
+LEAD Technologies Inc. V1.01
+ $.' "+"
+(6(+/1343
+&8<82<.231
+!11111111111111111111111111111111111111111111111111
+%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+cRI%y$
+xEc!|-
+@{QM90
+o@M>YN
+2M]8[qI
+]Q@Se0
+iwDx,>
+4s]yI8
+	&E(]H
+~=?ZwB
+z#)mv
+Y2 RIS
+KaY	quh
+I)N-&R
+j"9$/,e
+m$>].J
+ !!!  ` @
+)))++U++
+000:::@
+lllssszzz
+cmPPJCmp0712
+IDATx^
+OtoO+R
+#6WB?
+k8w!S7
+<w ^Yk4]
+$-aK\+
+,kQ0bP
+tN\k&d	
+Y+>F(g
+!W<7 k
+[Content_Types].xml
+_rels/.rels
+theme/theme/themeManager.xml
+theme/theme/theme1.xml
+/,EE\}
+theme/theme/_rels/themeManager.xml.rels
+56?$Q
+K(M&$R(.1
+[Content_Types].xmlPK
+_rels/.relsPK
+theme/theme/themeManager.xmlPK
+theme/theme/theme1.xmlPK
+theme/theme/_rels/themeManager.xml.relsPK
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<a:clrMap xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/>
+rrA;" 
+6
+iAN5
+f]#N\'
+_f-kRt
+User Guide Tutorial 
+mwendia
+Normal
+Microsoft Office Word
+Hewlett-Packard
+User Guide Tutorial 
+_PID_HLINKS
+Microsoft Word 97-2003 Document
+MSWordDoc
+Word.Document.8
+
+=== EXTRACTED UTF-16 ===
+userguidesmall2
+4  x User Guide Templates - Instant Download
+userguidesmall1
+4  x User Guide Templates - Instant Download
+Normal
+	Heading 1
+	Heading 3
+Default Paragraph Font
+Table Normal
+No List
+	Hyperlink
+Normal (Web)
+Strong
+FollowedHyperlink
+http://www.klariti.com/user-guide/
+http://www.klariti.com/user-guide/
+Root Entry
+1Table
+WordDocument
+SummaryInformation
+DocumentSummaryInformation
+CompObj

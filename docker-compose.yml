@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: medplus-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: medplus_pos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d medplus_pos"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medplus-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      APP_ENV: development
+      PORT: 8080
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: medplus_pos
+      DB_SSLMODE: disable
+      JWT_SECRET: dev-secret-medplus-change-in-prod
+      ALLOWED_ORIGINS: http://localhost:8082,http://127.0.0.1:8082,http://localhost:8080
+      BOOTSTRAP_DB: "true"
+      SEED_DEMO_DATA: "true"
+      ENABLE_PUBLIC_REGISTRATION: "true"
+    ports:
+      - "8082:8080"
+
+volumes:
+  postgres_data:

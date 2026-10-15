@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MedPlus POS Documentation</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <style>
+            :root {
+                --bg: #f8fafc;
+                --card: #ffffff;
+                --border: #dbe4ee;
+                --text: #0f172a;
+                --muted: #475569;
+                --brand: #0f766e;
+                --brand-soft: #ccfbf1;
+                --accent: #0d9488;
+                --warning: #92400e;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                font-family: "Inter", sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.65;
+            }
+            .hero {
+                background: linear-gradient(135deg, #ecfeff 0%, #f8fafc 70%);
+                border-bottom: 1px solid var(--border);
+                padding: 48px 20px 32px;
+            }
+            .container {
+                width: min(1160px, calc(100% - 32px));
+                margin: 0 auto;
+            }
+            .badge {
+                display: inline-block;
+                background: var(--brand-soft);
+                color: var(--brand);
+                border-radius: 999px;
+                padding: 6px 12px;
+                font-size: 12px;
+                font-weight: 700;
+                margin-bottom: 16px;
+            }
+            h1,
+            h2,
+            h3 {
+                line-height: 1.2;
+                margin: 0 0 12px;
+            }
+            h1 {
+                font-size: clamp(2rem, 4vw, 3rem);
+            }
+            h2 {
+                font-size: 1.7rem;
+                margin-top: 8px;
+            }
+            h3 {
+                font-size: 1.1rem;
+            }
+            p,
+            li {
+                color: var(--muted);
+            }
+            .lead {
+                max-width: 900px;
+                font-size: 1.05rem;
+            }
+            .actions {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+                margin-top: 24px;
+            }
+            .btn {
+                display: inline-block;
+                text-decoration: none;
+                padding: 12px 16px;
+                border-radius: 12px;
+                font-weight: 700;
+                border: 1px solid var(--border);
+                background: white;
+                color: var(--text);
+            }
+            .btn-primary {
+                border: none;
+                background: linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--brand)
+                );
+                color: white;
+            }
+            main {
+                padding: 28px 0 48px;
+            }
+            .section {
+                margin-bottom: 18px;
+            }
+            .grid {
+                display: grid;
+                gap: 16px;
+            }
+            .grid-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .grid-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                padding: 20px;
+                box-shadow: 0 8px 28px rgba(15, 23, 42, 0.04);
+            }
+            .note {
+                margin-top: 16px;
+                padding: 14px 16px;
+                border-radius: 12px;
+                border-left: 4px solid var(--accent);
+                background: #f0fdfa;
+                color: #115e59;
+            }
+            .warning {
+                border-left-color: #f59e0b;
+                background: #fffbeb;
+                color: var(--warning);
+            }
+            .toc a {
+                display: block;
+                color: var(--brand);
+                text-decoration: none;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+            .flow-step {
+                border-left: 3px solid #cbd5e1;
+                padding-left: 14px;
+                margin-bottom: 12px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+            }
+            th,
+            td {
+                padding: 14px 16px;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+            }
+            th {
+                background: #f8fafc;
+                color: var(--muted);
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            code {
+                background: #f1f5f9;
+                padding: 2px 6px;
+                border-radius: 6px;
+                font-family: Consolas, monospace;
+                font-size: 0.95em;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            .search-bar {
+                position: relative;
+                max-width: 480px;
+                width: 100%;
+                margin-top: 18px;
+            }
+            .search-bar input {
+                width: 100%;
+                padding: 12px 18px 12px 42px;
+                border-radius: 12px;
+                border: 1px solid var(--border);
+                background: white;
+                font-size: 14px;
+                font-family: inherit;
+                color: var(--text);
+                outline: none;
+                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+                transition: border-color 0.2s, box-shadow 0.2s;
+            }
+            .search-bar input:focus {
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+            }
+            .search-bar svg {
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                color: var(--muted);
+                pointer-events: none;
+            }
+            .back-to-top {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: var(--brand);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 46px;
+                height: 46px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s, transform 0.2s;
+                z-index: 1000;
+            }
+            .back-to-top.visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .back-to-top:hover {
+                transform: translateY(-3px);
+                background: var(--accent);
+            }
+            .copyable-code {
+                cursor: pointer;
+                position: relative;
+                transition: background 0.2s;
+            }
+            .copyable-code:hover {
+                background: #e2e8f0;
+            }
+            .copyable-code::after {
+                content: "click to copy";
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #0f172a;
+                color: #fff;
+                padding: 2px 6px;
+                font-size: 10px;
+                border-radius: 4px;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+            }
+            .copyable-code:hover::after {
+                opacity: 0.9;
+            }
+            .search-hidden {
+                display: none !important;
+            }
+            .highlight-match {
+                background-color: #fef08a !important;
+                border-radius: 2px;
+            }
+            footer {
+                padding: 10px 0 42px;
+                color: var(--muted);
+            }
+            @media (max-width: 900px) {
+                .grid-2,
+                .grid-3 {
+                    grid-template-columns: 1fr;
+                }
+                th,
+                td {
+                    padding: 12px;
+                }
+                .search-bar {
+                    max-width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="hero">
+            <div class="container">
+                <div class="badge">MedPlus Pharmacy POS Documentation</div>
+                <h1>System Architecture and Operating Guide</h1>
+                <p class="lead">
+                    This page explains the MedPlus Pharmacy POS system in plain
+                    language. It covers what the system does, who uses it, how
+                    the frontend, backend, and database work together, how
+                    checkout and supply-chain workflows move from start to
+                    finish, and what is required for production hosting.
+                </p>
+                <div class="actions">
+                    <a class="btn btn-primary" href="/">Open Application</a>
+                    <a class="btn" href="#contents">Jump to Contents</a>
+                </div>
+                <div class="search-bar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="docSearch" placeholder="Search documentation, endpoints, or SQL tables... (Press '/' to focus)" />
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <section class="section card" id="contents">
+                    <h2>Contents</h2>
+                    <div class="toc">
+                        <a href="#overview">1. Business Overview</a>
+                        <a href="#roles">2. User Roles and Access</a>
+                        <a href="#modules">3. Functional Modules</a>
+                        <a href="#architecture">4. System Architecture</a>
+                        <a href="#auth">5. Authentication and Session Flow</a>
+                        <a href="#checkout">6. Checkout and Receipt Flow</a>
+                        <a href="#supply-chain"
+                            >7. Supply Chain and Restocking Flow</a
+                        >
+                        <a href="#analytics"
+                            >8. Reports, Analytics, and Database Overview</a
+                        >
+                        <a href="#rbac">9. Dynamic RBAC Management</a>
+                        <a href="#database">10. Database Design Summary</a>
+                        <a href="#deployment">11. Deployment and Hosting</a>
+                        <a href="#security"
+                            >12. Security and Operational Safety</a
+                        >
+                        <a href="#production"
+                            >13. Production Readiness Checklist</a
+                        >
+                        <a href="#faq">14. FAQ and Glossary</a>
+                        <a href="#functions">15. Core System Endpoints and Functions Directory</a>
+                        <a href="#upgrades">16. Recent Upgrades & Visual Overhaul (2030 Glassmorphism & Pricing Update)</a>
+                    </div>
+                </section>
+
+                <section class="section" id="overview">
+                    <div class="grid grid-3">
+                        <div class="card">
+                            <h3>What the system does</h3>
+                            <p>
+                                MedPlus POS is a complete pharmacy operations
+                                system. It handles sales, cart and checkout,
+                                customer records, product inventory, supplier
+                                management, purchase orders, stock receiving,
+                                receipts, reports, analytics, and
+                                administration.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Who it is for</h3>
+                            <p>
+                                It is designed for pharmacies that need one
+                                connected system for front-desk sales, stock
+                                control, supplier coordination, and management
+                                reporting.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Why it matters</h3>
+                            <p>
+                                A completed sale updates inventory. A received
+                                purchase order increases stock. Reports and
+                                analytics read real operational data. This
+                                reduces manual work and keeps the business view
+                                accurate.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="roles">
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h2>User Roles and Access</h2>
+                            <p>
+                                Access is controlled by permissions. A role is
+                                not just a label. Each role is connected to a
+                                permission matrix that decides what a user can
+                                view and what a user can change.
+                            </p>
+                            <div class="note">
+                                Example: a pharmacist can perform checkouts and manage inventory, but
+                                should not be able to open the database
+                                overview. An admin can manage users and unlock
+                                the database overview after re-entering their
+                                password.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Main Responsibility</th>
+                                        <th>Typical Access</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Admin</strong></td>
+                                        <td>System governance and control</td>
+                                        <td>
+                                            All major modules, user CRUD, RBAC,
+                                            database overview
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Pharmacist</strong></td>
+                                        <td>
+                                            Clinical oversight, inventory management, and POS checkout sales.
+                                        </td>
+                                        <td>
+                                            POS, inventory, customers, prescriptions, reports, analytics, and supply chain.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="modules">
+                    <div class="card">
+                        <h2>Functional Modules</h2>
+                        <div class="grid grid-3">
+                            <div class="card">
+                                <h3>Point of Sale</h3>
+                                <p>
+                                    Search products, add items to cart, validate
+                                    prescriptions, choose payment method, and
+                                    complete sales.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Inventory</h3>
+                                <p>
+                                    Create and update products, manage stock,
+                                    set reorder levels, and monitor
+                                    availability.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Customers</h3>
+                                <p>
+                                    Save customer and patient details for faster
+                                    service and linked checkout records.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Supply Chain</h3>
+                                <p>
+                                    Manage suppliers, create purchase orders,
+                                    edit order status, and receive stock into
+                                    inventory.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Reports and Analytics</h3>
+                                <p>
+                                    Review revenue, transactions, category
+                                    performance, low-stock items, and
+                                    operational trends.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Administration</h3>
+                                <p>
+                                    Manage users, roles, permissions, settings,
+                                    and sensitive data visibility.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="architecture">
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h2>System Architecture</h2>
+                            <p>
+                                The solution follows a simple three-layer
+                                structure:
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>Frontend:</strong> HTML, CSS, and
+                                    JavaScript rendered in the browser.
+                                </li>
+                                <li>
+                                    <strong>Backend API:</strong> A Go server
+                                    that validates requests, applies business
+                                    rules, and returns JSON.
+                                </li>
+                                <li>
+                                    <strong>Database:</strong> PostgreSQL stores
+                                    users, permissions, products, customers,
+                                    sales, suppliers, purchase orders, and
+                                    payment audit data.
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="card">
+                            <h3>Plain-language request flow</h3>
+                            <div class="flow-step">
+                                <strong>Step 1:</strong> A user clicks a screen
+                                such as inventory, checkout, reports, or supply
+                                chain.
+                            </div>
+                            <div class="flow-step">
+                                <strong>Step 2:</strong> The browser sends a
+                                request to the backend, for example
+                                <code>/api/products</code> or
+                                <code>/api/sales</code>.
+                            </div>
+                            <div class="flow-step">
+                                <strong>Step 3:</strong> The backend checks
+                                authentication and permissions.
+                            </div>
+                            <div class="flow-step">
+                                <strong>Step 4:</strong> The backend reads from
+                                or writes to PostgreSQL.
+                            </div>
+                            <div class="flow-step">
+                                <strong>Step 5:</strong> The frontend refreshes
+                                the screen with real data.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="auth">
+                    <div class="card">
+                        <h2>Authentication and Session Flow</h2>
+                        <div class="grid grid-2">
+                            <div>
+                                <h3>Login flow</h3>
+                                <ol>
+                                    <li>User enters username and password.</li>
+                                    <li>
+                                        The backend verifies the password hash
+                                        and confirms the account is active.
+                                    </li>
+                                    <li>
+                                        The backend issues a signed
+                                        authentication token.
+                                    </li>
+                                    <li>
+                                        The frontend stores the token locally
+                                        and sends it with future API requests.
+                                    </li>
+                                    <li>
+                                        The app loads the user profile and
+                                        permission list so it can show only the
+                                        correct modules.
+                                    </li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h3>Logout and re-verification</h3>
+                                <ol>
+                                    <li>
+                                        When a user logs out, the frontend
+                                        clears the saved token and local session
+                                        data.
+                                    </li>
+                                    <li>
+                                        The app returns to the login screen.
+                                    </li>
+                                    <li>
+                                        The database overview requires an
+                                        additional password re-entry even for an
+                                        already logged-in admin.
+                                    </li>
+                                </ol>
+                                <div class="note warning">
+                                    This second password check protects one of
+                                    the most sensitive screens in the system.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="checkout">
+                    <div class="card">
+                        <h2>Checkout and Receipt Flow</h2>
+                        <div class="grid grid-2">
+                            <div>
+                                <h3>Standard sale</h3>
+                                <div class="flow-step">
+                                    <strong>Select product:</strong> Products
+                                    are loaded live from the backend catalog.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Add to cart:</strong> The cart
+                                    stores quantity, price, and any prescription
+                                    details needed.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Choose customer:</strong> A walk-in
+                                    customer can be used, or a saved customer
+                                    can be linked.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Choose payment:</strong> Cash, Card,
+                                    or M-Pesa.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Submit checkout:</strong> The
+                                    backend verifies stock and records the sale.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Inventory updates:</strong> Product
+                                    stock is reduced automatically.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Receipt generation:</strong> The
+                                    system loads a live receipt from the receipt
+                                    endpoint.
+                                </div>
+                            </div>
+                            <div>
+                                <h3>M-Pesa flow</h3>
+                                <ol>
+                                    <li>
+                                        The pharmacist selects
+                                        <code>M-Pesa</code> and enters the
+                                        customer phone number.
+                                    </li>
+                                    <li>
+                                        The frontend requests an STK push from
+                                        the backend.
+                                    </li>
+                                    <li>
+                                        The backend talks to Daraja and stores
+                                        the payment audit record.
+                                    </li>
+                                    <li>
+                                        The sale is recorded with a payment
+                                        reference and a pending or current
+                                        payment status.
+                                    </li>
+                                    <li>
+                                        When Daraja sends a callback, the
+                                        backend updates the payment audit trail
+                                        and the matching sale payment status.
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="supply-chain">
+                    <div class="card">
+                        <h2>Supply Chain and Restocking Flow</h2>
+                        <div class="grid grid-2">
+                            <div>
+                                <h3>Supplier management</h3>
+                                <p>
+                                    Supplier records store supplier name,
+                                    contact person, phone, email, address, and
+                                    active/inactive status.
+                                </p>
+                                <h3>Purchase orders</h3>
+                                <p>
+                                    A purchase order connects one supplier to a
+                                    list of requested products and quantities.
+                                    It also stores operational status, notes,
+                                    expected delivery timing, and receiving
+                                    details.
+                                </p>
+                            </div>
+                            <div>
+                                <h3>Receiving stock</h3>
+                                <div class="flow-step">
+                                    <strong>Order preparation:</strong> Staff
+                                    create a purchase order manually or from
+                                    low-stock items.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Supplier delivery:</strong> The
+                                    supplier delivers the requested stock.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Receive action:</strong> Staff mark
+                                    the purchase order as received.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Inventory increase:</strong> Product
+                                    stock is added to the main inventory.
+                                </div>
+                                <div class="flow-step">
+                                    <strong>Audit status:</strong> The purchase
+                                    order is locked as received and keeps a
+                                    receiving trail.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note">
+                            The supply-chain module is meant to support real
+                            stock movement, not just display records. It
+                            connects planning, ordering, receiving, and
+                            inventory updates end to end.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="analytics">
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h2>Reports, Analytics, and Database Overview</h2>
+                            <ul>
+                                <li>
+                                    <strong>Dashboard:</strong> Today’s sales,
+                                    transactions, prescriptions, and low-stock
+                                    counts.
+                                </li>
+                                <li>
+                                    <strong>Reports:</strong> Revenue, units
+                                    sold, inventory value, purchase-order
+                                    activity, and top products.
+                                </li>
+                                <li>
+                                    <strong>Analytics:</strong> Daily sales
+                                    trends, category performance, and payment
+                                    method performance.
+                                </li>
+                                <li>
+                                    <strong>Database Overview:</strong>
+                                    Plain-language explanations of tables,
+                                    record counts, and structural details.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Why the database overview exists</h3>
+                            <p>
+                                The database overview is designed for
+                                administrators who need a business-friendly
+                                explanation of what data the system stores. It
+                                shows table names, table sizes, row counts,
+                                column types, and a human explanation of what
+                                each table is used for.
+                            </p>
+                            <p>
+                                This screen is restricted to authorized admins
+                                and requires password re-entry before data
+                                structure details are shown.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="rbac">
+                    <div class="card">
+                        <h2>Dynamic RBAC Management</h2>
+                        <p>
+                            RBAC means
+                            <strong>Role-Based Access Control</strong>. The
+                            system now uses a stored permission matrix instead
+                            of relying only on fixed hardcoded role rules.
+                        </p>
+                        <div class="grid grid-3">
+                            <div class="card">
+                                <h3>Dynamic</h3>
+                                <p>
+                                    Roles and permissions can be updated without
+                                    changing application code.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Controlled</h3>
+                                <p>
+                                    Each permission is checked by the backend
+                                    before protected actions are allowed.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Visible</h3>
+                                <p>
+                                    The frontend uses the user’s permission list
+                                    to decide which modules are shown.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="database">
+                    <div class="card">
+                        <h2>Database Design Summary</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Table</th>
+                                    <th>Purpose</th>
+                                    <th>Simple Explanation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>users</code></td>
+                                    <td>Staff accounts</td>
+                                    <td>
+                                        Who can log in, what role they have, and
+                                        whether the account is active.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>role_permissions</code></td>
+                                    <td>Access matrix</td>
+                                    <td>
+                                        Decides what each role can view or
+                                        manage.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>products</code></td>
+                                    <td>Inventory catalog</td>
+                                    <td>
+                                        All medicines and retail products sold
+                                        by the pharmacy.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>customers</code></td>
+                                    <td>Customer records</td>
+                                    <td>
+                                        Saved customer and patient information
+                                        for linked transactions.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>sales</code></td>
+                                    <td>Transactions</td>
+                                    <td>
+                                        Main sale records including totals,
+                                        selling pharmacist, customer, and payment method.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>sale_items</code></td>
+                                    <td>Transaction lines</td>
+                                    <td>
+                                        The exact products and quantities sold
+                                        in each sale.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>prescriptions</code></td>
+                                    <td>Clinical verification</td>
+                                    <td>
+                                        Prescription details required for
+                                        regulated medicines.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>suppliers</code></td>
+                                    <td>Vendor directory</td>
+                                    <td>
+                                        The businesses the pharmacy orders stock
+                                        from.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>purchase_orders</code></td>
+                                    <td>Restocking orders</td>
+                                    <td>
+                                        Requests placed with suppliers when
+                                        stock needs replenishment.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>purchase_order_items</code></td>
+                                    <td>PO line items</td>
+                                    <td>
+                                        The products and quantities inside each
+                                        purchase order.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>mpesa_payments</code></td>
+                                    <td>Mobile payment audit</td>
+                                    <td>
+                                        Daraja request and callback details for
+                                        M-Pesa transactions.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="section" id="deployment">
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h2>Deployment and Hosting</h2>
+                            <p>
+                                The project is prepared for container-based
+                                deployment using Docker. The Go backend serves
+                                both the API and the frontend web files, while
+                                PostgreSQL stores the business data.
+                            </p>
+                            <ul>
+                                <li>
+                                    The backend exposes API routes such as
+                                    <code>/api/auth/login</code> and
+                                    <code>/api/sales</code>.
+                                </li>
+                                <li>
+                                    The same backend serves the user interface
+                                    from the <code>web</code> folder.
+                                </li>
+                                <li>
+                                    PostgreSQL stores operational data and
+                                    permissions.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Recommended production pattern</h3>
+                            <ol>
+                                <li>
+                                    Host PostgreSQL in a secured environment.
+                                </li>
+                                <li>Host the Go application behind HTTPS.</li>
+                                <li>
+                                    Set real environment variables for secrets
+                                    and callback URLs.
+                                </li>
+                                <li>
+                                    Restrict CORS to the real production domain.
+                                </li>
+                                <li>Disable demo seeding in production.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="security">
+                    <div class="card">
+                        <h2>Security and Operational Safety</h2>
+                        <div class="grid grid-3">
+                            <div class="card">
+                                <h3>Password handling</h3>
+                                <p>
+                                    Passwords are stored as hashes, not plain
+                                    text.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Rate limiting</h3>
+                                <p>
+                                    Authentication endpoints are rate-limited to
+                                    reduce abuse risk.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Role enforcement</h3>
+                                <p>
+                                    The backend checks permissions before
+                                    protected actions are allowed.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Database protection</h3>
+                                <p>
+                                    The database overview requires both
+                                    permission and password re-verification.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Operational stability</h3>
+                                <p>
+                                    Timeouts, request logging, panic recovery,
+                                    and readiness checks improve stability.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Secrets handling</h3>
+                                <p>
+                                    Credentials should be supplied through
+                                    environment variables, not committed into
+                                    tracked files.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="production">
+                    <div class="card">
+                        <h2>Production Readiness Checklist</h2>
+                        <ul>
+                            <li>Use a strong <code>JWT_SECRET</code>.</li>
+                            <li>Set <code>APP_ENV=production</code>.</li>
+                            <li>Set <code>SEED_DEMO_DATA=false</code>.</li>
+                            <li>
+                                Set
+                                <code>ENABLE_PUBLIC_REGISTRATION=false</code>
+                                unless self-sign-up is desired.
+                            </li>
+                            <li>Configure the real database connection.</li>
+                            <li>
+                                Set the real Daraja callback URL and payment
+                                credentials.
+                            </li>
+                            <li>Use HTTPS for all user traffic.</li>
+                            <li>Back up the database regularly.</li>
+                            <li>Review RBAC permissions before launch.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="faq">
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h2>FAQ</h2>
+                            <h3>Can pharmacists see the database overview?</h3>
+                            <p>
+                                No. That page is restricted to authorized
+                                administrators only. Pharmacists handle inventory, sales, prescriptions, and supply chain, but database administration requires the Admin role.
+                            </p>
+                            <h3>Does a sale reduce inventory automatically?</h3>
+                            <p>
+                                Yes. Completing a sale updates stock
+                                immediately.
+                            </p>
+                            <h3>
+                                Does receiving a purchase order increase stock
+                                automatically?
+                            </h3>
+                            <p>
+                                Yes. Receiving stock updates inventory levels.
+                            </p>
+                            <h3>Can roles be changed later?</h3>
+                            <p>
+                                Yes. The RBAC screen supports dynamic permission
+                                management.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h2>Glossary</h2>
+                            <p>
+                                <strong>API:</strong> The communication layer
+                                between the frontend and backend.
+                            </p>
+                            <p>
+                                <strong>Frontend:</strong> The visual
+                                browser-based interface used by staff.
+                            </p>
+                            <p>
+                                <strong>Backend:</strong> The Go server that
+                                applies business logic.
+                            </p>
+                            <p>
+                                <strong>RBAC:</strong> Role-Based Access
+                                Control.
+                            </p>
+                            <p>
+                                <strong>Purchase Order:</strong> A restocking
+                                request sent to a supplier.
+                            </p>
+                            <p>
+                                <strong>Receipt:</strong> A printable summary of
+                                a completed sale.
+                            </p>
+                            <p>
+                                <strong>Daraja:</strong> Safaricom’s M-Pesa
+                                developer API.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="functions">
+                    <div class="card">
+                        <h2>15. Core System Endpoints and Functions Directory</h2>
+                        <p>
+                            To help you present the project, this section documents all backend Go handlers (API endpoints) and key frontend Javascript functions, explaining their specific business uses and technical implementations.
+                        </p>
+
+                        <h3 style="margin-top: 24px; color: var(--brand);">A. Backend Go Handlers (API Endpoints)</h3>
+                        <div class="table-container">
+                            <table style="font-size: 13.5px;">
+                                <thead>
+                                    <tr>
+                                        <th>Module / Endpoint</th>
+                                        <th>Handler Name</th>
+                                        <th>HTTP Method</th>
+                                        <th>Description and Business Use Case</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Authentication</strong><br><code>/api/auth/login</code></td>
+                                        <td><code>LoginHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Verifies staff credentials. Compares input password with the stored bcrypt hash. Returns a signed JWT token and user profile details to start a session.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/auth/register</code></td>
+                                        <td><code>RegisterHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Creates a new user account (Pharmacist). Hashes the password with bcrypt and inserts the record into the <code>users</code> table. Protected by admin permissions.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/auth/me</code></td>
+                                        <td><code>MeHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Extracts the user ID from the active JWT token and fetches the current profile. Used to verify session validity.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/auth/logout</code></td>
+                                        <td><code>LogoutHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Logs out the active user session and invalidates the authentication token on the client side.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/profile</code></td>
+                                        <td><code>SaveProfileHandler</code></td>
+                                        <td><span style="background: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PUT</span></td>
+                                        <td>Allows logged-in users to update their full name, username, and change passwords securely.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Products & Catalog</strong><br><code>/api/products</code></td>
+                                        <td><code>GetProductsHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Retrieves products for sales view. Supports category filtering (e.g. Prescription, OTC, Vitamins) and barcode/name keyword search.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/products/{id}</code></td>
+                                        <td><code>ProductItemHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PUT</span> / <span style="background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">DELETE</span></td>
+                                        <td>Manages a single product: retrieves details, updates info, or soft-deactivates the item (sets status to 'inactive' so it is hidden but historical sales records are preserved).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/admin/products</code></td>
+                                        <td><code>ProductCollectionHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Admin-only endpoint to register a new product, setting details like name, category, brand, price, reorder level, and expiry date.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Inventory</strong><br><code>/api/inventory</code></td>
+                                        <td><code>GetInventoryHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Lists all active stock levels, batch statuses, and reorder alerts. Highlighted for stock managers and pharmacists.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Sales & Transactions</strong><br><code>/api/sales</code></td>
+                                        <td><code>ProcessSaleHandler</code> / <code>ListSalesHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span> / <span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td><strong>POST:</strong> Processes POS checkouts. Deducts quantities from inventory (using FIFO logic), links prescriptions for Rx items, computes tax, and inserts records into <code>sales</code> and <code>sale_items</code> tables.<br><strong>GET:</strong> Lists completed transaction summaries.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/receipts/{id}</code></td>
+                                        <td><code>GetReceiptHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Generates detailed printable layouts for a completed sale receipt.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Customer Management</strong><br><code>/api/customers</code></td>
+                                        <td><code>CustomersCollectionHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Lists customer profiles or registers new ones with contact details and loyalty account configurations.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/customers/{id}</code></td>
+                                        <td><code>CustomerItemHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PUT</span> / <span style="background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">DELETE</span></td>
+                                        <td>Fetches customer info, updates contact or loyalty data, or archives the profile.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Prescription Verification</strong><br><code>/api/prescriptions</code></td>
+                                        <td><code>PrescriptionsCollectionHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Registers patient prescriptions issued by external doctors. Enforces clinical validation where checkout of prescription (Rx) category products requires linking these IDs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/prescriptions/{id}</code></td>
+                                        <td><code>PrescriptionItemHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Fetches details of a specific prescription, including its items and quantities.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Supply Chain</strong><br><code>/api/suppliers</code></td>
+                                        <td><code>SuppliersCollectionHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Registers product supply vendors or lists current active suppliers.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/purchase-orders</code></td>
+                                        <td><code>PurchaseOrdersCollectionHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Creates purchase orders in 'draft' or 'submitted' status to request inventory items from suppliers.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/purchase-orders/{id}/receive</code></td>
+                                        <td><code>ReceivePurchaseOrderHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Receives items from supplier delivery. Transitions PO status to 'received' and automatically increments inventory stock counts.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>M-Pesa Payments (Daraja)</strong><br><code>/api/payments/config</code></td>
+                                        <td><code>PaymentsConfigHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Fetches M-Pesa configurations for the frontend checkout screen.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/payments/mpesa/stk-push</code></td>
+                                        <td><code>MPesaSTKPushHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Triggers a mobile STK PIN push to the customer's phone via Safaricom Daraja API. Records transaction state as 'pending'.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/payments/mpesa/status/{id}</code></td>
+                                        <td><code>MPesaPaymentStatusHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Queries the current status of an STK push transaction using the Safaricom query API.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/payments/mpesa/callback</code></td>
+                                        <td><code>MPesaCallbackHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Public webhook used by Safaricom to report payment outcomes (success/failure), updating tables <code>mpesa_payments</code> and <code>sales</code>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Database Overview & RBAC</strong><br><code>/api/database-overview/access</code></td>
+                                        <td><code>VerifyDatabaseAccessHandler</code></td>
+                                        <td><span style="background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">POST</span></td>
+                                        <td>Verifies admin password / PIN, generating a secure temporary access token (`X-Database-Access-Token`) valid for 10 minutes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/database-overview</code></td>
+                                        <td><code>DatabaseOverviewHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span></td>
+                                        <td>Requires the `X-Database-Access-Token` header. Queries Postgres system catalogs to compile table row counts, sizes, column schemas, and types.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/api/rbac/roles</code></td>
+                                        <td><code>RBACCollectionHandler</code> / <code>RBACRoleHandler</code></td>
+                                        <td><span style="background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 4px; font-weight: bold;">GET</span> / <span style="background: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PUT</span></td>
+                                        <td>Manages the dynamic role-permission access matrix. Adjusts features visible to Admins and Pharmacists.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 32px; color: var(--brand);">B. Key Frontend JavaScript Functions</h3>
+                        <p>
+                            These client-side functions run in the browser to control user interactions, display state variables, and call the Go backend APIs:
+                        </p>
+                        <ul>
+                            <li><strong><code>apiFetch(path, options, auth)</code>:</strong> Standard network client wrapping the native <code>fetch</code> API. Automatically adds authorization tokens (`Bearer JWT`) to headers and parses responses, throwing helpful toast notifications on failure.</li>
+                            <li><strong><code>bootstrapAuthenticatedApp()</code>:</strong> Fired after a successful login. Fetches current session details, parses user roles, applies dynamic permission layouts, and boots core datasets in parallel.</li>
+                            <li><strong><code>loadCoreData()</code>:</strong> Triggered on app load. Uses concurrent promises to fetch products, inventory levels, dashboard metrics, customer profiles, dynamic prescriptions, sales history, and database overview parameters.</li>
+                            <li><strong><code>showView(view, event)</code>:</strong> Coordinates navigation tab state changes. Intercepts clicks, checks if the user's role has permission to access the view, activates a 700ms glassmorphic medicine-pill spinning loader animation, and toggles visibility of the active section while triggering view-specific renders.</li>
+                            <li><strong><code>loadSales()</code>:</strong> Fetches the full sales transaction history from the <code>/api/sales</code> endpoint to feed the dashboard's recent transaction tracker.</li>
+                            <li><strong><code>renderDashboardWelcome()</code>:</strong> Generates the custom gradient welcome greeting at the top of the dashboard, displaying the active user's full name, role, and context-specific action keys.</li>
+                            <li><strong><code>renderDashboardFeeds()</code>:</strong> Renders the real-time operational dashboard widgets: the Recent Transactions feed (top 5 latest sales) and the Expiring Medicines Alert feed (list of active inventory items expiring within 180 days).</li>
+                            <li><strong><code>addToCart(productId)</code>:</strong> Validates stock availability. If the item is marked prescription-only (Rx), it pops up the verification modal (`#rxModal`) requiring a valid prescription number before adding it to the cart list.</li>
+                            <li><strong><code>unlockDatabaseOverview(event)</code>:</strong> Triggered when the admin inputs their PIN/password on the Database Overview screen. Posts credentials to <code>/api/database-overview/access</code>, saves the returned access token, and triggers data retrieval.</li>
+                            <li><strong><code>renderDatabaseTables()</code>:</strong> Renders rows representing each of the 11 database tables, displaying record totals, column counts, and database memory allocations.</li>
+                            <li><strong><code>showTableSchema(tableName)</code>:</strong> Compiles column properties for a selected table. Opens the schema modal (`#dbSchemaModal`) listing names, sql data types, and nullable flags.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="upgrades">
+                    <div class="card">
+                        <h2>16. Recent Upgrades & Visual Overhaul (2030 Glassmorphism & Pricing Update)</h2>
+                        <p>
+                            To make the MedPlus Pharmacy POS system ready for the next decade, a complete visual and operational upgrade has been applied:
+                        </p>
+                        
+                        <h3 style="margin-top: 20px; color: var(--brand);">A. 2030 Dark Glassmorphism Styling</h3>
+                        <p>
+                            The old light teal user interface has been transitioned to a high-end 2030 visual design:
+                        </p>
+                        <ul>
+                            <li><strong>Radial Background:</strong> Uses a rich, deep-slate radial gradient (<code>#0b1329</code> to <code>#030712</code>) that reduces eye strain and provides a futuristic look.</li>
+                            <li><strong>Glass Panel Cards:</strong> Content panels use semi-transparent backgrounds (<code>rgba(30, 41, 59, 0.25)</code>) coupled with a backdrop blur filter (<code>backdrop-filter: blur(16px)</code>) and subtle glowing borders.</li>
+                            <li><strong>Dynamic Sidebar:</strong> Navigations feature glowing hover animations and active neon teal selections.</li>
+                        </ul>
+
+                        <h3 style="margin-top: 20px; color: var(--brand);">B. Spinning Medicine Transition Loader</h3>
+                        <p>
+                            To make page transitions feel smooth and immersive, a custom animation runs when moving between sidebar sections:
+                            When a menu option is selected, a 700ms floating page-loader overlays the screen. In the center, a 3D-glowing medicine pill icon rotates smoothly (<code>@keyframes loaderSpin</code>) with a floating bounce (<code>@keyframes loaderFloat</code>) and pulsing teal background glow (<code>@keyframes loaderGlowPulse</code>).
+                        </p>
+
+                        <h3 style="margin-top: 20px; color: var(--brand);">C. Realistic Whole Integer Ksh Pricing</h3>
+                        <p>
+                            The system has been updated from a decimal-based dollar pricing scheme to a realistic integer-based Kenyan Shilling (Ksh) pricing model:
+                        </p>
+                        <ul>
+                            <li><strong>No Decimals / Cents:</strong> Cents have been completely removed from frontend displays (formatted via <code>Math.round</code> in JS) and backend seeds. A product price will show as <code>Ksh 450</code> instead of <code>4.99</code>.</li>
+                            <li><strong>Database Migration:</strong> On database startup, a pricing migration automatically rounds all existing product prices using <code>ROUND()</code> and converts any low dollar-equivalent prices to their realistic Kenyan Shilling equivalent.</li>
+                            <li><strong>Restocking Costs:</strong> Auto-generated restock orders round purchase costs to the nearest integer using <code>Math.round(price * 0.7)</code>, ensuring integer consistency across supply chain calculations.</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                This document describes the current MedPlus Pharmacy POS
+                implementation. It should be reviewed whenever major modules,
+                workflows, or integrations change.
+            </div>
+        </footer>
+
+        <button class="back-to-top" id="backToTop" title="Back to top">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </button>
+
+        <script>
+            // Live Search
+            const searchInput = document.getElementById('docSearch');
+            const sections = document.querySelectorAll('main section.section:not(#contents)');
+            const toc = document.getElementById('contents');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const q = e.target.value.toLowerCase().trim();
+                    if (!q) {
+                        sections.forEach(s => s.classList.remove('search-hidden'));
+                        toc.classList.remove('search-hidden');
+                        return;
+                    }
+
+                    toc.classList.add('search-hidden');
+                    sections.forEach(s => {
+                        const text = s.textContent.toLowerCase();
+                        if (text.includes(q)) {
+                            s.classList.remove('search-hidden');
+                        } else {
+                            s.classList.add('search-hidden');
+                        }
+                    });
+                });
+
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === '/' && document.activeElement !== searchInput) {
+                        e.preventDefault();
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                });
+            }
+
+            // Back to top
+            const backBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backBtn.classList.add('visible');
+                } else {
+                    backBtn.classList.remove('visible');
+                }
+            });
+            backBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Click to copy code
+            document.querySelectorAll('code').forEach(el => {
+                el.classList.add('copyable-code');
+                el.addEventListener('click', () => {
+                    const text = el.innerText.trim();
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalBg = el.style.backgroundColor;
+                        el.style.backgroundColor = '#bbf7d0';
+                        setTimeout(() => {
+                            el.style.backgroundColor = originalBg;
+                        }, 600);
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

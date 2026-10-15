@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded background -->
+  <rect width="64" height="64" rx="18" fill="url(#grad)" />
+  
+  <!-- Pill 1: Capsule (tilted) -->
+  <g transform="translate(32, 30) rotate(-45)">
+    <!-- Left side (white) -->
+    <path d="M-16,-8 L0,-8 A8,8 0 0,0 0,-24 L-16,-24 A8,8 0 0,0 -16,-8 Z" fill="#ffffff" />
+    <!-- Right side (teal light) -->
+    <path d="M0,-8 L16,-8 A8,8 0 0,1 16,-24 L0,-24 A8,8 0 0,1 0,-8 Z" fill="#2dd4bf" />
+    <!-- Divider line -->
+    <line x1="0" y1="-8" x2="0" y2="-24" stroke="#0f766e" stroke-width="1.5" />
+  </g>
+  
+  <!-- Pill 2: Round Tablet -->
+  <g transform="translate(42, 42)">
+    <circle cx="0" cy="0" r="10" fill="#ffffff" />
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#0d9488" stroke-width="2" />
+    <!-- Score line on round pill -->
+    <line x1="-7" y1="0" x2="7" y2="0" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="1 1" />
+  </g>
+</svg>

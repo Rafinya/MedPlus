@@ -1,0 +1,20 @@
+
+
+
+
+           School of Technology
+                             
+Final Year Project II
+
+Implementation Plan – Topics Guideline
+
+Implementation Schedule
+Installation & Conversion Plans
+Software and hardware installation plans
+-Activities of Conversion
+-System conversion strategy
+Training Plan
+-Training Methods
+Software maintenance plan
+Change management Plan
+

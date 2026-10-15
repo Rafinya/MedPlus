@@ -1,0 +1,10 @@
+.git
+backend/.env
+backend/*.exe
+*.exe
+*.log
+*.pdf
+*.docx
+*.pptx
+*.png
+*.txt

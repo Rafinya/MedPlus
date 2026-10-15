@@ -1,0 +1,289 @@
+
+--- Page 1 ---
+SCHOOL OF TECHNOLOGY
+FINAL YEAR PROJECT II - SYSTEMS IMPLEMENTATION TRACK
+STAFF TRAINING MATERIAL
+USER TRAINING
+MANUAL
+Operating Guide for the MedPlus Pharmacy POS & Inventory
+Management System (2030 Glassmorphic Edition)
+INTENDED AUDIENCE:
+Pharmacists, Cashiers, Stock Managers, and
+Administrators
+SYSTEM VERSION:
+v1.0.0 • Whole Integer Ksh Pricing
+--- Page 2 ---
+Legal Disclaimer & Terms of Use
+IMPORTANT SAFETY AND COMPLIANCE NOTICE
+This manual documents the software operations of the MedPlus Pharmacy POS system. The system enforces clinical
+prescription validation and payment reporting standards. Users must ensure that restricted medicines (Rx category) are
+only dispensed after verifying a valid doctor's prescription. Patient records stored within the database are subject to
+regional medical confidentiality laws. Unauthorized sharing of staff credentials or bypasses of dynamic Role-Based
+Access Control matrix fields is strictly prohibited.
+All patient identifiers, prescriptions, and supplier databases used in this guide are illustrative. Safaricom Daraja API
+configurations and M-Pesa STK callbacks must only be connected using certified merchant credentials.
+Preface
+This training manual explains how to operate the MedPlus Pharmacy POS & Inventory Management System in
+plain language. It guides staff through daily sales, stock management, procurement, and administrative duties.
+Target Audience Definitions
+Pharmacists & Cashiers: Staff handling front-desk sales, validating prescriptions, scanning barcodes, receiving
+Cash/M-Pesa payments, and issuing customer receipts.
+Stock & Inventory Managers: Staff tracking stock levels, receiving supply deliveries, and submitting purchase
+orders to vendors.
+System Administrators: Technicians managing user creation, dynamic Role-Based Access Control (RBAC)
+matrices, password resets, and database audits.
+System Documentation Directory
+This guide is part of a comprehensive documentation suite. For developer-focused specifications, please refer to:
+1. System Requirements Specification (SRS): Core requirements and API boundaries.
+2. System Design Document (SDS): Database schemas, code structure, and route designs.
+3. MedPlus QA Test Plan: Verification scripts, edge case handling, and integration tests.
+MedPlus POS - User Training Manual Page 2 of 10
+--- Page 3 ---
+Page 3
+Page 4
+Page 5
+Page 6
+Page 6
+Page 7
+Page 8
+Page 8
+Page 9
+Page 10
+Table of Contents
+1. Access & System Authentication
+2. Point of Sale: Cart & Checkout Workflow
+3. Point of Sale: Payment Processing & Receipts
+4. Inventory Catalog & Expiry Controls
+5. Customer Registration & Loyalty Mapping
+6. Supply Chain: Supplier & Purchase Orders
+7. Dashboard Analytics & Reports
+8. Admin Panel: Dynamic RBAC & Database Audits
+9. Reference Tables (Shortcuts & Error Codes)
+10. Troubleshooting FAQ & Glossary of Terms
+Module 1: Access & System Authentication
+The MedPlus Pharmacy POS system is accessed through the web browser. The system is built with a 2030 dark-
+glassmorphism visual theme designed to reduce eye strain during long shifts.
+Step 1: Accessing the Login Portal
+Open the Google Chrome browser on your terminal and navigate to the system URL provided by your administrator
+(typically http://localhost:8080 for local containers, or the production URL).
+Step 2: Entering User Credentials
+1. Enter your registered Username.
+2. Enter your secure Password.
+3. Click the Sign In button to execute credentials verification.
+The backend Go server verifies your password against the stored bcrypt hash. Upon validation, the server issues a
+secure JSON Web Token (JWT) that is saved locally in your browser's session.
+Step 3: Accessing the Dashboard
+Once logged in, the system runs the bootstrapAuthenticatedApp() function, retrieving your profile, active role, and
+permission matrix to load only the modules you are authorized to see.
+Session Invalidation (Logout)
+To secure patient data, always click the Logout button in the sidebar before leaving your workstation. This
+deletes the saved JWT token from your browser and returns you to the login screen.
+MedPlus POS - User Training Manual Page 3 of 10
+--- Page 4 ---
+Module 2: Point of Sale - Cart & Checkout (Part 1)
+The Point of Sale (POS) interface is the primary workspace for pharmacists and cashiers. It is designed to process
+product checkouts quickly and validate prescriptions in real time.
+Step 1: Finding Products
+Open the POS tab from the sidebar. You can search the product catalog using three methods:
+Search Bar: Type the name of the medicine (e.g., "Amoxicillin") in the text box. The list filters dynamically as
+you type.
+Category Filter: Click the category tabs (e.g. Over the Counter (OTC), Prescription (Rx), Vitamins) to view
+specific product catalogs.
+Barcode Scanning: Scan the item's barcode. The system matches the barcode and automatically adds the item
+to the cart.
+Step 2: Managing the Shopping Cart
+1. Click a product card to add the item to the cart.
+2. To adjust quantities, click the + or - buttons inside the cart widget. The system checks stock levels in real time
+and blocks entries that exceed available inventory.
+3. The system displays prices in whole integer Kenyan Shillings (Ksh) without cents or decimals.
+Step 3: Prescription (Rx) Verification Workflow
+If an item is marked as Prescription-Only (Rx), adding it to the cart triggers the verification routine:
+Prescription Validation Steps
+1. A modal prompt displays: "Prescription ID Required".
+2. Enter the prescription number (issued by the doctor).
+3. Click Verify. The frontend checks the prescription ID via the /api/prescriptions/{id} endpoint.
+4. If valid and active, the modal closes, the cart records the prescription ID, and a green "Verified" badge
+appears on the item.
+5. If the prescription ID is invalid, expired, or doesn't exist, the system blocks the checkout.
+Note: Over-the-Counter (OTC) items do not trigger this verification step.
+MedPlus POS - User Training Manual Page 4 of 10
+--- Page 5 ---
+Module 2: Point of Sale - Checkout & Receipts (Part 2)
+Once all items are in the cart and prescriptions are verified, you can complete the sale. The system supports Cash,
+Card, and M-Pesa payments.
+Step 4: Selecting a Customer
+By default, the cart uses a generic "Walk-in Customer". To link a customer, search for their name or phone number
+in the customer search box. Linking a customer updates their profile with transaction metrics and loyalty records.
+Step 5: Processing the Payment
+Choose the customer's payment method from the checkout interface:
+Option A: Cash Payment
+1. Select Cash.
+2. Enter the amount received from the customer. The system calculates and displays the change due in Ksh.
+3. Click Complete Checkout.
+Option B: M-Pesa STK Push Integration
+The system integrates with Safaricom's Daraja API to trigger a direct STK push to the customer's phone:
+1. Select M-Pesa as the payment method.
+2. Enter the customer's active phone number (format: 07XXXXXXXX or 254XXXXXXXXX).
+3. Click Send STK Push. The screen displays a loading spinner showing the status as Pending Customer PIN.
+4. The customer receives a popup on their phone requesting their M-Pesa PIN for the exact Ksh checkout total.
+5. Once the customer enters their PIN, Safaricom sends a callback webhook to the Go backend, updating the
+payment audit status.
+6. The screen updates with a green Payment Successful checkmark, completing the sale.
+Option C: Card Payment
+Select Card, swipe/tap the card on the external merchant terminal, and click Complete Checkout.
+Step 6: Receipt Printing
+Upon successful checkout, the inventory balances update immediately. A modal pops up with the receipt preview.
+Click Print Receipt to send the print job to the thermal printer.
+MedPlus POS - User Training Manual Page 5 of 10
+--- Page 6 ---
+Module 3: Inventory Catalog & Expiry Controls
+The Inventory module allows stock managers and pharmacists to monitor stock availability, check expiry dates, and
+update product details.
+Viewing Stock and Expiry Alerts
+Open the Inventory tab. The dashboard widgets display:
+Low Stock Indicators: Highlighted items where current stock is below the defined reorder alert level.
+Expiring Medicines Alert: Lists items expiring within 180 days, allowing staff to run promotional sales or return
+stock before expiry.
+Adding New Products
+1. Navigate to the Inventory Manager panel (requires Admin or authorized Pharmacist role).
+2. Click Add Product.
+3. Enter the product name, SKU/Barcode, category (OTC/Rx), price in Ksh, reorder alert level, and expiry date.
+4. Click Save Product. The item is saved to the PostgreSQL catalog.
+Deactivating Products
+If a medicine is discontinued, do not delete it, as this would break historical sales reports. Instead, open the product
+details and click Deactivate. This soft-deactivates the item so it is hidden from checkouts while preserving database
+history.
+Module 4: Customer Registration
+Saving patient profiles allows for faster checkout processing and historical prescription checks.
+Step 1: Adding a Patient Profile
+1. Navigate to the Customers tab.
+2. Click Add Customer.
+3. Enter the patient's full name, phone number, and email.
+4. Click Register Customer.
+Step 2: Checking Customer History
+Click on any customer name to view their profile details, past transaction dates, prescription histories, and loyalty
+account metrics.
+MedPlus POS - User Training Manual Page 6 of 10
+--- Page 7 ---
+Module 5: Supply Chain & Procurement
+The Supply Chain module handles supplier databases, purchase orders (POs), and restocking workflows. It
+connects procurement records to active inventory updates.
+Step 1: Registering a Supplier
+1. Open the Supply Chain tab and select the Suppliers panel.
+2. Click Register Supplier.
+3. Enter the supplier business name, contact person, phone number, email, and address.
+4. Click Save. The supplier record is added to the system database.
+Step 2: Creating a Purchase Order (PO)
+1. Navigate to the Purchase Orders panel.
+2. Click Create Purchase Order.
+3. Select the registered supplier from the dropdown list.
+4. Select products and input quantities to order. The system calculates the estimated restock cost rounded to the
+nearest whole integer Kenyan Shilling (Ksh), applying a 30% merchant wholesale discount (Math.round(price *
+0.7)).
+5. Click Create PO. The PO is created in Draft status.
+6. Review the PO details and click Submit Purchase Order. The status updates to Submitted, locking the record.
+Step 3: Receiving Stock & Inventory Updates
+When the supplier delivers the ordered products:
+Stock Ingestion Process
+1. Open the pending purchase order.
+2. Inspect the delivered items against the PO quantities.
+3. Click Receive Stock.
+4. The backend transitions the PO status to Received and automatically updates the product inventory levels.
+5. The PO is locked to prevent duplicate ingestion. An audit entry logs the receiving pharmacist's details.
+MedPlus POS - User Training Manual Page 7 of 10
+--- Page 8 ---
+Module 6: Dashboard Analytics & Reports
+The Reports module compiles database transactions into live metrics for managers and owners.
+Dashboard Feed Interpretation
+Financial Metrics: Live widgets tracking Today's Revenue, Total Completed Sales, and Active Prescription
+count.
+Recent Transactions: A list of the latest 5 checkout records, showing the cashier, total value, and payment
+method.
+Expiring Alerts: An alert widget displaying stock items expiring soon.
+Generating Reports
+Open the Reports tab. Choose from the available options:
+Revenue Reports: Summary of cash flow, card metrics, and M-Pesa totals.
+Category Performance: Graphic table showing units sold by category (OTC/Rx).
+Inventory Valuation: Total value of stock in the store, calculated by cost metrics.
+Module 7: System Administration & Dynamic RBAC
+Administrators use this panel to configure staff roles, set system keys, and review database schemas.
+Dynamic Role-Based Access Control (RBAC)
+MedPlus features dynamic permissions. To adjust permissions:
+1. Open the RBAC panel under settings.
+2. Select the role to modify (e.g. Pharmacist).
+3. Toggle permission checkboxes (e.g. view:database_overview).
+4. Click Update Role Permissions. The changes apply immediately without restarting the application.
+Admin Database Schema Overview
+To inspect table sizes and schema column types:
+1. Open the Database Overview tab.
+2. The system prompts for security re-verification. Enter your admin password/PIN.
+3. Click Verify Access. This issues a 10-minute access token (`X-Database-Access-Token`).
+4. The page lists the 11 database tables, row counts, and sizes in KB. Click any table name to open the schema
+modal displaying column names, SQL types, and nullable flags.
+MedPlus POS - User Training Manual Page 8 of 10
+--- Page 9 ---
+Reference Materials
+Use these reference charts for keyboard shortcuts and to resolve system errors.
+Keyboard Shortcuts
+Shortcut Key Action Triggered Active View / Scope
+F1 Opens POS checkout page. Global Application Context
+F2 Focuses product search box. POS Cart Interface
+F4 Opens Customer Registration modal. POS Cart Interface
+F9 Triggers cash checkout submission. POS Cart Interface
+Esc Closes active modal/receipt dialog. Modal Overlay Context
+System Error Codes & Meaning
+Error Displayed System Cause Corrective Action Required
+[API 401] Unauthorized
+Token
+JWT authentication token has expired or
+is invalid.
+Log out and log back in to renew your session
+token.
+[API 403] Insufficient
+Permissions
+The active user role lacks permissions to
+access the module.
+Contact system administrator to adjust the RBAC
+matrix.
+[POS 601] Rx Code
+Required
+Cart contains prescription-only items
+without a linked verification ID.
+Prompt user for prescription number and submit
+validation modal.
+[Daraja 504] Callback
+Timeout
+M-Pesa API STK push did not receive a
+customer response in 60s.
+Verify customer phone number, check mobile
+connectivity, and trigger push again.
+[DB 500] Connection
+Refused
+Go backend cannot connect to the
+PostgreSQL container.
+Restart the database container or verify Docker
+network settings.
+MedPlus POS - User Training Manual Page 9 of 10
+--- Page 10 ---
+Frequently Asked Questions (FAQ)
+Q: Why does the system round all transactions to whole Kenyan Shillings?
+A: MedPlus uses whole integer Kenyan Shilling (Ksh) pricing to reflect local transactions. Cents have been removed
+from the database migrations and checkout pages.
+Q: Can pharmacists modify the database structures?
+A: No. Pharmacists handle inventory, checkouts, and customer databases. Modifying table structures requires the
+Admin role and password re-verification on the Database Overview screen.
+Q: What happens if the M-Pesa API STK push fails to display?
+A: Ensure the phone number uses the format 07XXXXXXXX or 254XXXXXXXXX. Check that the internet connection is
+active and the Safaricom Daraja credentials are valid.
+Glossary of Terms
+API (Application Programming Interface): The communication bridge between the browser and the Go server.
+Backend: The Go server that handles application logic, verifies JWT sessions, and queries the database.
+Daraja API: Safaricom's developer portal used to trigger M-Pesa STK payment pushes.
+FIFO (First In, First Out): Stock logic ensuring older batches are processed first.
+Frontend: The user interface accessed through the web browser.
+JWT (JSON Web Token): A secure, encrypted session key used to verify user sessions.
+RBAC (Role-Based Access Control): Security access governance determined by permission matrices.
+Rx: Standard shorthand designating prescription-only medications.
+STK Push (Simulated Transaction Keyboard): A mobile payment trigger prompting users for their PIN on their
+phone.
+MedPlus POS - User Training Manual Page 10 of 10

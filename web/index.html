@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedPlus Pharmacy POS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/app.css" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+<div id="authScreen" class="auth-screen">
+            <div class="auth-screen-blob blob-1"></div>
+            <div class="auth-screen-blob blob-2"></div>
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <i class="fas fa-mortar-pestle"></i> MedPlus
+                </div>
+                <div class="auth-tabs">
+                    <button
+                        id="loginTab"
+                        class="auth-tab active"
+                        onclick="switchAuthMode('login')"
+                    >
+                        Login
+                    </button>
+                    <button
+                        id="registerTab"
+                        class="auth-tab"
+                        onclick="switchAuthMode('register')"
+                    >
+                        Create Account
+                    </button>
+                </div>
+                <form id="authForm" class="form-grid">
+                    <div id="registerFields" class="form-grid hidden">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input
+                                id="registerFullName"
+                                class="form-input"
+                                placeholder="Enter your full name"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input
+                            id="authUsername"
+                            class="form-input"
+                            placeholder="Enter username"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input
+                            id="authPassword"
+                            type="password"
+                            class="form-input"
+                            placeholder="Enter password"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        id="authSubmitBtn"
+                        class="primary-btn auth-submit"
+                    >
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="appShell" class="app-container hidden">
+            <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+            <aside class="sidebar" id="sidebarEl">
+                <div class="logo">
+                    <i class="fas fa-mortar-pestle"></i>
+                    <div>
+                        <div class="logo-text">MedPlus</div>
+                        <div class="logo-sub">Pharmacy POS System</div>
+                    </div>
+                </div>
+
+                <nav class="nav-menu">
+                    <div
+                        class="nav-item active"
+                        data-view="pos"
+                        onclick="showView('pos', event)"
+                    >
+                        <i class="fas fa-cash-register"></i
+                        ><span>Point of Sale</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="inventory"
+                        onclick="showView('inventory', event)"
+                    >
+                        <i class="fas fa-pills"></i><span>Inventory</span
+                        ><span class="nav-badge" id="inventoryBadge">0</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="dashboard"
+                        onclick="showView('dashboard', event)"
+                    >
+                        <i class="fas fa-chart-line"></i><span>Dashboard</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="reports"
+                        onclick="showView('reports', event)"
+                    >
+                        <i class="fas fa-file-invoice-dollar"></i
+                        ><span>Reports</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="analytics"
+                        onclick="showView('analytics', event)"
+                    >
+                        <i class="fas fa-chart-pie"></i><span>Analytics</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="database"
+                        onclick="showView('database', event)"
+                    >
+                        <i class="fas fa-database"></i
+                        ><span>Database Overview</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="admin"
+                        onclick="showView('admin', event)"
+                    >
+                        <i class="fas fa-user-shield"></i
+                        ><span>Admin CRUD</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="supply"
+                        onclick="showView('supply', event)"
+                    >
+                        <i class="fas fa-truck-loading"></i
+                        ><span>Supply Chain</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="prescriptions"
+                        onclick="showView('prescriptions', event)"
+                    >
+                        <i class="fas fa-file-prescription"></i
+                        ><span>Prescriptions</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="customers"
+                        onclick="showView('customers', event)"
+                    >
+                        <i class="fas fa-users"></i><span>Customers</span>
+                    </div>
+                    <div
+                        class="nav-item"
+                        data-view="settings"
+                        onclick="showView('settings', event)"
+                    >
+                        <i class="fas fa-cog"></i><span>Settings</span>
+                    </div>
+                </nav>
+
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">User</div>
+                        <div class="user-role" id="userRole">Role</div>
+                    </div>
+                    <i
+                        class="fas fa-sign-out-alt"
+                        style="cursor: pointer; opacity: 0.7"
+                        onclick="logout()"
+                        title="Logout"
+                    ></i>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <div class="top-bar">
+                    <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input
+                            type="text"
+                            placeholder="Search products by name, brand, or barcode..."
+                            id="searchInput"
+                        />
+                    </div>
+                    <div class="top-actions">
+                        <span class="date-display" id="currentDate"></span>
+                        <button class="icon-btn" onclick="refreshActiveView()" title="Refresh Data">
+                            <i class="fas fa-rotate"></i>
+                        </button>
+                        <button class="icon-btn" onclick="window.print()" title="Print Page">
+                            <i class="fas fa-print"></i>
+                        </button>
+                        <button class="icon-btn" onclick="window.open('/docs', '_blank')" title="Documentation">
+                            <i class="fas fa-book"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-area">
+                    <div id="posView" class="products-section">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">Quick Sale</h2>
+                                <div class="section-subtitle">
+                                    Live product catalog backed by the Go API.
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="paymentMethod" value="Cash" />
+                        <div class="category-filters">
+                            <button
+                                class="category-chip active"
+                                data-category="all"
+                                onclick="filterCategory('all', event)"
+                            >
+                                All Products
+                            </button>
+                            <button
+                                class="category-chip"
+                                data-category="otc"
+                                onclick="filterCategory('otc', event)"
+                            >
+                                Over-the-Counter
+                            </button>
+                            <button
+                                class="category-chip"
+                                data-category="prescription"
+                                onclick="filterCategory('prescription', event)"
+                            >
+                                Prescription (Rx)
+                            </button>
+                            <button
+                                class="category-chip"
+                                data-category="vitamins"
+                                onclick="filterCategory('vitamins', event)"
+                            >
+                                Vitamins & Supplements
+                            </button>
+                            <button
+                                class="category-chip"
+                                data-category="personal"
+                                onclick="filterCategory('personal', event)"
+                            >
+                                Personal Care
+                            </button>
+                            <button
+                                class="category-chip"
+                                data-category="medical"
+                                onclick="filterCategory('medical', event)"
+                            >
+                                Medical Supplies
+                            </button>
+                        </div>
+                        <div class="products-grid" id="productsGrid"></div>
+                    </div>
+
+                    <div id="inventoryView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">
+                                    Inventory Management
+                                </h2>
+                                <div class="section-subtitle">
+                                    Create, review, and maintain products end to
+                                    end.
+                                </div>
+                            </div>
+                            <button
+                                class="primary-btn"
+                                onclick="openProductCreateForm()"
+                            >
+                                <i class="fas fa-plus"></i> Add Product
+                            </button>
+                        </div>
+                        <div class="panel" style="padding: 20px;">
+                            <div class="table-container" style="overflow-x: auto;">
+                                <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding: 12px 16px;">Product Name</th>
+                                            <th style="padding: 12px 16px;">Category</th>
+                                            <th style="padding: 12px 16px;">Stock</th>
+                                            <th style="padding: 12px 16px;">Price</th>
+                                            <th style="padding: 12px 16px;">Expiry Date</th>
+                                            <th style="padding: 12px 16px;">Status</th>
+                                            <th style="padding: 12px 16px; text-align: right;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="inventoryTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dashboardView" class="products-section hidden">
+                        <!-- Welcome back banner -->
+                        <div class="welcome-banner">
+                            <div class="welcome-text">
+                                <h1 id="welcomeGreeting">Welcome back!</h1>
+                                <p id="welcomeDescription">Access and manage real-time inventory, sales, and prescriptions.</p>
+                            </div>
+                            <div class="welcome-illustration">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions Grid -->
+                        <div class="quick-actions-title">Quick Tasks</div>
+                        <div class="quick-actions-grid">
+                            <div class="quick-action-card" onclick="showView('pos')">
+                                <div class="quick-action-icon"><i class="fas fa-cash-register"></i></div>
+                                <div class="quick-action-name">Point of Sale</div>
+                                <div class="quick-action-desc">Launch checkout screen</div>
+                            </div>
+                            <div class="quick-action-card" onclick="showView('prescriptions')">
+                                <div class="quick-action-icon"><i class="fas fa-file-prescription"></i></div>
+                                <div class="quick-action-name">New Prescription</div>
+                                <div class="quick-action-desc">Register prescription details</div>
+                            </div>
+                            <div class="quick-action-card" onclick="showView('customers')">
+                                <div class="quick-action-icon"><i class="fas fa-users"></i></div>
+                                <div class="quick-action-name">Add Customer</div>
+                                <div class="quick-action-desc">Register patient profile</div>
+                            </div>
+                            <div class="quick-action-card" onclick="createPurchaseOrderFromLowStock()">
+                                <div class="quick-action-icon"><i class="fas fa-truck-loading"></i></div>
+                                <div class="quick-action-name">Auto-Restock</div>
+                                <div class="quick-action-desc">Order low stock items</div>
+                            </div>
+                            <div class="quick-action-card" id="qaAdminDb" onclick="showView('database')">
+                                <div class="quick-action-icon"><i class="fas fa-database"></i></div>
+                                <div class="quick-action-name">DB Schema</div>
+                                <div class="quick-action-desc">Review database tables</div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-grid">
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-label"
+                                        >Today's Sales</span
+                                    >
+                                    <div
+                                        class="stat-icon"
+                                        style="
+                                            background: #dcfce7;
+                                            color: #16a34a;
+                                        "
+                                    >
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                </div>
+                                <div
+                                    class="stat-value"
+                                    id="dashboardTodaySales"
+                                >
+                                    Ksh 0.00
+                                </div>
+                                <div
+                                    class="stat-change"
+                                    id="dashboardSalesChange"
+                                >
+                                    0%
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-label">Transactions</span>
+                                    <div
+                                        class="stat-icon"
+                                        style="
+                                            background: #dbeafe;
+                                            color: #2563eb;
+                                        "
+                                    >
+                                        <i class="fas fa-receipt"></i>
+                                    </div>
+                                </div>
+                                <div
+                                    class="stat-value"
+                                    id="dashboardTransactions"
+                                >
+                                    0
+                                </div>
+                                <div class="stat-change" id="dashboardTxChange">
+                                    0
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-label"
+                                        >Prescriptions</span
+                                    >
+                                    <div
+                                        class="stat-icon"
+                                        style="
+                                            background: #fef3c7;
+                                            color: #f59e0b;
+                                        "
+                                    >
+                                        <i class="fas fa-file-prescription"></i>
+                                    </div>
+                                </div>
+                                <div
+                                    class="stat-value"
+                                    id="dashboardPrescriptions"
+                                >
+                                    0
+                                </div>
+                                <div class="stat-change" id="dashboardRxChange">
+                                    0
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-label"
+                                        >Low Stock Items</span
+                                    >
+                                    <div
+                                        class="stat-icon"
+                                        style="
+                                            background: #fee2e2;
+                                            color: #ef4444;
+                                        "
+                                    >
+                                        <i
+                                            class="fas fa-exclamation-triangle"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <div class="stat-value" id="dashboardLowStock">
+                                    0
+                                </div>
+                                <div class="stat-change negative">
+                                    Requires attention
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                Daily Sales (last 14 days)
+                            </div>
+                            <div class="bar-chart" id="salesChart"></div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-title">Category Performance</div>
+                            <div class="bar-chart" id="topProductsChart"></div>
+                        </div>
+
+                        <!-- Operational Feeds Grid -->
+                        <div class="dual-feeds-grid">
+                            <!-- Recent Transactions Feed -->
+                            <div class="feed-panel">
+                                <div class="feed-header">
+                                    <div class="feed-title">
+                                        <i class="fas fa-history"></i> Recent Transactions
+                                    </div>
+                                    <span class="feed-badge info" id="recentSalesCount">0 sales</span>
+                                </div>
+                                <div class="feed-list" id="recentSalesFeedList">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Expiring Medicines Alert Feed -->
+                            <div class="feed-panel">
+                                <div class="feed-header">
+                                    <div class="feed-title">
+                                        <i class="fas fa-hourglass-half"></i> Expiring Stock
+                                    </div>
+                                    <span class="feed-badge danger" id="expiringMedicinesCount">0 alerts</span>
+                                </div>
+                                <div class="feed-list" id="expiringMedicinesFeedList">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="reportsView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">Reports</h2>
+                                <div class="section-subtitle">
+                                    Revenue, transactions, inventory value, and
+                                    top products.
+                                </div>
+                            </div>
+                            <button class="primary-btn" onclick="loadReports()">
+                                Generate Report
+                            </button>
+                        </div>
+                        <div class="kpi-grid" id="reportsSummary"></div>
+                        <div class="panel">
+                            <h3 style="margin-bottom: 12px">Top Products</h3>
+                            <div
+                                id="reportsTopProducts"
+                                class="list-stack"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div id="analyticsView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">System Analytics</h2>
+                                <div class="section-subtitle">
+                                    Operational trends for decision makers.
+                                </div>
+                            </div>
+                            <button
+                                class="primary-btn"
+                                onclick="loadAnalytics()"
+                            >
+                                Refresh Analytics
+                            </button>
+                        </div>
+                        <div class="panel-grid two-col">
+                            <div class="chart-container">
+                                <div class="chart-title">Daily Sales Trend</div>
+                                <div
+                                    class="bar-chart"
+                                    id="analyticsDailyChart"
+                                ></div>
+                            </div>
+                            <div class="panel">
+                                <h3 style="margin-bottom: 12px">
+                                    Category Breakdown
+                                </h3>
+                                <div
+                                    id="analyticsCategories"
+                                    class="list-stack"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="databaseView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">Database Overview</h2>
+                                <div class="section-subtitle">
+                                    Simple explanations for non-technical users.
+                                </div>
+                            </div>
+                            <button
+                                class="primary-btn"
+                                id="refreshDbOverviewBtn"
+                                onclick="loadDatabaseOverview()"
+                                style="display: none;"
+                            >
+                                Refresh Overview
+                            </button>
+                        </div>
+                        
+                        <!-- Unlock Prompt -->
+                        <div id="databaseUnlockContainer" class="panel" style="max-width: 450px; margin: 40px auto; padding: 30px; text-align: center;">
+                            <div style="font-size: 48px; color: #0f766e; margin-bottom: 20px;">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 style="margin-bottom: 10px;">Security Verification Required</h3>
+                            <p class="muted" style="margin-bottom: 24px; font-size: 14px;">
+                                Please enter your administrator password / PIN to view database tables and schema.
+                            </p>
+                            <form id="databaseUnlockForm" onsubmit="unlockDatabaseOverview(event)">
+                                <div class="form-group" style="margin-bottom: 20px; text-align: left;">
+                                    <label class="form-label" for="dbUnlockPassword">Admin Password / PIN</label>
+                                    <input type="password" id="dbUnlockPassword" class="form-input" placeholder="Enter password / PIN" required />
+                                </div>
+                                <button type="submit" class="primary-btn" style="width: 100%;">Unlock Database Overview</button>
+                            </form>
+                        </div>
+
+                        <!-- Database Content (Hidden by default) -->
+                        <div id="databaseOverviewContent" class="hidden">
+                            <div id="databaseOverviewCards" class="kpi-grid" style="margin-bottom: 30px;"></div>
+                            
+                            <div class="panel">
+                                <h3 style="margin-bottom: 20px; color: #0f766e; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-table"></i> Database Tables & Schema
+                                </h3>
+                                <div class="table-container">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Table Name</th>
+                                                <th>Description</th>
+                                                <th>Rows</th>
+                                                <th>Columns</th>
+                                                <th>Size</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="databaseTablesBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="adminView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">Admin CRUD</h2>
+                                <div class="section-subtitle">
+                                    Create, update, deactivate, and manage user
+                                    accounts.
+                                </div>
+                            </div>
+                            <button
+                                class="primary-btn"
+                                onclick="openUserCreateForm()"
+                            >
+                                Create User
+                            </button>
+                        </div>
+                        <div class="panel-grid two-col">
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="usersTable"></tbody>
+                                </table>
+                            </div>
+                            <div class="panel">
+                                <h3 style="margin-bottom: 16px">User Form</h3>
+                                <form id="userForm" class="form-grid">
+                                    <input type="hidden" id="userId" />
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            >Full Name</label
+                                        ><input
+                                            id="userFullName"
+                                            class="form-input"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            >Username</label
+                                        ><input
+                                            id="userUsername"
+                                            class="form-input"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            >Password</label
+                                        ><input
+                                            id="userPassword"
+                                            type="password"
+                                            class="form-input"
+                                            placeholder="Leave blank to keep current password on edit"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Role</label
+                                        ><select
+                                            id="userRoleInput"
+                                            class="form-select"
+                                        >
+                                            <option value="Pharmacist">
+                                                Pharmacist
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label
+                                        ><select
+                                            id="userStatusInput"
+                                            class="form-select"
+                                        >
+                                            <option value="active">
+                                                Active
+                                            </option>
+                                            <option value="inactive">
+                                                Inactive
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="inline-actions">
+                                        <button
+                                            type="submit"
+                                            class="primary-btn"
+                                        >
+                                            Save User</button
+                                        ><button
+                                            type="button"
+                                            class="secondary-btn"
+                                            onclick="resetUserForm()"
+                                        >
+                                            Reset
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="supplyView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">
+                                    Supply Chain Operations
+                                </h2>
+                                <div class="section-subtitle">
+                                    Suppliers, purchase orders, and stock
+                                    receiving.
+                                </div>
+                            </div>
+                            <button
+                                class="primary-btn"
+                                onclick="createPurchaseOrderFromLowStock()"
+                            >
+                                Create PO From Low Stock
+                            </button>
+                        </div>
+                        <div class="panel-grid two-col">
+                            <div class="panel">
+                                <h3 style="margin-bottom: 16px">Suppliers</h3>
+                                <form
+                                    id="supplierForm"
+                                    class="form-grid"
+                                    style="margin-bottom: 16px"
+                                >
+                                    <input type="hidden" id="supplierId" />
+                                    <div class="form-group">
+                                        <label class="form-label">Name</label
+                                        ><input
+                                            id="supplierName"
+                                            class="form-input"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            >Contact Person</label
+                                        ><input
+                                            id="supplierContact"
+                                            class="form-input"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Phone</label
+                                        ><input
+                                            id="supplierPhone"
+                                            class="form-input"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label
+                                        ><input
+                                            id="supplierEmail"
+                                            class="form-input"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Address</label
+                                        ><textarea
+                                            id="supplierAddress"
+                                            class="form-textarea"
+                                        ></textarea>
+                                    </div>
+                                    <div class="inline-actions">
+                                        <button
+                                            type="submit"
+                                            class="primary-btn"
+                                        >
+                                            Save Supplier</button
+                                        ><button
+                                            type="button"
+                                            class="secondary-btn"
+                                            onclick="resetSupplierForm()"
+                                        >
+                                            Reset
+                                        </button>
+                                    </div>
+                                </form>
+                                <div
+                                    id="suppliersList"
+                                    class="list-stack"
+                                ></div>
+                            </div>
+                            <div class="panel">
+                                <h3 style="margin-bottom: 16px">
+                                    Purchase Orders
+                                </h3>
+                                <form
+                                    id="purchaseOrderForm"
+                                    class="form-grid"
+                                    style="margin-bottom: 16px"
+                                >
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            >Supplier</label
+                                        ><select
+                                            id="poSupplierId"
+                                            class="form-select"
+                                            required
+                                        ></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Notes</label
+                                        ><textarea
+                                            id="poNotes"
+                                            class="form-textarea"
+                                            placeholder="Restock request notes (optional)"
+                                        ></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                            <label class="form-label" style="margin-bottom: 0;">Order Items</label>
+                                            <button type="button" class="secondary-btn" style="padding: 4px 10px; font-size: 12px;" onclick="addPoItemRow()">
+                                                <i class="fas fa-plus"></i> Add Item
+                                            </button>
+                                        </div>
+                                        <div id="poItemsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                                    </div>
+                                    <button type="submit" class="primary-btn">
+                                        Create Purchase Order
+                                    </button>
+                                </form>
+                                <div
+                                    id="purchaseOrdersList"
+                                    class="list-stack"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="prescriptionsView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">Prescriptions</h2>
+                                <div class="section-subtitle">
+                                    Prescription-sensitive sales are enforced
+                                    during checkout.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-grid two-col">
+                            <div class="panel">
+                                <h3 style="margin-bottom: 16px">New Prescription</h3>
+                                <form id="prescriptionForm" class="form-grid" style="margin-bottom: 16px">
+                                    <div class="form-group">
+                                        <label class="form-label">Patient Name</label>
+                                        <input id="rxPatientName" list="customerList" class="form-input" placeholder="e.g. Jane Doe" required autocomplete="off" />
+                                        <datalist id="customerList"></datalist>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Doctor Name</label>
+                                        <input id="rxDoctorName" class="form-input" placeholder="e.g. Dr. Smith" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Medicine</label>
+                                        <select id="rxProductId" class="form-select" required></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Quantity</label>
+                                        <input type="number" id="rxQuantity" class="form-input" min="1" placeholder="e.g. 5" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Notes</label>
+                                        <textarea id="rxNotes" class="form-textarea" placeholder="Dosage instruction, etc."></textarea>
+                                    </div>
+                                    <button type="submit" class="primary-btn">Create Prescription</button>
+                                </form>
+                            </div>
+                            <div class="panel">
+                                <h3 style="margin-bottom: 16px">Prescriptions List</h3>
+                                <div class="list-stack" id="prescriptionsListTable" style="max-height: 500px; overflow-y: auto;">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="customersView" class="products-section hidden">
+                        <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <div>
+                                <h2 class="section-title">Customer Directory</h2>
+                                <div class="section-subtitle">
+                                    Manage patient profiles and contact details.
+                                </div>
+                            </div>
+                            <button class="primary-btn" onclick="toggleCustomerModal()"><i class="fas fa-user-plus"></i> Add New Customer</button>
+                        </div>
+
+                        <div class="panel" style="padding: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                                <h3 style="margin: 0; font-size: 16px;"><i class="fas fa-users" style="color: var(--brand); margin-right: 8px;"></i> Registered Customers</h3>
+                                <input type="text" id="customerSearchInput" class="form-input" placeholder="Search customer name, phone, or email..." style="max-width: 320px; font-size: 13px;" onkeyup="renderCustomers()" />
+                            </div>
+                            <div class="table-container" style="overflow-x: auto;">
+                                <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding: 12px 16px;">Customer Name</th>
+                                            <th style="padding: 12px 16px;">Phone</th>
+                                            <th style="padding: 12px 16px;">Email</th>
+                                            <th style="padding: 12px 16px;">Patient Notes</th>
+                                            <th style="padding: 12px 16px;">Status</th>
+                                            <th style="padding: 12px 16px; text-align: right;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="customersTable">
+                                        <!-- Dynamically populated -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settingsView" class="products-section hidden">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="section-title">Settings</h2>
+                                <div class="section-subtitle">
+                                    Manage your account profile and credentials.
+                                </div>
+                            </div>
+                        </div>
+                        <div style="max-width: 600px;">
+                            <div class="panel">
+                                <h3 style="margin-bottom: 20px;">Edit User Profile</h3>
+                                <form id="profileForm" class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <input id="profileFullName" class="form-input" placeholder="Enter full name" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Username</label>
+                                        <input id="profileUsername" class="form-input" placeholder="Enter username" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">New Password (optional)</label>
+                                        <input id="profilePassword" type="password" class="form-input" placeholder="Leave blank to keep current" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Confirm New Password</label>
+                                        <input id="profileConfirmPassword" type="password" class="form-input" placeholder="Confirm password" />
+                                    </div>
+                                    <div class="inline-actions" style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+                                        <button type="submit" class="primary-btn">Update Profile</button>
+                                        <button type="button" class="secondary-btn" onclick="logout()">Logout</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-section" id="cartSection">
+                        <div class="cart-header">
+                            <div class="cart-title">
+                                <i class="fas fa-shopping-cart"></i> Current
+                                Order
+                                <span class="cart-count" id="cartCount">0</span>
+                            </div>
+                            <button
+                                class="icon-btn"
+                                onclick="clearCart()"
+                                title="Clear Cart"
+                            >
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <div class="cart-items" id="cartItems">
+                            <div class="cart-empty">
+                                <i class="fas fa-shopping-basket"></i>
+                                <p>Your cart is empty</p>
+                                <p style="font-size: 12px; margin-top: 4px">
+                                    Add products to begin checkout
+                                </p>
+                            </div>
+                        </div>
+                        <div class="cart-footer">
+                            <div class="cart-summary">
+                                <div class="summary-row">
+                                    <span>Subtotal</span
+                                    ><span id="subtotal">Ksh 0.00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Tax (8.5%)</span
+                                    ><span id="tax">Ksh 0.00</span>
+                                </div>
+                                <div class="summary-row total">
+                                    <span>Total</span
+                                    ><span id="total">Ksh 0.00</span>
+                                </div>
+                            </div>
+                            <div class="payment-method-btns">
+                                <button class="pay-btn active" data-method="Cash" onclick="selectPaymentMethod('Cash', this)">
+                                    <i class="fas fa-money-bill-wave"></i> Cash
+                                </button>
+                                <button class="pay-btn" data-method="M-Pesa" onclick="selectPaymentMethod('M-Pesa', this)">
+                                    <i class="fas fa-mobile-alt"></i> M-Pesa
+                                </button>
+                            </div>
+                            <button
+                                class="checkout-btn"
+                                id="checkoutBtn"
+                                onclick="processCheckout()"
+                                disabled
+                            >
+                                <i class="fas fa-credit-card"></i> Process
+                                Payment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div class="modal-overlay" id="rxModal">
+            <div class="modal">
+                <div class="modal-icon warning">
+                    <i class="fas fa-file-prescription"></i>
+                </div>
+                <div class="modal-title">Prescription Required</div>
+                <div class="modal-text">
+                    This item requires a valid prescription. Verify the
+                    prescription details before it can be added to the cart.
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Prescription Number</label
+                        ><input
+                            type="text"
+                            class="form-input"
+                            placeholder="RX-2024-XXXX"
+                            id="rxNumber"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Patient Name</label
+                        ><input
+                            type="text"
+                            class="form-input"
+                            placeholder="Enter patient name"
+                            id="rxPatient"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Doctor Name</label
+                        ><input
+                            type="text"
+                            class="form-input"
+                            placeholder="Enter doctor name"
+                            id="rxDoctor"
+                        />
+                    </div>
+                </div>
+                <div class="modal-actions" style="margin-top: 16px">
+                    <button
+                        class="modal-btn secondary"
+                        onclick="closeModal('rxModal')"
+                    >
+                        Cancel</button
+                    ><button
+                        class="modal-btn primary"
+                        onclick="verifyPrescription()"
+                    >
+                        Verify & Add
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="checkoutModal">
+            <div class="modal">
+                <div class="modal-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="modal-title">Payment Successful</div>
+                <div class="modal-text">
+                    Transaction completed successfully. Here is the generated
+                    receipt from the backend.
+                </div>
+                <div class="receipt" id="receiptContent"></div>
+                <div class="modal-actions" style="margin-top: 20px">
+                    <button
+                        class="modal-btn secondary"
+                        onclick="printReceipt()"
+                    >
+                        <i class="fas fa-print"></i> Print</button
+                    ><button
+                        class="modal-btn primary"
+                        onclick="completeTransaction()"
+                    >
+                        New Sale
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="mpesaModal">
+            <div class="modal">
+                <div class="modal-icon" style="background:#16a34a; color:white;">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="modal-title">M-Pesa Payment</div>
+                <div class="modal-text">Enter the customer's M-Pesa phone number to initiate the STK push.</div>
+                <div class="form-group" style="margin-top:16px;">
+                    <label class="form-label">Phone Number</label>
+                    <input id="mpesaPhone" class="form-input" placeholder="e.g. 0712345678" />
+                </div>
+                <div class="modal-actions" style="margin-top:16px;">
+                    <button class="modal-btn secondary" onclick="closeModal('mpesaModal')">Cancel</button>
+                    <button class="modal-btn primary" onclick="confirmMpesaPayment()">Send STK Push</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="mpesaLoadingModal">
+            <div class="modal" style="max-width: 400px; text-align: center;">
+                <div class="modal-icon" style="background:#eab308; color:white;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <div class="modal-title">Awaiting Payment</div>
+                <div class="modal-text" id="mpesaLoadingText" style="line-height: 1.5; margin-top: 8px;">Please check your phone for the M-Pesa PIN prompt. Do not close this window.</div>
+                <div class="modal-actions" style="margin-top:20px; justify-content:center;">
+                    <button class="modal-btn secondary" id="cancelMpesaPollBtn">Cancel Payment</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal-overlay" id="dbSchemaModal">
+            <div class="modal" style="max-width: 600px; width: 90%;">
+                <div class="modal-title" id="dbSchemaModalTitle" style="color: #0f766e; text-align: left; margin-bottom: 8px;">Table Schema</div>
+                <div class="modal-text" id="dbSchemaModalDescription" style="text-align: left; font-size: 14px; margin-bottom: 16px;">Description of the table.</div>
+                <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                    <table class="data-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Data Type</th>
+                                <th>Nullable</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dbSchemaModalBody"></tbody>
+                    </table>
+                </div>
+                <div class="modal-actions" style="margin-top: 16px; justify-content: flex-end;">
+                    <button class="modal-btn primary" onclick="closeModal('dbSchemaModal')">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="poDetailsModal">
+            <div class="modal" style="max-width: 650px; width: 90%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="modal-title" id="poDetailNumber" style="margin: 0;">Purchase Order Details</h3>
+                        <div id="poDetailStatusBadge" style="margin-top: 4px;"></div>
+                    </div>
+                    <button class="icon-btn" onclick="closeModal('poDetailsModal')"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="form-grid" style="font-size: 13px; margin-bottom: 16px; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div style="background: rgba(30,41,59,0.4); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+                        <strong>Supplier Info:</strong>
+                        <div id="poDetailSupplier" style="color: var(--muted); margin-top: 4px; line-height: 1.4;"></div>
+                    </div>
+                    <div style="background: rgba(30,41,59,0.4); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+                        <strong>Order Meta:</strong>
+                        <div id="poDetailMeta" style="color: var(--muted); margin-top: 4px; line-height: 1.4;"></div>
+                    </div>
+                </div>
+                <div class="table-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 16px;">
+                    <table class="data-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Medicine</th>
+                                <th>Quantity</th>
+                                <th>Unit Cost</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="poDetailItemsBody"></tbody>
+                    </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border);">
+                    <div style="font-size: 15px; font-weight: 600;">
+                        Total Order Value: <span id="poDetailTotal" style="color: var(--brand);">Ksh 0</span>
+                    </div>
+                    <div class="modal-actions" style="margin-top: 0;" id="poDetailActions">
+                        <button class="modal-btn secondary" onclick="closeModal('poDetailsModal')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="customerModal">
+            <div class="modal" style="max-width: 550px; width: 90%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 class="modal-title" id="customerFormTitle" style="margin: 0;">New Customer Profile</h3>
+                    <button class="icon-btn" onclick="closeModal('customerModal')"><i class="fas fa-times"></i></button>
+                </div>
+                <form id="customerForm" class="form-grid" style="gap: 14px;">
+                    <input type="hidden" id="customerId" />
+                    <div class="form-group">
+                        <label class="form-label">Full Name <span style="color: #ef4444;">*</span></label>
+                        <input id="customerFullName" class="form-input" placeholder="e.g. John Doe" required />
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input id="customerPhone" class="form-input" placeholder="e.g. 0722000000" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="customerEmail" class="form-input" placeholder="e.g. john@example.com" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select id="customerStatus" class="form-select">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Patient Notes / Medical Allergies</label>
+                        <textarea id="customerNotes" class="form-textarea" placeholder="e.g. Penicillin allergy, diabetic patient, etc." rows="3"></textarea>
+                    </div>
+                    <div class="modal-actions" style="margin-top: 10px; justify-content: flex-end; gap: 10px;">
+                        <button type="button" class="modal-btn secondary" onclick="closeModal('customerModal')">Cancel</button>
+                        <button type="submit" class="modal-btn primary">Save Customer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="productModal">
+            <div class="modal" style="max-width: 550px; width: 90%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 class="modal-title" id="productFormTitle" style="margin: 0;">Add New Product</h3>
+                    <button class="icon-btn" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
+                </div>
+                <form id="productForm" onsubmit="submitProductForm(event)">
+                    <input type="hidden" id="productId" />
+                    <div class="form-group">
+                        <label class="form-label">Product Name <span style="color: #ef4444;">*</span></label>
+                        <input id="productName" class="form-input" placeholder="e.g. Paracetamol 500mg" required />
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select id="productCategory" class="form-select">
+                                <option value="prescription">Prescription</option>
+                                <option value="otc">OTC</option>
+                                <option value="vitamins">Vitamins</option>
+                                <option value="personal">Personal</option>
+                                <option value="medical">Medical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price (KES) <span style="color: #ef4444;">*</span></label>
+                            <input id="productPrice" type="number" step="0.01" class="form-input" placeholder="e.g. 150.00" required />
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label">Stock Quantity <span style="color: #ef4444;">*</span></label>
+                            <input id="productStock" type="number" class="form-input" placeholder="e.g. 50" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Expiry Date</label>
+                            <input id="productExpiryDate" type="date" class="form-input" />
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label">Icon Emoji</label>
+                            <input id="productIcon" class="form-input" placeholder="💊" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select id="productStatus" class="form-select">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 6px; margin-bottom: 16px;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer;">
+                            <input id="productRx" type="checkbox" style="width: 16px; height: 16px; accent-color: var(--brand);" />
+                            Prescription Required (Rx)
+                        </label>
+                    </div>
+                    <div class="modal-actions" style="margin-top: 16px; justify-content: flex-end; gap: 10px;">
+                        <button type="button" class="modal-btn secondary" onclick="closeModal('productModal')">Cancel</button>
+                        <button type="submit" class="modal-btn primary">Save Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Welcome Modal -->
+        <div class="modal-overlay" id="welcomeModal">
+            <div class="modal" style="max-width: 400px; text-align: center; padding: 24px;">
+                <div class="modal-icon success" style="margin: 0 auto 16px; background: rgba(16, 185, 129, 0.1); color: #10b981; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px;">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="modal-title" style="font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #10b981;">Authentication Successful</div>
+                <div class="modal-text" id="welcomeModalMessage" style="font-size: 15px; color: var(--muted); margin-bottom: 24px; line-height: 1.5;">
+                    Welcome back, Username!
+                </div>
+                <div class="modal-actions" style="justify-content: center; margin-top: 0;">
+                    <button class="modal-btn primary" onclick="closeModal('welcomeModal')" style="padding: 10px 24px; font-size: 14px;">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Page Loader -->
+        <div class="page-loader" id="pageLoader">
+            <div class="loader-content">
+                <div class="loader-pill-container">
+                    <div class="loader-glow"></div>
+                    <div class="loader-floating-wrapper">
+                        <i class="fas fa-pills loader-pill"></i>
+                    </div>
+                </div>
+                <div class="loader-text">Loading MedPlus POS...</div>
+            </div>
+        </div>
+
+        <div class="toast-container" id="toastContainer"></div>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

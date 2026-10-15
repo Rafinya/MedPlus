@@ -1,0 +1,88 @@
+--- LATIN1 ---
+ > 	 @ B ? U 	 bjbj n n 	 & a a : : : : : N N N N , z N #0 e e e / / / / / / / 1 4 > / : e C " e e e / : : / e 
+ : : / e / + $- [ o 
+ + / / 0 #0 + 8 4 y L 4 0 $- $- 4 : . e e e e e e e / / e e e #0 e e e e 4 e e e e e e e e e B : 	 	           	School of Technology                             Final Year Project IIFinal Report Document (Examination) StructureChapter OneBackgroundProblem statementObjectivesSignificance of ProjectChapter two2.1 Literature review2.2 Systems Requirements SpecificationsChapter Three: 3.1 Data Collection Methods3.2 Systems Design Specifications3.3 Test Plan3.4 Implementation Plan               Chapter Four          4.1 Graphical User Interface Test Results          4.2 Database test cases         4.3 System output test cases                                 Chapter five          5.1 Conclusions          5.2. Contributions          5.3. Recommendations        References           Appendices:             	        I-III:  Appendices in Work progress document                    IV User Training Manual                    V. Sample System Code                    VI. Sample C D V W Z [ p q]H3 ) h s 5 B* CJ OJ PJ QJ \ aJ ph""" ) h v 5 B* CJ OJ PJ QJ \ aJ ph""" & h1j 5 B* CJ OJ PJ QJ aJ ph""" & h c 5 B* CJ OJ PJ QJ aJ ph""" , hJ_ h s 5 B* CJ OJ PJ QJ aJ ph""" * h 2 5 B* CJ OJ PJ QJ ^J aJ ph""" * h z 5 B* CJ OJ PJ QJ ^J aJ ph""" * h N 5 B* CJ OJ PJ QJ ^J aJ ph""" ' h.1P B* CJ OJ PJ QJ ^J aJ ph""" j hn ` U mH nH u & D Z [ 
+& F	 d -D M 
+ gd s 8 d -D M 
+ ^ 8 gd s $ d -D M 
+ a$ gd1j $ d -D M 
+ a$ gd N  M
+f d -D M 
+ gd N d -D M 
+ gd.1P p ~ kT@ & h s 5 B* CJ OJ PJ QJ aJ ph""" , h 40 h s 5 B* CJ OJ PJ QJ aJ ph""" & hB,@ 5 B* CJ OJ PJ QJ aJ ph""" ) h U h s B* CJ OJ PJ QJ aJ ph""" # h s B* CJ OJ PJ QJ aJ ph""" , h U h s B* CJ OJ PJ QJ \ aJ ph""" / h 40 h s 5 B* CJ OJ PJ QJ \ aJ ph""" ) h s 5 B* CJ OJ PJ QJ \ aJ ph""" ) h1j 5 B* CJ OJ PJ QJ \ aJ ph"""  	 !	 1	 M	 o	 }	 	 	 	 	 
+ .
+ G
+ ]
+ w
+ 
+ 
+ 
+ 
+ 
+ d -D M 
+ gd s 3 d -D M 
+ ^ 3 ` gd s 8 d -D M 
+ ^ 8 gd s  	 !	 .	 1	 5	 L	 	 	 	 	 	 	 	 	 	 hS>S ) h " h " B* CJ OJ PJ QJ aJ ph""" ) h " h s B* CJ OJ PJ QJ aJ ph""" / h " h s 5 B* CJ OJ PJ QJ \ aJ ph""" ) h s 5 B* CJ OJ PJ QJ \ aJ ph""" / hJ_ h s 5 B* CJ OJ PJ QJ \ aJ ph""" # h s B* CJ OJ PJ QJ aJ ph""" , h 40 h s 5 B* CJ OJ PJ QJ aJ ph""" & h s 5 B* CJ OJ PJ QJ aJ ph""" ) h 40 h s B* CJ OJ PJ QJ aJ ph""" 	 
+ 
+ 
+ 
+ -
+ G
+ J
+ O
+ \
+ 
+ 
+ 
+ 
+ 
+ lTl ? ) h s 5 B* CJ OJ PJ QJ \ aJ ph""" / h " h " 5 B* CJ OJ PJ QJ \ aJ ph""" / h " h s 5 B* CJ OJ PJ QJ \ aJ ph""" = h " h " 0J 5 B* CJ OJ QJ aJ fH ph
+
+
+ q 
+ , h " h " 5 B* CJ OJ PJ QJ aJ ph""" ) h " h s B* CJ OJ PJ QJ aJ ph""" ) h " h " B* CJ OJ PJ QJ aJ ph""" 6 h " h " B* CJ OJ QJ aJ fH ph
+
+
+ q 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ - 1 \ a h 0 # h B* CJ OJ PJ QJ aJ ph""" ) hJ_ h.1P B* CJ OJ PJ QJ aJ ph""" ) hJ_ h s B* CJ OJ PJ QJ aJ ph""" ) h s 5 B* CJ OJ PJ QJ \ aJ ph""" / hJ_ h s 5 B* CJ OJ PJ QJ \ aJ ph""" 
+ ! M w d -D M 
+ gd.1P , 1 h /  =! " # $ % n 
+ #& Pj YSo `*`B PNG
+ 
+ IHDR ] L , sRGB gAMA a 	pHYs o d 
+ IDATx^ o]G P T BbQI 
+A Z~(* P	A	B :i m ' c;v ;v ^ ^ r 5s ;3 9 < / Z *} : 	 26 / Y [ o ^ 3 Z H ( G Oc $ ?6=9 Ti T=> } u b zo ,G _ _ g   JD   - _ ^ W f' * M 	 - 4} : h yR )gO /5 uV p ] > :W / N 9%, w h v ! n { 3 # D & abfj u 06 nU 'd ? W/ H mWIAn vv6<S .a~njt $ 2p d+~A x7 3 > ) T =z{ Z : ht v_ ` y c i y U p hz; V x ' v _ Z11 >;= ,. L x 4 [7z L < u d wO} f/ 	 {[*\ 	 ' / s{m /i{Y/	 G m ( ;o>l c h 5q !y  B ; '+ Uud !R '! ?J Nb 559 % 27{S & 4 ra f [b v ` * # v MN . Fn^ n 2 {+^ ! ; Q<: 0 E / } _ ( 7 	 / # )On r R\R c * =x } FK e h v p[O G P = 8 Z e/ :u ? C*h` G [ m ~| 7N { LGU u C q )5" 
+ A q 5w a g' 8 8ve Z6 
+nsw 2 }2 $ ER ` B vC . * " p *} i { A2H s 3 ? <X E R  i g s x / Y i CI! d B
+ R, >] _ :m B . 2  T BLq | gu L 	 N^ - G $9W % _s   *) 6O0 . I s & P (/ ^ &" ;m SXef U 
+-B UP[ "  " ] D %%^^ Q / )" q   %U l X 5q\6w"(3 % a B ZdD Q v ; 6 " c w \:] Lt^l Bm @ 3 vS8/ K Z=? P 2  s! Q, ` C  ^ B s! '/ R +1 [ ;v. h J h Q H ; GD x( > 2  W Xj4m{ e|0 : @ , D e2 H 	;?^ R K YudK [5 \ "1 LR k\ E T p] 7 2 y _x 3	N4v
+$ y $ 6 n4 jp(/=1 F 01 f %Dl @D q \ 5Z T ' Dp \? d -) 0  3 v b @
+es g M p GJ* 5 O s# HR *<b@N }_ F0 . ^bB + e"7/dJf]  %  aN 1 > ` ~ | a " h=  Q, $ C C W k $ '3 >  K e l Rh 2 0 (B\ !d gI !< j O ^"$MJ C [4X4 M + Wj| G x DF | U qd T LD ] 0]X^ a/ vc 
+X 4 WJY + cD o ! H 4 E L + rvt^h RLF cd |A7 P^ ] \ Y #:/ * X c { oY t R )D t \ Z ) *e [ u ` Y @ ^4 EC ^X= M2= W S6/ to H | q % 2<r )rnb F g ^ +Y{^X _ V & 6 & / O Kn B 3f # X kboz\hh U y ft @7 ` m 5 + G eg ^2 ; 7 4 m)4r d &/ 8/ \'4$i/S t ICr k y l 1^ g T4
+ c +oi 4V lQ`, }R x V %;6y ; 7  d k m P h IEND B` 
+ s 6 6 6 6 6 6 6 6 6 v v v v v v v v v 6 6 6 6 6 6 > 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 h H 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 p 6 2 & 6 F V f v 2 ( & 6 F V f v & 6 F V f v & 6 F V f v & 6 F V f v & 6 F V f v & 6 F V f v 8 X V ~   
+--- UTF16 ---
+ > 	 @ B ? U , > " 
+ 
+ 0 L 0  3 J J J " J J J " J J J J J J J J J J J J " j D D 
+ 
+ D D P J J J J J J J J J " " J J J " J J J " J J J " D D D S " " J J J " J J J " J J J " " J J J J J J " J J J " J J J " J J J " J J H J J J " " 
+ 
+ " " " J J J " J J J " D P , 
+ R ] A s } 3 . p   J J Normal D D Default Paragraph Font Ri R Table Normal l ( ( No List P il @ @ H List Paragraph 	 * * Strong ! ! ! ! ' - ! 	 
+ 	  , b $ # @ 
+ ( . . . . . . . . . ( o ( ( ( o ( ) . . . . . . . . ( o ( ( ( o ( ( ( o ( ( ( . ( . . . 	 ( . . . . .  ( . . . . . . . J J J ( - ( ( o ( ( ( o ( ( ( o ( . . . . . . . . .	 	 	 3 + . 0 4 6 : @ A A C E E G H K P \ ` a q @ . x . x . $ . x $B 0 P P 
+ 0 	 
+  N N 8 d @ @ @ 
+ 0 h p |  	 
+    ! " # $ % & ' ( ) * + , - . 0 1 2 3 4 5 6 8 9 : ; < = > A Root Entry C 1Table WordDocument SummaryInformation ( / DocumentSummaryInformation 8 7 CompObj r   t
+ c 8 
